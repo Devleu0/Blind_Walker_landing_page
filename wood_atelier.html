@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WOOD & CRAFT - 아날로그 나무 공방</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
+
+    :root {
+      --bg-warm: #f8f5f0;
+      --bg-card: #ffffff;
+      --wood-dark: #2c1e16;
+      --wood-primary: #7a4e2d;
+      --wood-light: #d8c3a5;
+      --wood-accent: #c47b36;
+      --text-main: #362b24;
+      --text-muted: #7a6a5d;
+      --border-color: #e5dbc9;
+      --font-serif: 'Gowun Batang', serif;
+      --font-sans: 'Noto Sans KR', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-warm);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      line-height: 1.7;
+      overflow-x: hidden;
+      /* 아늑한 종이/원목 질감 느낌의 배경 그라데이션 */
+      background-image: radial-gradient(#e5dbc9 0.75px, transparent 0.75px);
+      background-size: 24px 24px;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Header */
+    header {
+      padding: 28px 0;
+      background: rgba(248, 245, 240, 0.9);
+      backdrop-filter: blur(8px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .nav-wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-family: var(--font-serif);
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--wood-dark);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .logo-icon {
+      font-size: 20px;
+      color: var(--wood-accent);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: var(--wood-accent);
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 90px 0 60px;
+      text-align: center;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      padding: 6px 16px;
+      background: #efe7d8;
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      font-size: 13px;
+      color: var(--wood-primary);
+      font-weight: 500;
+      margin-bottom: 20px;
+    }
+
+    .hero-title {
+      font-family: var(--font-serif);
+      font-size: 48px;
+      font-weight: 700;
+      color: var(--wood-dark);
+      line-height: 1.35;
+      margin-bottom: 20px;
+      word-break: keep-all;
+    }
+
+    .hero-desc {
+      max-width: 600px;
+      margin: 0 auto 36px;
+      color: var(--text-muted);
+      font-size: 16px;
+      word-break: keep-all;
+    }
+
+    /* CTA Button */
+    .btn-wood {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 16px 36px;
+      background-color: var(--wood-primary);
+      color: #fff;
+      font-size: 15px;
+      font-weight: 500;
+      border-radius: 8px;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(122, 78, 45, 0.25);
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-wood:hover {
+      background-color: var(--wood-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(44, 30, 22, 0.3);
+    }
+
+    .btn-secondary {
+      background-color: transparent;
+      color: var(--wood-dark);
+      border: 1px solid var(--wood-primary);
+      box-shadow: none;
+      margin-left: 12px;
+    }
+
+    .btn-secondary:hover {
+      background-color: #efe7d8;
+      color: var(--wood-dark);
+    }
+
+    /* Feature Section */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 28px;
+      margin: 70px 0;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 36px 28px;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(122, 78, 45, 0.08);
+      border-color: var(--wood-light);
+    }
+
+    .card-icon {
+      width: 52px;
+      height: 52px;
+      background: #f4ede2;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    .card-title {
+      font-family: var(--font-serif);
+      font-size: 20px;
+      color: var(--wood-dark);
+      margin-bottom: 10px;
+    }
+
+    .card-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+      word-break: keep-all;
+    }
+
+    /* Atelier Section */
+    .atelier-section {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 48px;
+      margin-bottom: 90px;
+    }
+
+    .atelier-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    @media (max-width: 768px) {
+      .atelier-grid { grid-template-columns: 1fr; }
+      .hero-title { font-size: 34px; }
+      .nav-links { display: none; }
+      .atelier-section { padding: 28px; }
+    }
+
+    .atelier-image-mock {
+      height: 320px;
+      background: #eee5d8;
+      border-radius: 12px;
+      border: 1px dashed var(--wood-light);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: var(--wood-primary);
+      gap: 12px;
+    }
+
+    .atelier-image-mock span {
+      font-size: 48px;
+    }
+
+    .atelier-tag {
+      font-size: 13px;
+      color: var(--wood-accent);
+      font-weight: 700;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+
+    .atelier-title {
+      font-family: var(--font-serif);
+      font-size: 28px;
+      color: var(--wood-dark);
+      margin-bottom: 16px;
+    }
+
+    .atelier-desc {
+      font-size: 15px;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+      word-break: keep-all;
+    }
+
+    .tool-list {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .tool-chip {
+      padding: 6px 14px;
+      background: var(--bg-warm);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      font-size: 12px;
+      color: var(--wood-dark);
+      font-weight: 500;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border-color);
+      padding: 48px 0;
+      background: #f2ece1;
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .footer-info {
+      margin-top: 10px;
+      font-family: var(--font-serif);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="container nav-wrapper">
+      <a href="#" class="logo">
+        <span class="logo-icon">🪵</span> 나무결 아틀리에
+      </a>
+      <ul class="nav-links">
+        <li><a href="#about">공방 소개</a></li>
+        <li><a href="#classes">목공 클래스</a></li>
+        <li><a href="#custom">주문 제작</a></li>
+        <li><a href="#tools">공구 이야기</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Hero Section -->
+    <section class="hero">
+      <span class="hero-badge">🪵 손길이 닿을수록 깊어지는 시간</span>
+      <h1 class="hero-title">나무의 결을 읽고,<br>나만의 일상을 깎아냅니다</h1>
+      <p class="hero-desc">
+        정성스럽게 다듬은 수제 원목 가구와 손끝으로 전해지는 아날로그 목공 체험.<br>
+        향긋한 나무향 가득한 공방에서 나만의 온기 있는 작품을 만들어보세요.
+      </p>
+
+      <div>
+        <a href="#classes" class="btn-wood">원데이 클래스 예약 🪚</a>
+        <a href="#custom" class="btn-wood btn-secondary">맞춤 가구 문의</a>
+      </div>
+    </section>
+
+    <!-- Services Grid -->
+    <section class="features-grid" id="classes">
+      <div class="card">
+        <div class="card-icon">📐</div>
+        <h3 class="card-title">원데이 목공 클래스</h3>
+        <p class="card-desc">도마, 수저, 트레이 등 일상에서 바로 쓸 수 있는 나만의 소품을 직접 대패질하고 오일링합니다.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">🪑</div>
+        <h3 class="card-title">맞춤 원목 가구</h3>
+        <p class="card-desc">월넛, 오크, 체리 등 최고급 수종을 엄선하여 공간에 딱 맞는 세상 단 하나뿐인 가구를 제작합니다.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">⚒️</div>
+        <h3 class="card-title">정규 아틀리에 코어</h3>
+        <p class="card-desc">수공구 다루기부터 맞춤 짜임 기법까지, 목공의 기초와 깊이를 단계별로 배우는 정규 강좌입니다.</p>
+      </div>
+    </section>
+
+    <!-- Atelier Story Showcase Section -->
+    <section class="atelier-section" id="about">
+      <div class="atelier-grid">
+        <div class="atelier-image-mock">
+          <span>🛠️</span>
+          <p style="font-size: 14px; font-weight: 500;">손때 묻은 아틀리에의 공구들</p>
+        </div>
+        <div>
+          <p class="atelier-tag">OUR CRAFT & TOOLS</p>
+          <h2 class="atelier-title">시간을 다듬는 공구와 수공예의 정성</h2>
+          <p class="atelier-desc">
+            기계의 정교함 위에 장인의 세밀한 손길을 더합니다. 
+            단순히 모양을 만드는 것에 그치지 않고, 오래도록 결이 변하지 않는 단단한 원목 작품만을 고집합니다.
+          </p>
+
+          <div class="tool-list">
+            <span class="tool-chip">🪚 손톱 & 끌</span>
+            <span class="tool-chip">📐 직각자 & 금키</span>
+            <span class="tool-chip">🪵 하드우드 전문</span>
+            <span class="tool-chip">🌿 친환경 천연 오일</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>© 2026 WOOD & CRAFT ATELIER. ALL RIGHTS RESERVED.</p>
+      <p class="footer-info">서울시 마포구 연남동 나무길 12 • 02-1234-5678 • 월-토 10:00 - 19:00</p>
+    </div>
+  </footer>
+
+</body>
+</html>
