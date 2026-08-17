@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BLIND WALKER - Echoes in the Dark</title>
+    <style>
+        :root {
+            --bg-color: #050508;
+            --surface-color: #0d0e15;
+            --primary-accent: #00f3ff;
+            --secondary-accent: #ff0055;
+            --text-main: #e0e6ed;
+            --text-muted: #5a6578;
+            --font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-family);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Background Sonar Grid Animation */
+        .grid-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: 
+                radial-gradient(circle at 50% 50%, rgba(0, 243, 255, 0.03) 0%, transparent 70%),
+                linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 100% 100%, 40px 40px, 40px 40px;
+            z-index: -1;
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem 5%;
+            position: absolute;
+            width: 100%;
+            top: 0;
+            z-index: 10;
+        }
+
+        .logo {
+            font-size: 1.2rem;
+            font-weight: 900;
+            letter-spacing: 0.3em;
+            color: var(--text-main);
+            text-transform: uppercase;
+        }
+
+        .logo span {
+            color: var(--primary-accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-accent);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 1rem;
+            position: relative;
+        }
+
+        .hero-title-container {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-title {
+            font-size: clamp(3rem, 8vw, 7rem);
+            font-weight: 900;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.3);
+            position: relative;
+        }
+
+        .hero-title::after {
+            content: 'BLIND WALKER';
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: var(--text-main);
+            clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+        }
+
+        .hero-subtitle {
+            font-size: 1rem;
+            letter-spacing: 0.4em;
+            color: var(--primary-accent);
+            text-transform: uppercase;
+            margin-bottom: 3rem;
+            opacity: 0.8;
+        }
+
+        /* Echo Radar Visual Component */
+        .sonar-emitter {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            margin-bottom: 3rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .sonar-dot {
+            width: 12px;
+            height: 12px;
+            background-color: var(--primary-accent);
+            border-radius: 50%;
+            box-shadow: 0 0 15px var(--primary-accent);
+        }
+
+        .sonar-wave {
+            position: absolute;
+            border: 1px solid var(--primary-accent);
+            border-radius: 50%;
+            opacity: 0;
+            animation: sonar 3s infinite cubic-bezier(0.1, 0.2, 0.3, 1);
+        }
+
+        .sonar-wave:nth-child(2) { animation-delay: 1s; }
+        .sonar-wave:nth-child(3) { animation-delay: 2s; }
+
+        @keyframes sonar {
+            0% {
+                width: 12px;
+                height: 12px;
+                opacity: 0.8;
+            }
+            100% {
+                width: 250px;
+                height: 250px;
+                opacity: 0;
+                border-color: var(--secondary-accent);
+            }
+        }
+
+        /* Primary Button */
+        .btn-primary {
+            padding: 1rem 2.5rem;
+            background: transparent;
+            border: 1px solid var(--primary-accent);
+            color: var(--primary-accent);
+            font-size: 0.85rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-accent);
+            color: var(--bg-color);
+            box-shadow: 0 0 25px rgba(0, 243, 255, 0.4);
+        }
+
+        /* Mechanics Theme Grid */
+        .theme-section {
+            padding: 8rem 10%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            margin-bottom: 5rem;
+            border-left: 2px solid var(--primary-accent);
+            padding-left: 1.5rem;
+        }
+
+        .section-tag {
+            color: var(--primary-accent);
+            font-size: 0.75rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            margin-top: 0.5rem;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: var(--surface-color);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 3rem 2rem;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(0, 243, 255, 0.3);
+        }
+
+        .card-num {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            letter-spacing: 0.2em;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            letter-spacing: 0.05em;
+        }
+
+        .card-desc {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.8;
+        }
+
+        /* Status / Audio Visualization Aesthetic Footer */
+        footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 3rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            letter-spacing: 0.1em;
+        }
+
+        .system-status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .status-indicator {
+            width: 6px;
+            height: 6px;
+            background-color: var(--primary-accent);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--primary-accent);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="grid-bg"></div>
+
+    <nav>
+        <div class="logo">BLIND <span>WALKER</span></div>
+        <ul class="nav-links">
+            <li><a href="#concept">SENSORY</a></li>
+            <li><a href="#mechanics">ECHOLOCATION</a></li>
+            <li><a href="#access">WISHLIST</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section class="hero">
+            <div class="sonar-emitter">
+                <div class="sonar-dot"></div>
+                <div class="sonar-wave"></div>
+                <div class="sonar-wave"></div>
+                <div class="sonar-wave"></div>
+            </div>
+
+            <div class="hero-title-container">
+                <h1 class="hero-title">BLIND WALKER</h1>
+            </div>
+            
+            <p class="hero-subtitle">SEE THROUGH THE SOUND</p>
+            
+            <a href="#access" class="btn-primary">INITIALIZE PULSE</a>
+        </section>
+
+        <section class="theme-section" id="concept">
+            <div class="section-header">
+                <span class="section-tag">// SYSTEM MECHANICS</span>
+                <h2 class="section-title">감각의 재구성</h2>
+            </div>
+
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-num">01 / VISUALS</div>
+                    <h3 class="card-title">완벽한 어둠</h3>
+                    <p class="card-desc">시각 정보가 배제된 무(無)의 공간. 소리와 진동이 반사되어 돌아올 때만 3D 공간의 윤곽이 네온 와이어프레임 형태로 일시적 실체화됩니다.</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-num">02 / AUDIO</div>
+                    <h3 class="card-title">음향 탐지 (Echolocation)</h3>
+                    <p class="card-desc">발자국 소리, 지팡이의 타격음, 숨소리. 사용자가 발생시키는 모든 파동은 벽과 장애물에 반사되어 지형을 그리는 유일한 도구가 됩니다.</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-num">03 / THREAT</div>
+                    <h3 class="card-title">소리의 리스크</h3>
+                    <p class="card-desc">시야를 확보하기 위해 소리를 낼수록, 어둠 속에 숨어있는 정체불명의 존재 역시 당신의 위치를 정확하게 추적하기 시작합니다.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="system-status">
+            <div class="status-indicator"></div>
+            <span>SIGNAL: ACTIVE</span>
+        </div>
+        <div>&copy; 2026 BLIND WALKER. ALL RIGHTS RESERVED.</div>
+    </footer>
+
+</body>
+</html>
