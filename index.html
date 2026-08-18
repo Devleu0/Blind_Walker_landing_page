@@ -9,32 +9,29 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap"
         rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="style/style.css">
 </head>
 
 <body>
-    <!-- NAVIGATION -->
     <nav>
         <div class="logo">BLIND WALKER</div>
         <ul>
-            <li><a href="#vision">시각 장애</a></li>
-            <li><a href="#experience">경험</a></li>
-            <li><a href="#gameplay">게임플레이</a></li>
+            <li><a href="#vision" class="nav-main">시각 장애</a></li>
+            <li><a href="#experience" class="nav-main">경험</a></li>
+            <li><a href="#gameplay" class="nav-main">게임플레이</a></li>
             <li><a href="#dev">개발 비하인드</a></li>
             <li><a href="#contact">문의</a></li>
         </ul>
-        <!-- GTranslate Language Selector -->
         <div class="gtranslate_wrapper"></div>
-        
+
         <button class="nav-toggle" aria-label="메뉴 열기">
             <span></span><span></span><span></span>
         </button>
     </nav>
 
-    <!-- HERO SECTION -->
     <section class="hero">
         <div class="hero-bg"></div>
         <div class="hero-grid container">
@@ -43,7 +40,7 @@
                 <h1>시각의 경계<br>그 너머를 걷다</h1>
                 <p class="subtitle">보이지 않는 세계에서, 보이는 이야기를 찾다</p>
                 <p class="description">
-                    시각장애인의 일상을 직접 체험하고 이해하는 것.<br>
+                    시각장애인의 일상을 <span class="highlight">직접 체험</span>하고 이해하는 것.<br>
                     가장 혁신적이고 몰입감 있는 방법, Blind Walker와 함께하세요.
                 </p>
                 <div class="cta-row">
@@ -51,9 +48,21 @@
                     <button class="cta-secondary" data-target="#vision">체험 살펴보기</button>
                 </div>
                 <div class="hero-stats">
-                    <div class="hero-stat"><strong>5</strong><span>시각장애 유형</span></div>
-                    <div class="hero-stat"><strong>3D</strong><span>공간 음향</span></div>
-                    <div class="hero-stat"><strong>1인칭</strong><span>VR 네이티브</span></div>
+                    <div class="hero-stat">
+                        <span class="material-icons stat-icon">visibility</span>
+                        <strong class="stat-number" data-count="5">0</strong>
+                        <span>시각장애 유형</span>
+                    </div>
+                    <div class="hero-stat">
+                        <span class="material-icons stat-icon">spatial_audio_off</span>
+                        <strong class="stat-number" data-count="360" data-suffix="°">0</strong>
+                        <span>공간 음향</span>
+                    </div>
+                    <div class="hero-stat">
+                        <span class="material-icons stat-icon">vrpano</span>
+                        <strong class="stat-number" data-count="1" data-suffix="인칭">0</strong>
+                        <span>VR 네이티브</span>
+                    </div>
                 </div>
             </div>
             <div class="hero-visual">
@@ -71,8 +80,7 @@
         </div>
     </section>
 
-    <!-- TICKER STRIP -->
-    <div class="ticker-strip">
+    <div class="ticker-strip" aria-hidden="true">
         <div class="ticker-track">
             <span class="accent">고도근시</span><span>·</span>
             <span class="accent">녹내장</span><span>·</span>
@@ -89,7 +97,6 @@
         </div>
     </div>
 
-    <!-- VISION SECTION -->
     <section id="vision" class="section section-dark">
         <div class="container">
             <div class="section-header reveal">
@@ -104,7 +111,7 @@
                 </div>
                 <div>
                     <div class="vision-tabs">
-                        <button class="vision-tab" data-key="myopia">
+                        <button class="vision-tab active" data-key="myopia">
                             <span class="vision-tab-thumb"><img src="images/고도근시.webp" alt="고도근시"></span>
                             <span class="vision-tab-name">고도근시</span>
                         </button>
@@ -126,15 +133,14 @@
                         </button>
                     </div>
                     <div class="vision-viewer-caption">
-                        <div class="vision-viewer-title">정상 시야</div>
-                        <p class="vision-viewer-desc">또렷한 색 대비와 선명한 초점. 우리가 당연하게 여기는 세상의 기본값입니다.</p>
+                        <div class="vision-viewer-title">고도근시</div>
+                        <p class="vision-viewer-desc">5m 앞의 표지판조차 초점 없이 뿌옇게 번져 보입니다. 형체는 짐작할 뿐, 세부는 사라집니다.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- STATS SECTION -->
     <section class="section section-dark-light">
         <div class="container">
             <div class="stats-grid reveal">
@@ -150,13 +156,20 @@
                     <span class="stat-number" data-count="1" data-suffix="인칭">0</span>
                     <span class="stat-label">VR 네이티브 시점</span>
                 </div>
+                <div class="stat-card">
+                    <span class="stat-number" data-count="6" data-suffix="개월">0</span>
+                    <span class="stat-label">개발 및 연구 기간</span>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- EXPERIENCE SECTION -->
     <section id="experience" class="section section-dark">
         <div class="container">
+            <div class="section-header reveal">
+                <h2 class="section-title">현실적인 <span>경험</span></h2>
+                <p class="section-subtitle">음향, 촉각, 공간 감각으로 만든 몰입형 시뮬레이션</p>
+            </div>
             <div class="experience-grid">
                 <div class="experience-content reveal">
                     <h3>음향 기반 네비게이션</h3>
@@ -195,9 +208,13 @@
         </div>
     </section>
 
-    <!-- GAMEPLAY SECTION -->
     <section id="gameplay" class="section section-dark-light">
         <div class="container">
+            <div class="section-header reveal">
+                <h2 class="section-title">몰입형 <span>게임플레이</span></h2>
+                <p class="section-subtitle">직관적 컨트롤로 시각장애인의 일상을 자연스럽게 경험</p>
+            </div>
+
             <div class="gameplay-content">
                 <div class="gameplay-image reveal">
                     <img src="images/play_gif.webp" alt="게임플레이">
@@ -207,12 +224,22 @@
                         <div class="feature-item">
                             <div class="feature-item-icon"><span class="material-icons">sports_esports</span></div>
                             <div class="feature-item-title">직관적 컨트롤</div>
-                            <div class="feature-item-desc">VR 컨트롤러로 자연스럽게</div>
+                            <div class="feature-item-desc">VR 컨트롤러로 자연스럽게 상호작용</div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-item-icon"><span class="material-icons">vibration</span></div>
+                            <div class="feature-item-title">실시간 피드백</div>
+                            <div class="feature-item-desc">지팡이 접촉 시 진동과 사운드 반응</div>
                         </div>
                         <div class="feature-item">
                             <div class="feature-item-icon"><span class="material-icons">trending_up</span></div>
                             <div class="feature-item-title">진행률 추적</div>
-                            <div class="feature-item-desc">성과와 개선도를 기록</div>
+                            <div class="feature-item-desc">성과와 개선도를 지속적으로 기록</div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-item-icon"><span class="material-icons">explore</span></div>
+                            <div class="feature-item-title">다양한 환경</div>
+                            <div class="feature-item-desc">복잡한 도심 거리, 횡단보도 등 구현</div>
                         </div>
                     </div>
                 </div>
@@ -220,7 +247,6 @@
         </div>
     </section>
 
-    <!-- DEV / BEHIND-THE-SCENES SECTION -->
     <section id="dev" class="section section-dark">
         <div class="container">
             <div class="section-header reveal">
@@ -284,58 +310,95 @@
         </div>
     </section>
 
-    <!-- GALLERY SECTION -->
     <section class="section section-dark">
         <div class="container">
             <div class="section-header reveal">
                 <h2 class="section-title">게임 <span>화면</span></h2>
             </div>
             <div class="gallery-grid reveal">
-                <div class="gallery-item wide">
-                    <img src="images/play_gif.webp" alt="게임플레이">
+                <div class="gallery-item">
+                    <img src="images/play_gif.webp" alt="게임플레이 화면">
                 </div>
-                <div class="gallery-item tall">
-                    <img src="images/stick_interaction.webp" alt="지팡이 인터랙션">
+                <div class="gallery-item">
+                    <img src="images/stick_interaction.webp" alt="흰 지팡이 상호작용 디테일">
                 </div>
-                <div class="gallery-item tall">
-                    <img src="images/chosse_page.webp" alt="모드 선택">
+                <div class="gallery-item">
+                    <img src="images/chosse_page.webp" alt="인게임 모드 선택 화면">
                 </div>
-                <div class="gallery-item wide">
-                    <img src="images/tile_editor_tool_gif.webp" alt="타일 에디터 툴">
+                <div class="gallery-item">
+                    <img src="images/tile_editor_tool_gif.webp" alt="에디터 확장 툴 시연">
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- CTA SECTION -->
     <section id="contact" class="cta-section">
-        <div class="container">
-            <h2 class="reveal">지금 경험을 시작하세요</h2>
-            <p class="reveal">
-                시각장애인의 일상을 경험하는 것.<br>
-                가장 혁신적이고 감동적인 VR 어드벤처로 당신의 이해를 완성하세요.
-            </p>
-            <div class="cta-buttons reveal">
-                <button class="cta-primary" data-target="#gameplay">플레이하기</button>
-                <button class="cta-secondary" data-target="#vision">더 알아보기</button>
+        <div class="container" style="position: relative; z-index: 2;">
+            <div class="cta-content-wrapper" style="max-width: 600px; margin: 0 auto;">
+                <h2 class="reveal">지금 경험을 시작하세요</h2>
+                <p class="reveal">
+                    시각장애인의 일상을 경험하는 것.<br>
+                    가장 혁신적이고 감동적인 VR 어드벤처로 당신의 이해를 완성하세요.
+                </p>
+                <div class="cta-buttons reveal">
+                    <button class="cta-primary" data-target="#gameplay">플레이하기</button>
+                    <button class="cta-secondary" data-target="#vision">더 알아보기</button>
+                </div>
+
+                <form class="contact-form reveal" style="margin-top: 60px;">
+                    <h3 style="margin-bottom: 20px; font-size: 1.5rem;">문의 남기기</h3>
+                    <input type="text" placeholder="이름" required>
+                    <input type="email" placeholder="이메일" required>
+                    <textarea placeholder="메시지를 남겨주세요" rows="4" required></textarea>
+                    <button type="submit" class="cta-primary" style="width: 100%;">보내기</button>
+                </form>
             </div>
         </div>
     </section>
 
-    <!-- FOOTER -->
     <footer>
-        <div class="footer-logo">BLIND WALKER</div>
-        <p>&copy; 2024 Blind Walker. 시각 장애 이해를 위한 Unity VR 프로젝트</p>
-        <div class="footer-links">
-            <a href="#">공식 사이트</a>
-            <a href="#">다운로드</a>
-            <a href="#">문의</a>
-            <a href="#">이용약관</a>
-            <a href="#">개인정보</a>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">BLIND WALKER</div>
+                    <p class="footer-description">
+                        시각장애인의 일상을 직접 경험하고 이해하는<br>혁신적인 VR 공감 프로젝트
+                    </p>
+                </div>
+
+                <div class="footer-section">
+                    <h4>빠른 링크</h4>
+                    <ul class="footer-links-list">
+                        <li><a href="#vision">시각 장애 체험</a></li>
+                        <li><a href="#gameplay">게임플레이</a></li>
+                        <li><a href="#dev">개발 비하인드</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>문의</h4>
+                    <p><a href="mailto:contact@blindwalker.com">contact@blindwalker.com</a></p>
+                    <div class="social-links">
+                        <a href="#"><span class="material-icons">link</span></a>
+                        <a href="#"><span class="material-icons">share</span></a>
+                    </div>
+                </div>
+
+                <div class="footer-section">
+                    <h4>법적 고지</h4>
+                    <ul class="footer-links-list">
+                        <li><a href="#">이용약관</a></li>
+                        <li><a href="#">개인정보 처리방침</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2024 Blind Walker. All rights reserved.</p>
+            </div>
         </div>
     </footer>
 
-    <!-- STICKY CTA BAR -->
     <div class="sticky-cta">
         <div class="sticky-cta-text">
             <strong>Blind Walker</strong>
@@ -344,7 +407,14 @@
         <button class="cta-primary" data-target="#gameplay">플레이하기</button>
     </div>
 
-    <script>window.gtranslateSettings = {"default_language":"ko","native_language_names":true,"detect_browser_language":true,"languages":["ko","fr","it","es","en","ja","pt","zh-TW"],"wrapper_selector":".gtranslate_wrapper","horizontal_position":"right","vertical_position":"top","select_language_label":"Select"}</script>
+    <div class="lightbox">
+        <div class="lightbox-content">
+            <img src="" alt="확대된 이미지">
+            <button class="lightbox-close" aria-label="닫기">&times;</button>
+        </div>
+    </div>
+
+    <script>window.gtranslateSettings = { "default_language": "ko", "native_language_names": true, "detect_browser_language": true, "languages": ["ko", "fr", "it", "es", "en", "ja", "pt", "zh-TW"], "wrapper_selector": ".gtranslate_wrapper", "horizontal_position": "right", "vertical_position": "top", "select_language_label": "Select" }</script>
     <script src="https://cdn.gtranslate.net/widgets/latest/dropdown.js" defer></script>
     <script type="module" src="script/main.js"></script>
 </body>

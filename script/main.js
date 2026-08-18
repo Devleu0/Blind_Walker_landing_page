@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-
   /* ---------- 1. Mobile nav toggle ---------- */
   const navToggle = document.querySelector('.nav-toggle');
   const navMenu = document.querySelector('nav ul');
@@ -28,6 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (stickyBar && hero) {
       const heroBottom = hero.getBoundingClientRect().bottom;
+      // 스티키 바는 히어로 섹션이 끝난 후에만 표시
       stickyBar.classList.toggle('visible', heroBottom < 0);
     }
 
@@ -55,13 +55,13 @@ document.addEventListener('DOMContentLoaded', () => {
   }, { threshold: 0.15 });
   revealEls.forEach(el => revealObserver.observe(el));
 
-  /* ---------- 4. Count-up stats ---------- */
+  /* ---------- 4. Count-up stats (한 번만 실행되도록 개선) ---------- */
   const counters = document.querySelectorAll('.stat-number');
   const animateCounter = (el) => {
     const target = parseFloat(el.dataset.count);
     const suffix = el.dataset.suffix || '';
     const decimals = el.dataset.count.includes('.') ? el.dataset.count.split('.')[1].length : 0;
-    const duration = 1400;
+    const duration = 1500;
     const start = performance.now();
     const step = (now) => {
       const progress = Math.min((now - start) / duration, 1);
@@ -74,12 +74,13 @@ document.addEventListener('DOMContentLoaded', () => {
   };
   const counterObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
-      if (entry.isIntersecting) {
+      if (entry.isIntersecting && !entry.target.dataset.counted) {
         animateCounter(entry.target);
+        entry.target.dataset.counted = 'true';
         counterObserver.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.4 });
+  }, { threshold: 0.3 });
   counters.forEach(el => counterObserver.observe(el));
 
   /* ---------- 5. Vision interactive viewer ---------- */
@@ -122,15 +123,20 @@ document.addEventListener('DOMContentLoaded', () => {
         const key = tab.dataset.key;
         const data = visionData[key];
         if (!data) return;
+
         tabs.forEach(t => t.classList.remove('active'));
         tab.classList.add('active');
-        viewerImg.style.opacity = 0;
+
+        viewerImg.classList.add('fade-out');
+        viewerImg.classList.remove('fade-in');
+
         setTimeout(() => {
           viewerImg.src = data.img;
           viewerTitle.textContent = data.title;
           viewerDesc.textContent = data.desc;
-          viewerImg.style.opacity = 1;
-        }, 200);
+          viewerImg.classList.remove('fade-out');
+          viewerImg.classList.add('fade-in');
+        }, 300);
       });
     });
   }
@@ -138,8 +144,31 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ---------- 6. Hero CTA buttons scroll to gameplay ---------- */
   document.querySelectorAll('.cta-primary, .cta-secondary').forEach(btn => {
     if (!btn.dataset.target) return;
-    btn.addEventListener('click', () => {
+    btn.addEventListener('click', (e) => {
+      // 폼 제출 버튼인 경우 스크롤 이벤트 방지
+      if (btn.type === 'submit') return;
       document.querySelector(btn.dataset.target)?.scrollIntoView({ behavior: 'smooth' });
     });
   });
+
+  /* ---------- 7. Gallery Lightbox ---------- */
+  const galleryItems = document.querySelectorAll('.gallery-item');
+  const lightbox = document.querySelector('.lightbox');
+  if (galleryItems.length > 0 && lightbox) {
+    const lightboxImg = lightbox.querySelector('img');
+    const closeBtn = lightbox.querySelector('.lightbox-close');
+
+    galleryItems.forEach(item => {
+      item.addEventListener('click', () => {
+        const imgSrc = item.querySelector('img').src;
+        lightboxImg.src = imgSrc;
+        lightbox.classList.add('active');
+      });
+    });
+
+    closeBtn.addEventListener('click', () => lightbox.classList.remove('active'));
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) lightbox.classList.remove('active');
+    });
+  }
 });
