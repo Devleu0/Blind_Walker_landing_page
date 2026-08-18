@@ -997,6 +997,8 @@ nav a.active::after {
     /* JS로 제어 */
     clip-path: inset(50% 50% 50% 50%);
     /* 초기 상태: 중앙의 한 점 */
+    will-change: opacity, clip-path;
+    transition: opacity 0.2s linear, clip-path 0.2s linear;
 }
 
 .gameplay-background img {
@@ -1023,6 +1025,7 @@ nav a.active::after {
     opacity: 0;
     /* JS로 제어 */
     transition: opacity 0.5s ease-out;
+    will-change: opacity;
 }
 
 .gameplay-feature {
@@ -1033,7 +1036,7 @@ nav a.active::after {
     gap: 16px;
     width: 300px;
     padding: 24px;
-    background: rgb(87, 87, 87);
+    background: rgba(40, 42, 54, 0.75);
     border: 1px solid rgba(0, 217, 255, 0.719);
     border-radius: 12px;
     backdrop-filter: blur(10px);
@@ -1041,6 +1044,7 @@ nav a.active::after {
     /* JS로 제어 */
     transform: translateY(20px);
     transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+    will-change: opacity, transform;
 }
 
 .gameplay-feature .feature-item-icon {
