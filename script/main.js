@@ -187,13 +187,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // 섹션이 화면에 보이지 않으면 실행 안함
       if (top > vh || top + height < 0) {
-        // Make sure everything is in its initial or final state when not in view
-        bg.style.opacity = 0;
-        header.style.opacity = 0;
-        features.forEach(feature => {
-          feature.style.opacity = 0;
-          feature.style.transform = `translateY(20px)`;
-        });
+        if (bg.style.opacity !== '0') {
+          bg.style.opacity = 0;
+          header.style.opacity = 0;
+          features.forEach(feature => {
+            feature.style.opacity = 0;
+            feature.style.transform = `translateY(20px)`;
+          });
+        }
         return;
       }
 
@@ -201,9 +202,9 @@ document.addEventListener('DOMContentLoaded', () => {
       const progress = Math.max(0, Math.min(1, -top / (height - vh)));
 
       // 1. 배경 애니메이션 (클립 & 페이드)
-      // 0% -> 25% : 중앙에서 확장하며 나타남
+      // 0% -> 35% : 중앙에서 확장하며 나타남 (더 부드럽게)
       // 80% -> 100% : 중앙으로 축소되며 사라짐
-      const fadeInEnd = 0.25;
+      const fadeInEnd = 0.35; // 애니메이션 구간 늘림
       const fadeOutStart = 0.8;
 
       let currentOpacity = 0;
@@ -214,48 +215,50 @@ document.addEventListener('DOMContentLoaded', () => {
         currentOpacity = 1;
         currentInset = 0;
       } else if (progress <= fadeInEnd) {
-        // 인트로 애니메이션
+        // 인트로 애니메이션 (Ease-out Cubic)
         const localProgress = progress / fadeInEnd;
-        currentOpacity = localProgress;
-        currentInset = 50 * (1 - localProgress);
+        const easedProgress = 1 - Math.pow(1 - localProgress, 3);
+        currentOpacity = easedProgress;
+        currentInset = 50 * (1 - easedProgress);
       } else if (progress >= fadeOutStart) {
-        // 아우트로 애니메이션
+        // 아우트로 애니메이션 (Ease-in-out Cubic)
         const localProgress = (progress - fadeOutStart) / (1 - fadeOutStart);
-        currentOpacity = 1 - localProgress;
-        currentInset = 50 * localProgress;
+        const easedProgress = localProgress < 0.5
+          ? 4 * localProgress * localProgress * localProgress
+          : 1 - Math.pow(-2 * localProgress + 2, 3) / 2;
+        currentOpacity = 1 - easedProgress;
+        currentInset = 50 * easedProgress;
       }
 
       bg.style.opacity = Math.max(0, Math.min(1, currentOpacity));
       bg.style.clipPath = `inset(${currentInset}% ${currentInset}% ${currentInset}% ${currentInset}%)`;
 
       // 2. 헤더 페이드 인/아웃
-      // 15% -> 25% : 페이드 인
+      // 20% -> 35% : 페이드 인
       // 80% -> 90% : 페이드 아웃
-      if (progress >= 0.15 && progress <= 0.25) {
-        header.style.opacity = (progress - 0.15) / 0.1;
-      } else if (progress > 0.25 && progress < 0.8) {
+      if (progress >= 0.20 && progress <= 0.35) {
+        header.style.opacity = (progress - 0.20) / 0.15;
+      } else if (progress > 0.35 && progress < 0.8) {
         header.style.opacity = 1;
       } else if (progress >= 0.8 && progress <= 0.9) {
         header.style.opacity = 1 - (progress - 0.8) / 0.1;
-      } else if (progress > 0.9 || progress < 0.15) {
+      } else if (progress > 0.9 || progress < 0.20) {
         header.style.opacity = 0;
       }
 
       // 3. 피처 아이템 순차적 애니메이션
-      const featureZoneStart = 0.15;
+      const featureZoneStart = 0.25;
       const featureZoneEnd = 0.95;
       const featureCount = features.length;
       const featureDuration = (featureZoneEnd - featureZoneStart) / featureCount;
 
       features.forEach((feature, i) => {
         const start = featureZoneStart + i * featureDuration;
-        const end = start + featureDuration;
+        const end = start + featureDuration * 0.8; // 각 아이템이 보이는 시간을 약간 줄임
 
         let opacity = 0;
-        // 각 피쳐의 로컬 진행률 (0 to 1)
         if (progress >= start && progress <= end) {
           const featureProgress = (progress - start) / (end - start);
-          // 피크는 중간(0.5)에서, 시작과 끝은 0
           opacity = Math.sin(featureProgress * Math.PI);
         }
 
