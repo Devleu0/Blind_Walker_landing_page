@@ -1443,6 +1443,15 @@ footer {
     }
 }
 
+@keyframes tickerScroll {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-50%);
+    }
+}
+
 /* 줄어든 모션 설정 감지 */
 @media (prefers-reduced-motion: reduce) {
     * {
@@ -1462,6 +1471,10 @@ footer {
         grid-template-columns: 1fr;
         text-align: center;
         padding-top: 20px;
+    }
+
+    .hero-bg {
+        height: 100%;
     }
 
     .hero-content .description {
@@ -1599,5 +1612,11 @@ footer {
 
     .ticker-track {
         animation-duration: 40s;
+    }
+}
+
+@media print {
+    .ticker-strip {
+        display: none;
     }
 }
