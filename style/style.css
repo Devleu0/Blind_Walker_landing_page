@@ -750,26 +750,6 @@ nav a.active::after {
     line-height: 1.8;
 }
 
-.difficulty-info {
-    background: rgba(0, 217, 255, 0.08);
-    padding: 40px;
-    border-radius: 8px;
-    border-top: 3px solid var(--primary);
-    margin-top: 40px;
-}
-
-.difficulty-info h4 {
-    font-size: 1.2rem;
-    color: var(--primary);
-    margin-bottom: 15px;
-    font-weight: 700;
-}
-
-.difficulty-info p {
-    font-size: 1rem;
-    color: var(--text-sub);
-}
-
 /* ===== STATS SECTION ===== */
 .stats-grid {
     display: grid;
