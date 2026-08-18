@@ -3,8 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blind Walker - 시각의 변화 | VR 어드벤처</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Blind Walker - 시각의 경계 너머 | Unity VR 어드벤처</title>
+    <meta name="description" content="5가지 시각장애 유형과 6단계 난이도로 시각장애인의 일상을 체험하는 Unity 기반 VR 공감 프로젝트, Blind Walker.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style/style.css">
 </head>
 <body>
     <!-- NAVIGATION -->
@@ -14,73 +18,150 @@
             <li><a href="#vision">시각 장애</a></li>
             <li><a href="#experience">경험</a></li>
             <li><a href="#gameplay">게임플레이</a></li>
+            <li><a href="#dev">개발 비하인드</a></li>
             <li><a href="#contact">문의</a></li>
         </ul>
+        <button class="nav-toggle" aria-label="메뉴 열기">
+            <span></span><span></span><span></span>
+        </button>
     </nav>
 
     <!-- HERO SECTION -->
     <section class="hero">
-        <div class="hero-content">
-            <h1>시각의 변화</h1>
-            <p class="subtitle">VR로 경험하는 새로운 세계</p>
-            <p class="description">
-                시각장애인의 일상을 체험하고 이해하는 것.<br>
-                가장 혁신적이고 몰입감 있는 방법입니다.
-            </p>
-            <button class="cta-primary">지금 플레이하기</button>
+        <div class="hero-bg"></div>
+        <div class="hero-grid container">
+            <div class="hero-content">
+                <span class="hero-badge">UNITY VR · 시각장애 공감 프로젝트</span>
+                <h1>시각의 경계<br>그 너머를 걷다</h1>
+                <p class="subtitle">보이지 않는 세계에서, 보이는 이야기를 찾다</p>
+                <p class="description">
+                    시각장애인의 일상을 직접 체험하고 이해하는 것.<br>
+                    가장 혁신적이고 몰입감 있는 방법, Blind Walker와 함께하세요.
+                </p>
+                <div class="cta-row">
+                    <button class="cta-primary" data-target="#gameplay">지금 플레이하기</button>
+                    <button class="cta-secondary" data-target="#vision">체험 살펴보기</button>
+                </div>
+                <div class="hero-stats">
+                    <div class="hero-stat"><strong>5</strong><span>시각장애 유형</span></div>
+                    <div class="hero-stat"><strong>6</strong><span>단계 난이도</span></div>
+                    <div class="hero-stat"><strong>3D</strong><span>공간 음향</span></div>
+                    <div class="hero-stat"><strong>1인칭</strong><span>VR 네이티브</span></div>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="device-frame">
+                    <div class="device-frame-bar">
+                        <span></span><span></span><span></span>
+                    </div>
+                    <img src="images/chosse_page.webp" alt="시야 선택 화면">
+                </div>
+                <span class="device-caption">IN-GAME · 시야 선택 화면</span>
+            </div>
         </div>
         <div class="scroll-indicator">
             <span></span>
         </div>
     </section>
 
+    <!-- TICKER STRIP -->
+    <div class="ticker-strip">
+        <div class="ticker-track">
+            <span class="accent">고도근시</span><span>·</span>
+            <span class="accent">녹내장</span><span>·</span>
+            <span class="accent">백내장</span><span>·</span>
+            <span class="accent">전색맹</span><span>·</span>
+            <span class="accent">황반변성</span><span>·</span>
+            <span>3D 공간 음향 내비게이션</span><span>·</span>
+            <span>6단계 난이도 시스템</span><span>·</span>
+            <span class="accent">고도근시</span><span>·</span>
+            <span class="accent">녹내장</span><span>·</span>
+            <span class="accent">백내장</span><span>·</span>
+            <span class="accent">전색맹</span><span>·</span>
+            <span class="accent">황반변성</span><span>·</span>
+            <span>3D 공간 음향 내비게이션</span><span>·</span>
+            <span>6단계 난이도 시스템</span><span>·</span>
+        </div>
+    </div>
+
     <!-- VISION SECTION -->
     <section id="vision" class="section section-dark">
         <div class="container">
-            <div class="section-header">
+            <div class="section-header reveal">
                 <h2 class="section-title">다양한 <span>시각 장애</span> 체험</h2>
-                <p class="section-subtitle">5가지 시각 장애를 직접 경험하고 이해해보세요</p>
+                <p class="section-subtitle">탭을 눌러 5가지 시각 장애가 실제로 어떻게 보이는지 직접 비교해보세요</p>
             </div>
-            <div class="vision-grid">
-                <div class="vision-card">
-                    <img src="images/고도근시.webp" alt="고도근시" class="vision-card-image">
-                    <div class="vision-card-overlay">
-                        <div class="vision-card-title">고도근시</div>
-                    </div>
+
+            <div class="vision-layout reveal">
+                <div class="vision-viewer">
+                    <img src="images/title_scene_low_quility.webp" alt="시야 미리보기" class="vision-viewer-image">
+                    <span class="vision-viewer-tag">LIVE PREVIEW</span>
                 </div>
-                <div class="vision-card">
-                    <img src="images/녹내장.webp" alt="녹내장" class="vision-card-image">
-                    <div class="vision-card-overlay">
-                        <div class="vision-card-title">녹내장</div>
+                <div>
+                    <div class="vision-tabs">
+                        <button class="vision-tab active" data-key="normal">
+                            <span class="vision-tab-thumb"><img src="images/title_scene_low_quility.webp" alt="정상 시야"></span>
+                            <span class="vision-tab-name">정상 시야</span>
+                        </button>
+                        <button class="vision-tab" data-key="myopia">
+                            <span class="vision-tab-thumb"><img src="images/고도근시.webp" alt="고도근시"></span>
+                            <span class="vision-tab-name">고도근시</span>
+                        </button>
+                        <button class="vision-tab" data-key="glaucoma">
+                            <span class="vision-tab-thumb"><img src="images/녹내장.webp" alt="녹내장"></span>
+                            <span class="vision-tab-name">녹내장</span>
+                        </button>
+                        <button class="vision-tab" data-key="cataract">
+                            <span class="vision-tab-thumb"><img src="images/백내장.webp" alt="백내장"></span>
+                            <span class="vision-tab-name">백내장</span>
+                        </button>
+                        <button class="vision-tab" data-key="achromatopsia">
+                            <span class="vision-tab-thumb"><img src="images/전색맹.webp" alt="전색맹"></span>
+                            <span class="vision-tab-name">전색맹</span>
+                        </button>
+                        <button class="vision-tab" data-key="amd">
+                            <span class="vision-tab-thumb"><img src="images/황반변성.webp" alt="황반변성"></span>
+                            <span class="vision-tab-name">황반변성</span>
+                        </button>
                     </div>
-                </div>
-                <div class="vision-card">
-                    <img src="images/백내장.webp" alt="백내장" class="vision-card-image">
-                    <div class="vision-card-overlay">
-                        <div class="vision-card-title">백내장</div>
-                    </div>
-                </div>
-                <div class="vision-card">
-                    <img src="images/전색맹.webp" alt="전색맹" class="vision-card-image">
-                    <div class="vision-card-overlay">
-                        <div class="vision-card-title">전색맹</div>
-                    </div>
-                </div>
-                <div class="vision-card">
-                    <img src="images/황반변성.webp" alt="황반변성" class="vision-card-image">
-                    <div class="vision-card-overlay">
-                        <div class="vision-card-title">황반변성</div>
+                    <div class="vision-viewer-caption">
+                        <div class="vision-viewer-title">정상 시야</div>
+                        <p class="vision-viewer-desc">또렷한 색 대비와 선명한 초점. 우리가 당연하게 여기는 세상의 기본값입니다.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- STATS SECTION -->
+    <section class="section section-dark-light">
+        <div class="container">
+            <div class="stats-grid reveal">
+                <div class="stat-card">
+                    <span class="stat-number" data-count="5">0</span>
+                    <span class="stat-label">시각 장애 유형</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number" data-count="6">0</span>
+                    <span class="stat-label">난이도 단계</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number" data-count="360" data-suffix="°">0</span>
+                    <span class="stat-label">3D 공간 음향</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number" data-count="1" data-suffix="인칭">0</span>
+                    <span class="stat-label">VR 네이티브 시점</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- EXPERIENCE SECTION -->
-    <section id="experience" class="section section-dark-light">
+    <section id="experience" class="section section-dark">
         <div class="container">
             <div class="experience-grid">
-                <div class="experience-content">
+                <div class="experience-content reveal">
                     <h3>음향 기반 네비게이션</h3>
                     <p>
                         시각 정보 없이 오직 음향만으로 길을 찾아 이동합니다.
@@ -110,21 +191,21 @@
                         </div>
                     </div>
                 </div>
-                <div class="experience-image">
-                    <img src="images/title_scene_low_quility.webp" alt="경험 장면">
+                <div class="experience-image reveal">
+                    <img src="images/NPC_grid.webp" alt="AI 내비게이션 경로 시스템">
                 </div>
             </div>
         </div>
     </section>
 
     <!-- GAMEPLAY SECTION -->
-    <section id="gameplay" class="section section-dark">
+    <section id="gameplay" class="section section-dark-light">
         <div class="container">
             <div class="gameplay-content">
-                <div class="gameplay-image">
+                <div class="gameplay-image reveal">
                     <img src="images/play_gif.webp" alt="게임플레이">
                 </div>
-                <div class="gameplay-text">
+                <div class="gameplay-text reveal">
                     <h3>난이도를 선택하세요</h3>
                     <p>
                         여섯 단계의 점진적 난이도로 시각장애인의 세계를 깊이 있게 이해해보세요.
@@ -151,24 +232,88 @@
         </div>
     </section>
 
+    <!-- DEV / BEHIND-THE-SCENES SECTION -->
+    <section id="dev" class="section section-dark">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2 class="section-title">개발 <span>비하인드</span></h2>
+                <p class="section-subtitle">Unity 엔진 위에서 직접 만든 커스텀 툴과 시스템으로 완성한 시뮬레이션</p>
+            </div>
+            <div class="dev-grid">
+                <div class="dev-card reveal">
+                    <div class="dev-card-bar">
+                        <span></span><span></span><span></span>
+                        <span class="dev-card-filename">SceneView — AI Navigation</span>
+                    </div>
+                    <div class="dev-card-media">
+                        <img src="images/NPC_grid.webp" alt="AI 내비게이션 웨이포인트 그래프">
+                    </div>
+                    <div class="dev-card-body">
+                        <h4>웨이포인트 기반 AI 내비게이션</h4>
+                        <p>도시 환경 곳곳에 배치된 WP 노드를 연결해 NPC와 사운드 소스가 자연스럽게 경로를 인지하도록 설계했습니다.</p>
+                    </div>
+                </div>
+                <div class="dev-card reveal">
+                    <div class="dev-card-bar">
+                        <span></span><span></span><span></span>
+                        <span class="dev-card-filename">Inspector — BlindnessSimulator.cs</span>
+                    </div>
+                    <div class="dev-card-media">
+                        <img src="images/unity_editor_tool.webp" alt="시각장애 시뮬레이션 스크립트 인스펙터">
+                    </div>
+                    <div class="dev-card-body">
+                        <h4>커스텀 시야 시뮬레이션 셰이더</h4>
+                        <p>Fog Density, Bloom, Saturation 등 파라미터를 실시간으로 조절해 5가지 시각 장애의 증상을 그대로 재현합니다.</p>
+                    </div>
+                </div>
+                <div class="dev-card reveal">
+                    <div class="dev-card-bar">
+                        <span></span><span></span><span></span>
+                        <span class="dev-card-filename">Tool — Tile Path Editor</span>
+                    </div>
+                    <div class="dev-card-media">
+                        <img src="images/tile_editor_tool_gif.webp" alt="타일 경로 에디터 툴">
+                    </div>
+                    <div class="dev-card-body">
+                        <h4>자체 제작 타일 경로 에디터</h4>
+                        <p>점자블록과 이동 경로를 손쉽게 배치할 수 있는 자체 제작 Unity 에디터 확장 툴을 개발했습니다.</p>
+                    </div>
+                </div>
+                <div class="dev-card reveal">
+                    <div class="dev-card-bar">
+                        <span></span><span></span><span></span>
+                        <span class="dev-card-filename">Character — White Cane Interaction</span>
+                    </div>
+                    <div class="dev-card-media">
+                        <img src="images/stick_interaction.webp" alt="흰 지팡이 상호작용">
+                    </div>
+                    <div class="dev-card-body">
+                        <h4>흰 지팡이 촉각 인터랙션</h4>
+                        <p>지팡이 끝이 점자블록과 장애물에 닿을 때 진동과 사운드로 피드백을 주는 인터랙션 시스템을 구현했습니다.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- HIGHLIGHTS SECTION -->
     <section class="section section-dark-light">
         <div class="container">
-            <div class="section-header">
+            <div class="section-header reveal">
                 <h2 class="section-title">게임의 <span>핵심 가치</span></h2>
             </div>
             <div class="highlights-grid">
-                <div class="highlight-card">
+                <div class="highlight-card reveal">
                     <div class="highlight-icon">🎬</div>
                     <h4>몰입감</h4>
                     <p>현실감 있는 3D 환경과 음향으로 완전한 몰입 경험</p>
                 </div>
-                <div class="highlight-card">
+                <div class="highlight-card reveal">
                     <div class="highlight-icon">🛡️</div>
                     <h4>안전한 훈련</h4>
                     <p>위험한 상황을 위험 없이 학습하고 대비</p>
                 </div>
-                <div class="highlight-card">
+                <div class="highlight-card reveal">
                     <div class="highlight-icon">🤝</div>
                     <h4>공감과 이해</h4>
                     <p>비장애인의 이해를 높이고 배려 증진</p>
@@ -180,15 +325,21 @@
     <!-- GALLERY SECTION -->
     <section class="section section-dark">
         <div class="container">
-            <div class="section-header">
+            <div class="section-header reveal">
                 <h2 class="section-title">게임 <span>화면</span></h2>
             </div>
-            <div class="gallery-grid">
-                <div class="gallery-item">
+            <div class="gallery-grid reveal">
+                <div class="gallery-item wide">
+                    <img src="images/play_gif.webp" alt="게임플레이">
+                </div>
+                <div class="gallery-item tall">
+                    <img src="images/stick_interaction.webp" alt="지팡이 인터랙션">
+                </div>
+                <div class="gallery-item tall">
                     <img src="images/chosse_page.webp" alt="모드 선택">
                 </div>
-                <div class="gallery-item">
-                    <img src="images/play_gif.webp" alt="게임플레이">
+                <div class="gallery-item wide">
+                    <img src="images/tile_editor_tool_gif.webp" alt="타일 에디터 툴">
                 </div>
             </div>
         </div>
@@ -197,21 +348,22 @@
     <!-- CTA SECTION -->
     <section id="contact" class="cta-section">
         <div class="container">
-            <h2>지금 경험을 시작하세요</h2>
-            <p>
+            <h2 class="reveal">지금 경험을 시작하세요</h2>
+            <p class="reveal">
                 시각장애인의 일상을 경험하는 것.<br>
                 가장 혁신적이고 감동적인 VR 어드벤처로 당신의 이해를 완성하세요.
             </p>
-            <div class="cta-buttons">
-                <button class="cta-primary">플레이하기</button>
-                <button class="cta-secondary">더 알아보기</button>
+            <div class="cta-buttons reveal">
+                <button class="cta-primary" data-target="#gameplay">플레이하기</button>
+                <button class="cta-secondary" data-target="#vision">더 알아보기</button>
             </div>
         </div>
     </section>
 
     <!-- FOOTER -->
     <footer>
-        <p>&copy; 2024 Blind Walker. 시각 장애 이해를 위한 VR 프로젝트</p>
+        <div class="footer-logo">BLIND WALKER</div>
+        <p>&copy; 2024 Blind Walker. 시각 장애 이해를 위한 Unity VR 프로젝트</p>
         <div class="footer-links">
             <a href="#">공식 사이트</a>
             <a href="#">다운로드</a>
@@ -220,5 +372,16 @@
             <a href="#">개인정보</a>
         </div>
     </footer>
+
+    <!-- STICKY CTA BAR -->
+    <div class="sticky-cta">
+        <div class="sticky-cta-text">
+            <strong>Blind Walker</strong>
+            <span>지금 바로 VR로 새로운 시야를 경험하세요</span>
+        </div>
+        <button class="cta-primary" data-target="#gameplay">플레이하기</button>
+    </div>
+
+    <script src="script/main.js"></script>
 </body>
 </html>
