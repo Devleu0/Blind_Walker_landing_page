@@ -13,14 +13,20 @@
         rel="stylesheet">
     <link rel="stylesheet" href="style/style.css">
     <!-- Google Translate -->
+    <script src="script/i18n.js"></script>
     <script type="text/javascript">
         function googleTranslateElementInit() {
             new google.translate.TranslateElement({
                 pageLanguage: 'ko',
                 includedLanguages: 'ko,en,ja,zh-CN,zh-TW,es,fr,de,pt,ru',
-                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL,
                 autoDisplay: false
             }, 'google_translate_element');
+
+            // Notify our manager that the library is ready
+            if (window.i18nManager) {
+                window.i18nManager.onGoogleTranslateReady();
+            }
         }
     </script>
     <script type="text/javascript"
@@ -370,11 +376,10 @@
         <button class="cta-primary" data-target="#gameplay">플레이하기</button>
     </div>
 
-    <script src="script/main.js"></script>
     <!-- Hidden Google Translate Container -->
     <div id="google_translate_element" style="display: none;"></div>
 
-    <script src="script/i18n.js"></script>
+    <script src="script/main.js"></script>
 </body>
 
 </html>

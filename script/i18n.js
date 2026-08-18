@@ -18,14 +18,37 @@ class I18nManager {
             'de': { name: 'Deutsch', label: 'De', flag: '🇩🇪' },
             'pt': { name: 'Português', label: 'Pt', flag: '🇵🇹' }
         };
+        this.isGoogleTranslateReady = false; // Flag to track library readiness
+
+        this.detectInitialLanguage();
         
-        this.init();
+        // Defer UI setup until the DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', this.setupUI.bind(this));
+        } else {
+            this.setupUI();
+        }
     }
 
     /**
-     * 초기화: 저장된 언어 로드 또는 브라우저 언어 감지
+     * Called by the global googleTranslateElementInit function when the Google Translate script is loaded.
      */
-    init() {
+    onGoogleTranslateReady() {
+        console.log('[i18n] Google Translate library is ready.');
+        this.isGoogleTranslateReady = true;
+
+        // Apply the initial language that was detected on load.
+        // A short delay can help ensure the widget's internal state is ready.
+        setTimeout(() => {
+            this.applyLanguage(this.currentLanguage);
+        }, 100);
+    }
+
+    /**
+     * Detects initial language from storage or browser settings.
+     * This part is safe to run before the DOM is ready.
+     */
+    detectInitialLanguage() {
         // 1. 로컬스토리지에서 사용자의 이전 선택 확인
         const savedLanguage = this.getSavedLanguage();
         if (savedLanguage && this.isSupportedLanguage(savedLanguage)) {
@@ -42,12 +65,6 @@ class I18nManager {
                 this.currentLanguage = this.DEFAULT_LANGUAGE;
             }
         }
-
-        // 3. UI 초기화
-        this.setupUI();
-        
-        // 4. 감지된 언어로 번역 적용
-        this.applyLanguage(this.currentLanguage);
     }
 
     /**
@@ -145,8 +162,12 @@ class I18nManager {
             }
         });
 
-        // 초기 활성 옵션 표시
+        // 초기 활성 옵션 표시 및 라벨 업데이트
         this.updateActiveOption();
+        const langLabel = document.querySelector('#current-lang');
+        if (langLabel) {
+            langLabel.textContent = this.supportedLanguages[this.currentLanguage].label.toUpperCase();
+        }
     }
 
     /**
@@ -180,26 +201,39 @@ class I18nManager {
         }
 
         // Google Translate 초기화 확인
-        if (window.google && window.google.translate && window.google.translate.TranslateElement) {
-            try {
-                // Google Translate 코드 추출 및 실행
-                const element = document.querySelector('.goog-te-combo');
-                if (element) {
-                    element.value = lang;
-                    element.dispatchEvent(new Event('change'));
-                    
-                    // 페이드 인/아웃 효과
-                    this.fadeTransition();
-                    
-                    console.log(`[i18n] Google Translate로 ${lang} 적용됨`);
-                } else {
-                    console.warn('[i18n] Google Translate 콤보박스를 찾을 수 없습니다.');
-                }
-            } catch (e) {
-                console.error('[i18n] Google Translate 적용 중 오류:', e);
+        if (!this.isGoogleTranslateReady) {
+            console.warn('[i18n] Google Translate 라이브러리가 아직 준비되지 않았습니다. 로드 후 적용됩니다.');
+            return;
+        }
+        
+        try {
+            // Google Translate 코드 추출 및 실행
+            const element = document.querySelector('.goog-te-combo');
+            if (element) {
+                element.value = lang;
+                element.dispatchEvent(new Event('change'));
+                
+                // 페이드 인/아웃 효과
+                this.fadeTransition();
+                
+                console.log(`[i18n] Google Translate로 ${lang} 적용됨`);
+            } else {
+                // This can happen if the widget is not yet in the DOM, even if the library is loaded.
+                // We'll retry once, as a fallback.
+                setTimeout(() => {
+                    const elementRetry = document.querySelector('.goog-te-combo');
+                    if(elementRetry) {
+                        elementRetry.value = lang;
+                        elementRetry.dispatchEvent(new Event('change'));
+                        this.fadeTransition();
+                        console.log(`[i18n] Google Translate로 ${lang} 적용됨 (재시도)`);
+                    } else {
+                        console.warn('[i18n] Google Translate 콤보박스를 찾을 수 없습니다.');
+                    }
+                }, 500);
             }
-        } else {
-            console.warn('[i18n] Google Translate 라이브러리가 로드되지 않았습니다.');
+        } catch (e) {
+            console.error('[i18n] Google Translate 적용 중 오류:', e);
         }
     }
 
@@ -222,6 +256,7 @@ class I18nManager {
      */
     fadeTransition() {
         const body = document.body;
+        body.style.transition = 'opacity 0.3s ease';
         body.style.opacity = '0.7';
         setTimeout(() => {
             body.style.opacity = '1';
