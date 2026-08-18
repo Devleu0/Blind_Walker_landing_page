@@ -84,11 +84,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* ---------- 5. Vision interactive viewer ---------- */
   const visionData = {
-    normal: {
-      title: '정상 시야',
-      desc: '또렷한 색 대비와 선명한 초점. 우리가 당연하게 여기는 세상의 기본값입니다.',
-      img: 'images/title.webp'
-    },
     myopia: {
       title: '고도근시',
       desc: '5m 앞의 표지판조차 초점 없이 뿌옇게 번져 보입니다. 형체는 짐작할 뿐, 세부는 사라집니다.',
