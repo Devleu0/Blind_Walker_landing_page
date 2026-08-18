@@ -971,12 +971,14 @@ nav a.active::after {
 
 /* ===== GAMEPLAY SECTION (몰입형) ===== */
 #gameplay.section {
-    padding: 0; /* 내부 여백 제거 */
+    padding: 0;
+    /* 내부 여백 제거 */
     background: var(--dark);
 }
 
 .gameplay-spacer {
-    height: 400vh; /* 스크롤 애니메이션을 위한 충분한 높이 확보 */
+    height: 400vh;
+    /* 스크롤 애니메이션을 위한 충분한 높이 확보 */
     position: relative;
 }
 
@@ -991,7 +993,8 @@ nav a.active::after {
 .gameplay-background {
     position: absolute;
     inset: 0;
-    opacity: 0; /* JS로 제어 */
+    opacity: 0;
+    /* JS로 제어 */
     transition: opacity 0.5s ease-out;
 }
 
@@ -1016,7 +1019,8 @@ nav a.active::after {
 .gameplay-features-wrapper .section-header {
     position: absolute;
     top: 20%;
-    opacity: 0; /* JS로 제어 */
+    opacity: 0;
+    /* JS로 제어 */
     transition: opacity 0.5s ease-out;
 }
 
@@ -1028,11 +1032,12 @@ nav a.active::after {
     gap: 16px;
     width: 300px;
     padding: 24px;
-    background: rgba(10, 136, 204, 0.1);
+    background: rgba(10, 136, 204, 0.3);
     border: 1px solid rgba(0, 217, 255, 0.2);
     border-radius: 12px;
     backdrop-filter: blur(10px);
-    opacity: 0; /* JS로 제어 */
+    opacity: 0;
+    /* JS로 제어 */
     transform: translateY(20px);
     transition: opacity 0.4s ease-out, transform 0.4s ease-out;
 }
