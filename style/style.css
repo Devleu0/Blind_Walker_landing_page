@@ -995,7 +995,7 @@ nav a.active::after {
     inset: 0;
     opacity: 0;
     /* JS로 제어 */
-    transition: opacity 0.5s ease-out;
+    clip-path: inset(50% 50% 50% 50%); /* 초기 상태: 중앙의 한 점 */
 }
 
 .gameplay-background img {

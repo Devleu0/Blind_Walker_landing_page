@@ -200,16 +200,33 @@ document.addEventListener('DOMContentLoaded', () => {
       // 스크롤 진행률 (0: 섹션 상단이 뷰포트 상단에 닿을 때, 1: 섹션 하단이 뷰포트 하단에 닿을 때)
       const progress = Math.max(0, Math.min(1, -top / (height - vh)));
 
-      // 1. 배경 페이드 인/아웃
-      // 0% -> 20% : 페이드 인
-      // 85% -> 100% : 페이드 아웃
-      if (progress < 0.2) {
-        bg.style.opacity = progress / 0.2;
-      } else if (progress > 0.85) {
-        bg.style.opacity = (1 - progress) / 0.15;
-      } else {
-        bg.style.opacity = 1;
+      // 1. 배경 애니메이션 (클립 & 페이드)
+      // 0% -> 25% : 중앙에서 확장하며 나타남
+      // 80% -> 100% : 중앙으로 축소되며 사라짐
+      const fadeInEnd = 0.25;
+      const fadeOutStart = 0.8;
+
+      let currentOpacity = 0;
+      let currentInset = 50;
+
+      if (progress > fadeInEnd && progress < fadeOutStart) {
+        // 중간의 안정된 상태
+        currentOpacity = 1;
+        currentInset = 0;
+      } else if (progress <= fadeInEnd) {
+        // 인트로 애니메이션
+        const localProgress = progress / fadeInEnd;
+        currentOpacity = localProgress;
+        currentInset = 50 * (1 - localProgress);
+      } else if (progress >= fadeOutStart) {
+        // 아우트로 애니메이션
+        const localProgress = (progress - fadeOutStart) / (1 - fadeOutStart);
+        currentOpacity = 1 - localProgress;
+        currentInset = 50 * localProgress;
       }
+      
+      bg.style.opacity = Math.max(0, Math.min(1, currentOpacity));
+      bg.style.clipPath = `inset(${currentInset}% ${currentInset}% ${currentInset}% ${currentInset}%)`;
 
       // 2. 헤더 페이드 인/아웃
       // 15% -> 25% : 페이드 인
