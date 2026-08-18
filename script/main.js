@@ -1,9 +1,4 @@
-import I18nManager from './i18n.js';
-
-// Blind Walker landing page interactions
 document.addEventListener('DOMContentLoaded', () => {
-  // Initialize i18n manager
-  window.i18nManager = new I18nManager();
 
 
   /* ---------- 1. Mobile nav toggle ---------- */

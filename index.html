@@ -12,26 +12,6 @@
         href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="style/style.css">
-    <!-- Google Translate -->
-    <script type="text/javascript">
-        function googleTranslateElementInit() {
-            new google.translate.TranslateElement({
-                pageLanguage: 'ko',
-                includedLanguages: 'ko,en,ja,zh-CN,zh-TW,es,fr,de,pt,ru',
-                layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL,
-                autoDisplay: false
-            }, 'google_translate_element');
-
-            // Notify our manager that the library is ready, or set a flag if it's not ready yet.
-            if (window.i18nManager) {
-                window.i18nManager.onGoogleTranslateReady();
-            } else {
-                window.googleTranslateScriptLoaded = true;
-            }
-        }
-    </script>
-    <script type="text/javascript"
-        src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </head>
 
 <body>
@@ -45,23 +25,9 @@
             <li><a href="#dev">개발 비하인드</a></li>
             <li><a href="#contact">문의</a></li>
         </ul>
-        <!-- Language Selector -->
-        <div class="language-selector">
-            <button class="lang-toggle" aria-label="언어 선택" title="Select Language">
-                <span class="lang-icon">🌐</span>
-                <span class="lang-label" id="current-lang">KO</span>
-            </button>
-            <div class="lang-dropdown" id="lang-dropdown">
-                <button class="lang-option" data-lang="ko" data-label="한국어">🇰🇷 한국어 (Ko)</button>
-                <button class="lang-option" data-lang="en" data-label="English">🇺🇸 English (En)</button>
-                <button class="lang-option" data-lang="ja" data-label="日本語">🇯🇵 日本語 (Ja)</button>
-                <button class="lang-option" data-lang="zh-CN" data-label="中文">🇨🇳 简体中文 (Zh)</button>
-                <button class="lang-option" data-lang="es" data-label="Español">🇪🇸 Español (Es)</button>
-                <button class="lang-option" data-lang="fr" data-label="Français">🇫🇷 Français (Fr)</button>
-                <button class="lang-option" data-lang="de" data-label="Deutsch">🇩🇪 Deutsch (De)</button>
-                <button class="lang-option" data-lang="pt" data-label="Português">🇵🇹 Português (Pt)</button>
-            </div>
-        </div>
+        <!-- GTranslate Language Selector -->
+        <div class="gtranslate_wrapper"></div>
+        
         <button class="nav-toggle" aria-label="메뉴 열기">
             <span></span><span></span><span></span>
         </button>
@@ -377,9 +343,8 @@
         <button class="cta-primary" data-target="#gameplay">플레이하기</button>
     </div>
 
-    <!-- Hidden Google Translate Container -->
-    <div id="google_translate_element" style="display: none;"></div>
-
+    <script>window.gtranslateSettings = {"default_language":"ko","native_language_names":true,"detect_browser_language":true,"languages":["ko","fr","it","es","en","ja","pt","zh-TW"],"wrapper_selector":".gtranslate_wrapper","horizontal_position":"right","vertical_position":"top","select_language_label":"lang"}</script>
+    <script src="https://cdn.gtranslate.net/widgets/latest/dropdown.js" defer></script>
     <script type="module" src="script/main.js"></script>
 </body>
 
