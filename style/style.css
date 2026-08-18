@@ -1322,33 +1322,6 @@ nav a.active::after {
     flex-wrap: wrap;
 }
 
-.contact-form {
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    padding: 30px;
-    border-radius: 12px;
-    text-align: left;
-}
-
-.contact-form input,
-.contact-form textarea {
-    width: 100%;
-    padding: 14px;
-    margin-bottom: 16px;
-    background: rgba(0, 0, 0, 0.5);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 6px;
-    color: white;
-    font-family: inherit;
-    transition: border-color 0.3s;
-}
-
-.contact-form input:focus,
-.contact-form textarea:focus {
-    border-color: var(--primary);
-    outline: none;
-}
-
 /* ===== FOOTER ===== */
 footer {
     background: #000000;
