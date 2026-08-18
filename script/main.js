@@ -224,7 +224,7 @@ document.addEventListener('DOMContentLoaded', () => {
         currentOpacity = 1 - localProgress;
         currentInset = 50 * localProgress;
       }
-      
+
       bg.style.opacity = Math.max(0, Math.min(1, currentOpacity));
       bg.style.clipPath = `inset(${currentInset}% ${currentInset}% ${currentInset}% ${currentInset}%)`;
 
@@ -242,8 +242,8 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       // 3. 피처 아이템 순차적 애니메이션
-      const featureZoneStart = 0.3;
-      const featureZoneEnd = 0.85;
+      const featureZoneStart = 0.15;
+      const featureZoneEnd = 0.95;
       const featureCount = features.length;
       const featureDuration = (featureZoneEnd - featureZoneStart) / featureCount;
 
