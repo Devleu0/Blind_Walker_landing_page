@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
     normal: {
       title: '정상 시야',
       desc: '또렷한 색 대비와 선명한 초점. 우리가 당연하게 여기는 세상의 기본값입니다.',
-      img: 'images/title_scene_low_quility.webp'
+      img: 'images/title.webp'
     },
     myopia: {
       title: '고도근시',
