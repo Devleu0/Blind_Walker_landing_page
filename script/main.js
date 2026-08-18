@@ -171,4 +171,83 @@ document.addEventListener('DOMContentLoaded', () => {
       if (e.target === lightbox) lightbox.classList.remove('active');
     });
   }
+
+  /* ---------- 8. Immersive Gameplay Section Scroll Animation ---------- */
+  const gameplaySection = document.getElementById('gameplay');
+  if (gameplaySection) {
+    const spacer = gameplaySection.querySelector('.gameplay-spacer');
+    const bg = gameplaySection.querySelector('.gameplay-background');
+    const header = gameplaySection.querySelector('.section-header');
+    const features = gameplaySection.querySelectorAll('.gameplay-feature');
+
+    const handleGameplayScroll = () => {
+      const rect = spacer.getBoundingClientRect();
+      const { top, height } = rect;
+      const vh = window.innerHeight;
+
+      // 섹션이 화면에 보이지 않으면 실행 안함
+      if (top > vh || top + height < 0) {
+        // Make sure everything is in its initial or final state when not in view
+        bg.style.opacity = 0;
+        header.style.opacity = 0;
+        features.forEach(feature => {
+            feature.style.opacity = 0;
+            feature.style.transform = `translateY(20px)`;
+        });
+        return;
+      }
+
+      // 스크롤 진행률 (0: 섹션 상단이 뷰포트 상단에 닿을 때, 1: 섹션 하단이 뷰포트 하단에 닿을 때)
+      const progress = Math.max(0, Math.min(1, -top / (height - vh)));
+      
+      // 1. 배경 페이드 인/아웃
+      // 0% -> 20% : 페이드 인
+      // 85% -> 100% : 페이드 아웃
+      if (progress < 0.2) {
+        bg.style.opacity = progress / 0.2;
+      } else if (progress > 0.85) {
+        bg.style.opacity = (1 - progress) / 0.15;
+      } else {
+        bg.style.opacity = 1;
+      }
+      
+      // 2. 헤더 페이드 인/아웃
+      // 15% -> 25% : 페이드 인
+      // 80% -> 90% : 페이드 아웃
+       if (progress >= 0.15 && progress <= 0.25) {
+        header.style.opacity = (progress - 0.15) / 0.1;
+      } else if (progress > 0.25 && progress < 0.8) {
+        header.style.opacity = 1;
+      } else if (progress >= 0.8 && progress <= 0.9) {
+        header.style.opacity = 1 - (progress - 0.8) / 0.1;
+      } else if (progress > 0.9 || progress < 0.15) {
+          header.style.opacity = 0;
+      }
+
+      // 3. 피처 아이템 순차적 애니메이션
+      const featureZoneStart = 0.3;
+      const featureZoneEnd = 0.85;
+      const featureCount = features.length;
+      const featureDuration = (featureZoneEnd - featureZoneStart) / featureCount;
+
+      features.forEach((feature, i) => {
+        const start = featureZoneStart + i * featureDuration;
+        const end = start + featureDuration;
+        
+        let opacity = 0;
+        // 각 피쳐의 로컬 진행률 (0 to 1)
+        if (progress >= start && progress <= end) {
+            const featureProgress = (progress - start) / (end - start);
+            // 피크는 중간(0.5)에서, 시작과 끝은 0
+            opacity = Math.sin(featureProgress * Math.PI);
+        }
+        
+        feature.style.opacity = opacity;
+        feature.style.transform = `translateY(${20 * (1-opacity)}px)`;
+      });
+    };
+    
+    window.addEventListener('scroll', handleGameplayScroll, { passive: true });
+    handleGameplayScroll(); // 초기 로드 시 한 번 실행
+  }
 });

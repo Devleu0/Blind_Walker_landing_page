@@ -916,7 +916,8 @@ nav a.active::after {
     filter: brightness(1);
 }
 
-/* ===== GAMEPLAY SECTION ===== */
+/* ===== GAMEPLAY SECTION (기존) ===== */
+/*
 .gameplay-content {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -966,6 +967,99 @@ nav a.active::after {
     color: var(--text-sub);
     margin-bottom: 25px;
 }
+*/
+
+/* ===== GAMEPLAY SECTION (몰입형) ===== */
+#gameplay.section {
+    padding: 0; /* 내부 여백 제거 */
+    background: var(--dark);
+}
+
+.gameplay-spacer {
+    height: 400vh; /* 스크롤 애니메이션을 위한 충분한 높이 확보 */
+    position: relative;
+}
+
+.gameplay-sticky-container {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+}
+
+.gameplay-background {
+    position: absolute;
+    inset: 0;
+    opacity: 0; /* JS로 제어 */
+    transition: opacity 0.5s ease-out;
+}
+
+.gameplay-background img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.6);
+}
+
+.gameplay-features-wrapper {
+    position: relative;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+}
+
+.gameplay-features-wrapper .section-header {
+    position: absolute;
+    top: 20%;
+    opacity: 0; /* JS로 제어 */
+    transition: opacity 0.5s ease-out;
+}
+
+.gameplay-feature {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    width: 300px;
+    padding: 24px;
+    background: rgba(10, 136, 204, 0.1);
+    border: 1px solid rgba(0, 217, 255, 0.2);
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+    opacity: 0; /* JS로 제어 */
+    transform: translateY(20px);
+    transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+}
+
+.gameplay-feature .feature-item-icon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 217, 255, 0.1);
+    border-radius: 8px;
+    font-size: 24px;
+    color: var(--primary);
+}
+
+.gameplay-feature .feature-item-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.gameplay-feature .feature-item-desc {
+    font-size: 0.9rem;
+    color: var(--text-sub);
+}
+
+
 
 /* ===== DEV / BEHIND-THE-SCENES SECTION ===== */
 .dev-grid {
