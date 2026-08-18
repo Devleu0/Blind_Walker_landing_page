@@ -97,6 +97,9 @@
             text-align: center;
             padding: 0 1rem;
             position: relative;
+            background-image: linear-gradient(rgba(5, 5, 8, 0.7), rgba(5, 5, 8, 0.9)), url('images/타이틀 화면.png');
+            background-size: cover;
+            background-position: center;
         }
 
         .hero-title-container {
@@ -288,6 +291,97 @@
             border-radius: 50%;
             box-shadow: 0 0 8px var(--primary-accent);
         }
+
+        /* Gameplay Section */
+        .video-container {
+            margin-bottom: 4rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: var(--surface-color);
+        }
+
+        .video-container video {
+            width: 100%;
+            display: block;
+        }
+
+        .gameplay-gifs {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .gif-item img {
+            width: 100%;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            margin-bottom: 1rem;
+            background: var(--surface-color);
+        }
+
+        .gif-item h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-accent);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .gif-item p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+        
+        /* Vision Modes Section */
+        .vision-gallery {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(2, 200px);
+            gap: 1rem;
+        }
+
+        .vision-card {
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: var(--surface-color);
+        }
+        
+        .vision-card.main {
+            grid-column: 1 / 3;
+            grid-row: 1 / 3;
+        }
+
+        .vision-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .vision-card .overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            color: var(--text-main);
+            padding: 1rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.4s ease;
+        }
+
+        .vision-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .vision-card:hover .overlay {
+            opacity: 1;
+            transform: translateY(0);
+        }
     </style>
 </head>
 <body>
@@ -298,7 +392,8 @@
         <div class="logo">BLIND <span>WALKER</span></div>
         <ul class="nav-links">
             <li><a href="#concept">SENSORY</a></li>
-            <li><a href="#mechanics">ECHOLOCATION</a></li>
+            <li><a href="#gameplay">GAMEPLAY</a></li>
+            <li><a href="#vision">VISION MODES</a></li>
             <li><a href="#access">WISHLIST</a></li>
         </ul>
     </nav>
@@ -344,6 +439,58 @@
                     <div class="card-num">03 / THREAT</div>
                     <h3 class="card-title">소리의 리스크</h3>
                     <p class="card-desc">시야를 확보하기 위해 소리를 낼수록, 어둠 속에 숨어있는 정체불명의 존재 역시 당신의 위치를 정확하게 추적하기 시작합니다.</p>
+                </div>
+            </div>
+        </section>
+        <section class="theme-section" id="gameplay">
+            <div class="section-header">
+                <span class="section-tag">// IN-GAME EXPERIENCE</span>
+                <h2 class="section-title">실제 플레이 화면</h2>
+            </div>
+            <div class="video-container">
+                <video controls muted autoplay loop playsinline>
+                    <source src="images/Blind Walker 플레이 영상.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <div class="gameplay-gifs">
+                <div class="gif-item">
+                    <h3>타일 생성</h3>
+                    <img src="images/output.gif" alt="타일 생성 애니메이션">
+                    <p>플레이어의 발걸음이 만들어내는 세상</p>
+                </div>
+                <div class="gif-item">
+                    <h3>동적 환경</h3>
+                    <img src="images/타일.gif" alt="타일 변화 애니메이션">
+                    <p>소리의 파동으로 시시각각 변화하는 지형</p>
+                </div>
+            </div>
+        </section>
+        <section class="theme-section" id="vision">
+            <div class="section-header">
+                <span class="section-tag">// ACCESSIBILITY FEATURES</span>
+                <h2 class="section-title">다양한 시야 모드 체험</h2>
+            </div>
+            <div class="vision-gallery">
+                <div class="vision-card main">
+                    <img src="images/시야 모드 선택.png" alt="시야 모드 선택 화면">
+                    <div class="overlay">다양한 모드를 선택해보세요</div>
+                </div>
+                <div class="vision-card">
+                    <img src="images/녹내장.png" alt="녹내장 시야">
+                    <div class="overlay">녹내장</div>
+                </div>
+                <div class="vision-card">
+                    <img src="images/백내장.png" alt="백내장 시야">
+                    <div class="overlay">백내장</div>
+                </div>
+                <div class="vision-card">
+                    <img src="images/황반변성.png" alt="황반변성 시야">
+                    <div class="overlay">황반변성</div>
+                </div>
+                <div class="vision-card">
+                    <img src="images/전색맹.png" alt="전색맹 시야">
+                    <div class="overlay">전색맹</div>
                 </div>
             </div>
         </section>
