@@ -3,7 +3,7 @@
  * 사용자 언어 감지, 설정 저장, 언어 전환 기능
  */
 
-class I18nManager {
+export default class I18nManager {
     constructor() {
         this.STORAGE_KEY = 'blindWalker_preferredLanguage';
         this.DEFAULT_LANGUAGE = 'ko';
@@ -27,6 +27,11 @@ class I18nManager {
             document.addEventListener('DOMContentLoaded', this.setupUI.bind(this));
         } else {
             this.setupUI();
+        }
+
+        // Handle race condition where Google's script loads before this manager is instantiated.
+        if (window.googleTranslateScriptLoaded) {
+            this.onGoogleTranslateReady();
         }
     }
 
@@ -283,13 +288,4 @@ class I18nManager {
     getSupportedLanguages() {
         return Object.keys(this.supportedLanguages);
     }
-}
-
-// DOM 로드 완료 후 초기화
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
-        window.i18nManager = new I18nManager();
-    });
-} else {
-    window.i18nManager = new I18nManager();
 }

@@ -13,7 +13,6 @@
         rel="stylesheet">
     <link rel="stylesheet" href="style/style.css">
     <!-- Google Translate -->
-    <script src="script/i18n.js"></script>
     <script type="text/javascript">
         function googleTranslateElementInit() {
             new google.translate.TranslateElement({
@@ -23,9 +22,11 @@
                 autoDisplay: false
             }, 'google_translate_element');
 
-            // Notify our manager that the library is ready
+            // Notify our manager that the library is ready, or set a flag if it's not ready yet.
             if (window.i18nManager) {
                 window.i18nManager.onGoogleTranslateReady();
+            } else {
+                window.googleTranslateScriptLoaded = true;
             }
         }
     </script>
@@ -379,7 +380,7 @@
     <!-- Hidden Google Translate Container -->
     <div id="google_translate_element" style="display: none;"></div>
 
-    <script src="script/main.js"></script>
+    <script type="module" src="script/main.js"></script>
 </body>
 
 </html>
