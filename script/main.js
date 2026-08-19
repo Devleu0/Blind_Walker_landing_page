@@ -1,5 +1,29 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+  /* ---------- 0. Gameplay 섹션: 페이드 인 된 지점으로 스크롤 이동 ---------- */
+  const scrollToGameplayReveal = () => {
+    const spacer = document.querySelector('#gameplay .gameplay-spacer');
+    if (!spacer) {
+      document.getElementById('gameplay')?.scrollIntoView({ behavior: 'smooth' });
+      return;
+    }
+    const vh = window.innerHeight;
+    const spacerHeight = spacer.offsetHeight;
+    const spacerTop = spacer.getBoundingClientRect().top + window.scrollY;
+    // handleGameplayScroll의 progress 계산과 동일한 기준.
+    // progress 0.4 지점 = 배경/헤더 페이드인이 끝나고 첫 feature가 보이기 시작하는 안정 구간
+    const targetProgress = 0.4;
+    const targetY = spacerTop + targetProgress * (spacerHeight - vh);
+    window.scrollTo({ top: targetY, behavior: 'smooth' });
+  };
+
+  document.querySelectorAll('a[href="#gameplay"]').forEach(a => {
+    a.addEventListener('click', (e) => {
+      e.preventDefault();
+      scrollToGameplayReveal();
+    });
+  });
+
   /* ---------- 1. Mobile nav toggle ---------- */
   const navToggle = document.querySelector('.nav-toggle');
   const navMenu = document.querySelector('nav ul');
@@ -115,9 +139,17 @@ document.addEventListener('DOMContentLoaded', () => {
   const viewerImg = document.querySelector('.vision-viewer-image');
   const viewerTitle = document.querySelector('.vision-viewer-title');
   const viewerDesc = document.querySelector('.vision-viewer-desc');
+  const viewerTag = document.querySelector('.vision-viewer-tag');
   const tabs = document.querySelectorAll('.vision-tab');
 
   if (viewerImg && tabs.length) {
+    // 초기 활성 탭에 맞춰 태그 텍스트 동기화
+    const initialTab = document.querySelector('.vision-tab.active') || tabs[0];
+    const initialData = visionData[initialTab?.dataset.key];
+    if (viewerTag && initialData) {
+      viewerTag.textContent = `LIVE · ${initialData.title}`;
+    }
+
     tabs.forEach(tab => {
       tab.addEventListener('click', () => {
         const key = tab.dataset.key;
@@ -130,13 +162,26 @@ document.addEventListener('DOMContentLoaded', () => {
         viewerImg.classList.add('fade-out');
         viewerImg.classList.remove('fade-in');
 
+        if (viewerTag) {
+          viewerTag.classList.add('pulse');
+        }
+
         setTimeout(() => {
           viewerImg.src = data.img;
           viewerTitle.textContent = data.title;
           viewerDesc.textContent = data.desc;
           viewerImg.classList.remove('fade-out');
           viewerImg.classList.add('fade-in');
+
+          if (viewerTag) {
+            viewerTag.textContent = `LIVE · ${data.title}`;
+          }
         }, 300);
+
+        if (viewerTag) {
+          // pulse 애니메이션이 끝난 뒤 클래스 제거 (다음 전환에서 재생되도록)
+          setTimeout(() => viewerTag.classList.remove('pulse'), 700);
+        }
       });
     });
   }
@@ -147,6 +192,10 @@ document.addEventListener('DOMContentLoaded', () => {
     btn.addEventListener('click', (e) => {
       // 폼 제출 버튼인 경우 스크롤 이벤트 방지
       if (btn.type === 'submit') return;
+      if (btn.dataset.target === '#gameplay') {
+        scrollToGameplayReveal();
+        return;
+      }
       document.querySelector(btn.dataset.target)?.scrollIntoView({ behavior: 'smooth' });
     });
   });
