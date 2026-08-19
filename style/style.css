@@ -374,10 +374,11 @@ nav a.active::after {
 }
 
 /* device mockup */
-.hero-visual {
-    position: relative;
-    display: flex;
-    justify-content: center;
+.device-wrapper {
+    width: 100%;
+    max-width: 460px;
+    animation: floatCard 5s ease-in-out infinite;
+    will-change: transform;
 }
 
 .device-frame {
@@ -386,11 +387,9 @@ nav a.active::after {
     background: #0e0f14;
     border: 1px solid rgba(0, 217, 255, 0.25);
     border-radius: 14px;
-    overflow: hidden;
     box-shadow: 0 40px 80px rgba(0, 0, 0, 0.55), 0 0 60px rgba(0, 217, 255, 0.12);
-    transform: perspective(1200px) rotateY(-8deg) rotateX(2deg);
-    animation: floatCard 5s ease-in-out infinite;
-    will-change: transform;
+    transform: perspective(1200px) rotateY(-15deg) rotateX(5deg);
+    overflow: hidden;
 }
 
 .device-frame-bar {
@@ -1505,11 +1504,11 @@ footer {
 
     0%,
     100% {
-        transform: perspective(1200px) rotateY(-8deg) rotateX(2deg) translateY(0);
+        transform: translateY(0);
     }
 
     50% {
-        transform: perspective(1200px) rotateY(-8deg) rotateX(2deg) translateY(-14px);
+        transform: translateY(-15px);
     }
 }
 
@@ -1567,10 +1566,6 @@ footer {
     .cta-row,
     .hero-stats {
         justify-content: center;
-    }
-
-    .hero-visual {
-        margin-top: 20px;
     }
 
     .device-frame {
