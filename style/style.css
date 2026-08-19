@@ -979,7 +979,7 @@ nav a.active::after {
 }
 
 .gameplay-spacer {
-    height: 400vh;
+    height: 600vh;
     /* 스크롤 애니메이션을 위한 충분한 높이 확보 */
     position: relative;
 }

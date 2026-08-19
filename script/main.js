@@ -253,16 +253,45 @@ document.addEventListener('DOMContentLoaded', () => {
       const featureDuration = (featureZoneEnd - featureZoneStart) / featureCount;
 
       features.forEach((feature, i) => {
-        const start = featureZoneStart + i * featureDuration;
-        const end = start + featureDuration * 0.8; // 각 아이템이 보이는 시간을 약간 줄임
+        const zoneStart = featureZoneStart + i * featureDuration;
+        const zoneEnd = zoneStart + featureDuration * 0.8; // 각 아이템이 보이는 시간을 약간 줄임
+        const zoneLength = zoneEnd - zoneStart;
+
+        // background와 동일한 3단계 구간 비율 (intro 35% / stable / outro 20%)
+        const fadeInRatio = 0.35;
+        const fadeOutRatio = 0.7;
+        const localFadeInEnd = zoneStart + zoneLength * fadeInRatio;
+        const localFadeOutStart = zoneStart + zoneLength * fadeOutRatio;
 
         let opacity = 0;
-        if (progress >= start && progress <= end) {
-          const featureProgress = (progress - start) / (end - start);
-          opacity = Math.sin(featureProgress * Math.PI);
+        let inset = 50;
+
+        if (progress < zoneStart || progress > zoneEnd) {
+          opacity = 0;
+          inset = 50;
+        } else if (progress <= localFadeInEnd) {
+          // 인트로 애니메이션 (Ease-out Cubic)
+          const localProgress = (progress - zoneStart) / (localFadeInEnd - zoneStart);
+          const eased = 1 - Math.pow(1 - localProgress, 3);
+          opacity = eased;
+          inset = 50 * (1 - eased);
+        } else if (progress < localFadeOutStart) {
+          // 중간의 안정된 상태
+          opacity = 1;
+          inset = 0;
+        } else {
+          // 아우트로 애니메이션 (Ease-in-out Cubic)
+          const localProgress = (progress - localFadeOutStart) / (zoneEnd - localFadeOutStart);
+          const eased = localProgress < 0.5
+            ? 4 * localProgress * localProgress * localProgress
+            : 1 - Math.pow(-2 * localProgress + 2, 3) / 2;
+          opacity = 1 - eased;
+          inset = 50 * eased;
         }
 
+        opacity = Math.max(0, Math.min(1, opacity));
         feature.style.opacity = opacity;
+        feature.style.clipPath = `inset(${inset}% ${inset}% ${inset}% ${inset}%)`;
         feature.style.transform = `translateY(${20 * (1 - opacity)}px)`;
       });
     };
