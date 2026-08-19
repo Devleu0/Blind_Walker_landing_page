@@ -244,8 +244,8 @@ nav a.active::after {
     position: absolute;
     inset: 0;
     background:
-        radial-gradient(circle at 78% 30%, rgba(0, 217, 255, 0.25), transparent 50%),
-        radial-gradient(circle at 15% 80%, rgba(255, 176, 32, 0.15), transparent 45%);
+        radial-gradient(circle at 75% 75%, rgba(0, 217, 255, 0.25), transparent 40%),
+        radial-gradient(circle at 25% 25%, rgba(255, 176, 32, 0.15), transparent 40%);
     pointer-events: none;
 }
 
@@ -317,15 +317,10 @@ nav a.active::after {
 
 .hero-content .catchphrase {
     font-size: 1.6rem;
-    /* Increase font size */
     font-weight: 700;
-    /* Make it bolder */
     color: var(--accent);
-    /* Use accent color for emphasis */
-    text-shadow: 0 0 10px rgba(255, 176, 32, 0.6), 0 0 20px rgba(255, 176, 32, 0.4);
-    /* Add a subtle glow */
+    text-shadow: 0 0 5px rgba(255, 176, 32, 0.6), 0 0 20px rgba(255, 176, 32, 0.4);
     letter-spacing: 3px;
-    /* Increase letter spacing */
     margin-bottom: 30px;
 }
 
@@ -379,23 +374,22 @@ nav a.active::after {
 }
 
 /* device mockup */
-.hero-visual {
-    position: relative;
-    display: flex;
-    justify-content: center;
+.device-wrapper {
+    width: 100%;
+    max-width: 460px;
+    animation: floatCard 5s ease-in-out infinite;
+    will-change: transform;
 }
 
 .device-frame {
     width: 100%;
     max-width: 460px;
     background: #0e0f14;
-    border: 1px solid rgba(0, 217, 255, 0.25);
+    border: 3px solid rgba(0, 217, 255, 0.719);
     border-radius: 14px;
-    overflow: hidden;
     box-shadow: 0 40px 80px rgba(0, 0, 0, 0.55), 0 0 60px rgba(0, 217, 255, 0.12);
-    transform: perspective(1200px) rotateY(-8deg) rotateX(2deg);
-    animation: floatCard 5s ease-in-out infinite;
-    will-change: transform;
+    transform: perspective(1200px) rotateY(-15deg) rotateX(5deg);
+    overflow: hidden;
 }
 
 .device-frame-bar {
@@ -1044,8 +1038,8 @@ nav a.active::after {
     gap: 16px;
     width: 300px;
     padding: 24px;
-    background: rgba(40, 42, 54, 0.75);
-    border: 1px solid rgba(0, 217, 255, 0.719);
+    background: rgb(56, 56, 56);
+    border: 3px solid rgba(0, 217, 255, 0.719);
     border-radius: 12px;
     backdrop-filter: blur(10px);
     opacity: 0;
@@ -1510,11 +1504,11 @@ footer {
 
     0%,
     100% {
-        transform: perspective(1200px) rotateY(-8deg) rotateX(2deg) translateY(0);
+        transform: translateY(0);
     }
 
     50% {
-        transform: perspective(1200px) rotateY(-8deg) rotateX(2deg) translateY(-14px);
+        transform: translateY(-15px);
     }
 }
 
@@ -1572,10 +1566,6 @@ footer {
     .cta-row,
     .hero-stats {
         justify-content: center;
-    }
-
-    .hero-visual {
-        margin-top: 20px;
     }
 
     .device-frame {

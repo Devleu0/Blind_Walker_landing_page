@@ -14,6 +14,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="style/style.css">
     <link rel="stylesheet" href="style/print-styles-improved.css" media="print">
+    <link rel="preload" href="images/play_gif.webp" as="image">
 </head>
 
 <body>
@@ -39,9 +40,9 @@
         </div>
         <div class="hero-grid container">
             <div class="hero-content">
-                <span class="hero-badge">UNITY VR · 시각장애 공감 프로젝트</span>
+                <span class="hero-badge">VR</span>
                 <h1>BLIND WALKER</h1>
-                <p class="subtitle catchphrase">"보이지 않는 세계에서, 공감을 보다"</p>
+                <p class="subtitle catchphrase">"보이지 않는 세계에서, 공감을 찾다"</p>
                 <p class="description">
                     시각장애인의 일상을 <span class="highlight">직접 체험</span>하고 이해하는 것.
                 </p>
@@ -67,11 +68,13 @@
                     </div>
                 </div>
             </div>
-            <div class="device-frame">
-                <div class="device-frame-bar">
-                    <span></span><span></span><span></span>
+            <div class="device-wrapper">
+                <div class="device-frame">
+                    <div class="device-frame-bar">
+                        <span></span><span></span><span></span>
+                    </div>
+                    <img src="images/world.webp" alt="mockup">
                 </div>
-                <img src="images/chosse_page.webp" alt="시야 선택 화면">
             </div>
         </div>
         <div class="scroll-indicator">
@@ -118,11 +121,6 @@
                         <div class="feature-item-desc">지팡이 접촉 시 진동과 사운드 반응</div>
                     </div>
                     <div class="gameplay-feature" id="feature-3">
-                        <div class="feature-item-icon"><span class="material-icons">trending_up</span></div>
-                        <div class="feature-item-title">진행률 추적</div>
-                        <div class="feature-item-desc">성과와 개선도를 지속적으로 기록</div>
-                    </div>
-                    <div class="gameplay-feature" id="feature-4">
                         <div class="feature-item-icon"><span class="material-icons">explore</span></div>
                         <div class="feature-item-title">일상적인 경험</div>
                         <div class="feature-item-desc">횡단보도, 점자 블록, 쓰레기 봉투, 킥 보드</div>
