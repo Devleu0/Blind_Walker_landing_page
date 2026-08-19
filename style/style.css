@@ -1039,8 +1039,8 @@ nav a.active::after {
     gap: 16px;
     width: 300px;
     padding: 24px;
-    background: rgba(40, 42, 54, 0.75);
-    border: 1px solid rgba(0, 217, 255, 0.719);
+    background: rgb(56, 56, 56);
+    border: 3px solid rgba(0, 217, 255, 0.719);
     border-radius: 12px;
     backdrop-filter: blur(10px);
     opacity: 0;
