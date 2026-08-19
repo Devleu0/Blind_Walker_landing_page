@@ -226,20 +226,21 @@ nav a.active::after {
     transform: translateY(-7px) rotate(-45deg);
 }
 
+.title-img {
+    width: auto;
+    height: 70vh;
+    background: url('../images/title.webp') center/contain no-repeat;
+    position: relative;
+    margin-bottom: -5vh;
+}
+
 /* ===== HERO ===== */
 .hero {
     position: relative;
     display: flex;
     flex-direction: column;
-    padding-top: 70px; /* Account for fixed nav */
+    padding-top: 70px;
     overflow: hidden;
-}
-
-.hero-bg {
-    width: 100%;
-    height: 70vh; /* A large, visible banner for the main image */
-    background: url('../images/title.webp') center/cover;
-    position: relative;
 }
 
 .hero-grid {
@@ -301,11 +302,16 @@ nav a.active::after {
 }
 
 .hero-content .catchphrase {
-    font-size: 1.6rem; /* Increase font size */
-    font-weight: 700; /* Make it bolder */
-    color: var(--accent); /* Use accent color for emphasis */
-    text-shadow: 0 0 10px rgba(255, 176, 32, 0.6), 0 0 20px rgba(255, 176, 32, 0.4); /* Add a subtle glow */
-    letter-spacing: 3px; /* Increase letter spacing */
+    font-size: 1.6rem;
+    /* Increase font size */
+    font-weight: 700;
+    /* Make it bolder */
+    color: var(--accent);
+    /* Use accent color for emphasis */
+    text-shadow: 0 0 10px rgba(255, 176, 32, 0.6), 0 0 20px rgba(255, 176, 32, 0.4);
+    /* Add a subtle glow */
+    letter-spacing: 3px;
+    /* Increase letter spacing */
     margin-bottom: 30px;
 }
 
@@ -1583,9 +1589,11 @@ footer {
         grid-template-columns: 1fr;
         gap: 50px;
     }
+
     .stats-grid {
         grid-template-columns: 1fr 1fr;
-        max-width: 600px; /* 2개의 카드와 간격을 고려한 너비 */
+        max-width: 600px;
+        /* 2개의 카드와 간격을 고려한 너비 */
         margin: 0 auto;
     }
 
@@ -1697,7 +1705,8 @@ footer {
 
     .stats-grid {
         grid-template-columns: 1fr;
-        max-width: 300px; /* 단일 카드와 간격을 고려한 너비 */
+        max-width: 300px;
+        /* 단일 카드와 간격을 고려한 너비 */
         margin: 0 auto;
     }
 }
