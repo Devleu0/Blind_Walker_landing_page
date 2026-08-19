@@ -433,18 +433,6 @@ nav a.active::after {
     width: 100%;
 }
 
-.device-caption {
-    position: absolute;
-    bottom: -22px;
-    right: 12px;
-    font-size: 0.75rem;
-    color: var(--text-sub);
-    letter-spacing: 0.5px;
-    background: rgba(8, 9, 12, 0.8);
-    padding: 6px 14px;
-    border-radius: 999px;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-}
 
 /* ===== BUTTONS ===== */
 .cta-primary {
