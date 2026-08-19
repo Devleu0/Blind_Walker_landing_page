@@ -156,6 +156,12 @@ nav.scrolled {
     color: var(--primary);
 }
 
+
+.logo:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    color: #094d85;
+}
+
 nav ul {
     display: flex;
     gap: 40px;
