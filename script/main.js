@@ -259,7 +259,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // background와 동일한 3단계 구간 비율 (intro 35% / stable / outro 20%)
         const fadeInRatio = 0.35;
-        const fadeOutRatio = 0.7;
+        const fadeOutRatio = 0.8;
         const localFadeInEnd = zoneStart + zoneLength * fadeInRatio;
         const localFadeOutStart = zoneStart + zoneLength * fadeOutRatio;
 
@@ -298,5 +298,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.addEventListener('scroll', handleGameplayScroll, { passive: true });
     handleGameplayScroll(); // 초기 로드 시 한 번 실행
+  }
+
+  /* ---------- 9. Match experience-image height to feature-grid (2-card) height on desktop ---------- */
+  const experienceImage = document.querySelector('.experience-image');
+  const featureGrid = document.querySelector('.feature-grid');
+  if (experienceImage && featureGrid) {
+    const syncExperienceImageHeight = () => {
+      if (window.innerWidth > 1024) {
+        // feature-grid는 2x2 그리드이므로 전체 높이가 곧 카드 2개 높이(행 2개 + gap)와 같음
+        experienceImage.style.height = `${featureGrid.offsetHeight}px`;
+      } else {
+        experienceImage.style.height = '';
+      }
+    };
+    syncExperienceImageHeight();
+    window.addEventListener('resize', syncExperienceImageHeight);
+    window.addEventListener('load', syncExperienceImageHeight);
   }
 });
