@@ -231,8 +231,6 @@ nav a.active::after {
     height: 70vh;
     position: relative;
     margin-bottom: -40vh;
-    filter: brightness(0.6);
-    transform: scale(1.05);
 }
 
 .title-img-wrap img {
