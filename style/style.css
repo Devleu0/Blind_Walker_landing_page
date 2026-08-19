@@ -300,6 +300,15 @@ nav a.active::after {
     letter-spacing: 2px;
 }
 
+.hero-content .catchphrase {
+    font-size: 1.6rem; /* Increase font size */
+    font-weight: 700; /* Make it bolder */
+    color: var(--accent); /* Use accent color for emphasis */
+    text-shadow: 0 0 10px rgba(255, 176, 32, 0.6), 0 0 20px rgba(255, 176, 32, 0.4); /* Add a subtle glow */
+    letter-spacing: 3px; /* Increase letter spacing */
+    margin-bottom: 30px;
+}
+
 .hero-content .description {
     font-size: 1.05rem;
     color: var(--text-sub);
