@@ -244,8 +244,8 @@ nav a.active::after {
     position: absolute;
     inset: 0;
     background:
-        radial-gradient(circle at 78% 30%, rgba(0, 217, 255, 0.25), transparent 50%),
-        radial-gradient(circle at 15% 80%, rgba(255, 176, 32, 0.15), transparent 45%);
+        radial-gradient(circle at 75% 75%, rgba(0, 217, 255, 0.25), transparent 40%),
+        radial-gradient(circle at 25% 25%, rgba(255, 176, 32, 0.15), transparent 40%);
     pointer-events: none;
 }
 
