@@ -153,7 +153,7 @@
     }
 
     /* 필요하지 않은 장식 이미지 숨김 */
-    .hero-bg,
+    .title-img,
     .gameplay-image::after {
         display: none !important;
     }
@@ -225,14 +225,6 @@
         border-radius: 3px;
         font-size: 9pt;
         margin: 0.5rem 0.3rem 0.5rem 0;
-    }
-
-    .device-caption {
-        display: block !important;
-        font-size: 9pt;
-        color: #666 !important;
-        margin-top: 0.5rem;
-        font-style: italic;
     }
 
     /* ===== 버튼 및 CTA 처리 ===== */

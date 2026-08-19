@@ -226,40 +226,46 @@ nav a.active::after {
     transform: translateY(-7px) rotate(-45deg);
 }
 
+.title-img-wrap {
+    width: 100%;
+    height: 70vh;
+    position: relative;
+    margin-bottom: -40vh;
+}
+
+.title-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.title-img-wrap::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(circle at 78% 30%, rgba(0, 217, 255, 0.25), transparent 50%),
+        radial-gradient(circle at 15% 80%, rgba(255, 176, 32, 0.15), transparent 45%);
+    pointer-events: none;
+}
+
 /* ===== HERO ===== */
 .hero {
     position: relative;
-    min-height: 100vh;
-    margin-top: 0;
-    padding-top: 70px;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column;
+    padding-top: 70px;
     overflow: hidden;
-}
-
-.hero-bg {
-    width: 100%;
-    height: 80%;
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    background:
-        radial-gradient(circle at 78% 30%, rgba(0, 217, 255, 0.25), transparent 50%),
-        radial-gradient(circle at 15% 80%, rgba(255, 176, 32, 0.15), transparent 45%),
-        url('../images/title.webp') center/cover;
-    filter: blur(4px) brightness(0.35) saturate(1.7) contrast(1.3);
-    transform: scale(0.9);
 }
 
 .hero-grid {
     position: relative;
-    z-index: 3;
+    z-index: 2;
     display: grid;
     grid-template-columns: 1.15fr 0.85fr;
-    align-items: center;
+    align-items: end;
     gap: 40px;
-    padding: 60px 40px;
+    padding: var(--space-4xl) 40px;
 }
 
 .hero-content {
@@ -307,6 +313,20 @@ nav a.active::after {
     margin-bottom: 30px;
     font-weight: 500;
     letter-spacing: 2px;
+}
+
+.hero-content .catchphrase {
+    font-size: 1.6rem;
+    /* Increase font size */
+    font-weight: 700;
+    /* Make it bolder */
+    color: var(--accent);
+    /* Use accent color for emphasis */
+    text-shadow: 0 0 10px rgba(255, 176, 32, 0.6), 0 0 20px rgba(255, 176, 32, 0.4);
+    /* Add a subtle glow */
+    letter-spacing: 3px;
+    /* Increase letter spacing */
+    margin-bottom: 30px;
 }
 
 .hero-content .description {
@@ -411,18 +431,6 @@ nav a.active::after {
     width: 100%;
 }
 
-.device-caption {
-    position: absolute;
-    bottom: -22px;
-    right: 12px;
-    font-size: 0.75rem;
-    color: var(--text-sub);
-    letter-spacing: 0.5px;
-    background: rgba(8, 9, 12, 0.8);
-    padding: 6px 14px;
-    border-radius: 999px;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-}
 
 /* ===== BUTTONS ===== */
 .cta-primary {
@@ -748,7 +756,7 @@ nav a.active::after {
 /* ===== STATS SECTION ===== */
 .stats-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 30px;
 }
 
@@ -1557,10 +1565,6 @@ footer {
         padding-top: 20px;
     }
 
-    .hero-bg {
-        height: 100%;
-    }
-
     .hero-content .description {
         margin: 0 auto 44px;
     }
@@ -1590,6 +1594,9 @@ footer {
 
     .stats-grid {
         grid-template-columns: 1fr 1fr;
+        max-width: 600px;
+        /* 2개의 카드와 간격을 고려한 너비 */
+        margin: 0 auto;
     }
 
     .dev-grid {
@@ -1696,6 +1703,13 @@ footer {
 
     .ticker-track {
         animation-duration: 40s;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+        max-width: 300px;
+        /* 단일 카드와 간격을 고려한 너비 */
+        margin: 0 auto;
     }
 }
 
