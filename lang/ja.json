@@ -79,7 +79,11 @@
     "amd": {
       "title": "黄斑変性",
       "desc": "視野の中心部が黒く覆われ、正面を見ようとするほど何も見えなくなります。向かい合う人の表情を読み取ったり、スマートフォンの文字や本を読んだりする、中心を凝視する作業ができなくなります。"
-    }
+    },
+    "normalLabel": "正常視界",
+    "effectLabel": "疾患視界",
+    "peekButton": "長押しで元の視界",
+    "intensityLabel": "症状の程度"
   },
   "experience": {
     "sectionTitle": "リアルな<span>体験</span>",
