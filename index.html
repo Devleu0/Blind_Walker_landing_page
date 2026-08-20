@@ -15,7 +15,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="style/style.css">
     <link rel="stylesheet" href="style/print-styles-improved.css" media="print">
-    <link rel="preload" href="images/play_gif.webp" as="image">
+    <link rel="preload" href="images/play_video.mp4" as="video" type="video/mp4">
 
 </head>
 
@@ -37,8 +37,8 @@
     </nav>
 
     <section class="hero">
-        <div class="title-img-wrap">
-            <img src="images/title_re.webp" alt="타이틀 이미지">
+        <div class="gameplay-background">
+            <video src="images/play_video.mp4" autoplay loop muted playsinline></video>
         </div>
         <div class="hero-grid container">
             <div class="hero-content">
@@ -111,9 +111,9 @@
     <section id="gameplay" class="section">
         <div class="gameplay-spacer">
             <div class="gameplay-sticky-container">
-                <div class="gameplay-background">
-                    <img src="images/play_gif.webp" alt="게임플레이 배경" data-i18n-alt="alt.gameplayBg">
-                </div>
+        <div class="gameplay-background">
+            <video src="images/play_video.mp4" autoplay loop muted playsinline></video>
+        </div>
                 <div class="gameplay-features-wrapper container">
                     <div class="section-header">
                         <h2 class="section-title" data-i18n-html="gameplay.title">몰입형 <span>게임플레이</span></h2>
@@ -188,8 +188,10 @@
                             <div class="vision-effect-mask"></div>
                         </div>
 
-                        <span class="vision-side-label vision-side-label-left" data-i18n="vision.normalLabel">정상 시야</span>
-                        <span class="vision-side-label vision-side-label-right" data-i18n="vision.effectLabel">질환 시야</span>
+                        <span class="vision-side-label vision-side-label-left" data-i18n="vision.normalLabel">정상
+                            시야</span>
+                        <span class="vision-side-label vision-side-label-right" data-i18n="vision.effectLabel">질환
+                            시야</span>
                     </div>
 
                     <div class="vision-divider" id="visionDivider" role="slider" tabindex="0" aria-label="비교 비율 조절"

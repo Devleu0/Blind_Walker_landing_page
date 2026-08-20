@@ -1244,11 +1244,11 @@ nav a.active::after {
     transition: opacity 0.2s linear, clip-path 0.2s linear;
 }
 
-.gameplay-background img {
+.gameplay-background video {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    filter: brightness(0.6);
+    filter: brightness(1);
 }
 
 .gameplay-features-wrapper {
