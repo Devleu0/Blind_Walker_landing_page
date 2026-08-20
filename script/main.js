@@ -80,10 +80,13 @@ document.addEventListener('DOMContentLoaded', () => {
   revealEls.forEach(el => revealObserver.observe(el));
 
   /* ---------- 4. Count-up stats (한 번만 실행되도록 개선) ---------- */
-  const counters = document.querySelectorAll('.stat-number');
+  const counters = document.querySelectorAll('.stat-number[data-count]');
+  const currentSuffix = (el) => {
+    const lang = window.i18n?.lang || 'ko';
+    return (lang === 'ja' ? el.dataset.suffixJa : el.dataset.suffixKo) || el.dataset.suffix || '';
+  };
   const animateCounter = (el) => {
     const target = parseFloat(el.dataset.count);
-    const suffix = el.dataset.suffix || '';
     const decimals = el.dataset.count.includes('.') ? el.dataset.count.split('.')[1].length : 0;
     const duration = 1500;
     const start = performance.now();
@@ -91,7 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const progress = Math.min((now - start) / duration, 1);
       const eased = 1 - Math.pow(1 - progress, 3);
       const value = target * eased;
-      el.textContent = value.toFixed(decimals) + suffix;
+      el.textContent = value.toFixed(decimals) + currentSuffix(el);
       if (progress < 1) requestAnimationFrame(step);
     };
     requestAnimationFrame(step);
@@ -107,8 +110,18 @@ document.addEventListener('DOMContentLoaded', () => {
   }, { threshold: 0.3 });
   counters.forEach(el => counterObserver.observe(el));
 
+  // 언어가 바뀌면 이미 카운트가 끝난 숫자들의 접미사(종류/種類)만 다시 맞춰준다
+  document.addEventListener('i18n:change', () => {
+    document.querySelectorAll('.stat-number[data-count][data-counted]').forEach(el => {
+      const target = parseFloat(el.dataset.count);
+      const decimals = el.dataset.count.includes('.') ? el.dataset.count.split('.')[1].length : 0;
+      el.textContent = target.toFixed(decimals) + currentSuffix(el);
+    });
+  });
+
   /* ---------- 5. Vision interactive viewer ---------- */
-  const visionData = {
+  // 한국어 원문(fallback). 일본어는 ja.json의 vision.<key>.title / vision.<key>.desc 를 사용한다.
+  const visionDataKo = {
     myopia: {
       title: '고도근시',
       desc: '5m 앞의 표지판이나 아는 사람의 얼굴조차 초점 없이 뿌옇게 번집니다. 다가오는 버스 번호를 확인하거나 계단을 내려가는 기본적인 일상조차 위태롭습니다.',
@@ -136,6 +149,21 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
+  // 현재 언어에 맞는 title/desc를 반환 (ja면 window.i18n을 통해 ja.json 조회, 없으면 한국어로 폴백)
+  const getVisionEntry = (key) => {
+    const ko = visionDataKo[key];
+    if (!ko) return null;
+    const lang = window.i18n?.lang || 'ko';
+    if (lang === 'ja') {
+      return {
+        title: window.i18n.t(`vision.${key}.title`, ko.title),
+        desc: window.i18n.t(`vision.${key}.desc`, ko.desc),
+        img: ko.img
+      };
+    }
+    return ko;
+  };
+
   const viewerImg = document.querySelector('.vision-viewer-image');
   const viewerTitle = document.querySelector('.vision-viewer-title');
   const viewerDesc = document.querySelector('.vision-viewer-desc');
@@ -143,17 +171,27 @@ document.addEventListener('DOMContentLoaded', () => {
   const tabs = document.querySelectorAll('.vision-tab');
 
   if (viewerImg && tabs.length) {
-    // 초기 활성 탭에 맞춰 태그 텍스트 동기화
-    const initialTab = document.querySelector('.vision-tab.active') || tabs[0];
-    const initialData = visionData[initialTab?.dataset.key];
-    if (viewerTag && initialData) {
-      viewerTag.textContent = `LIVE · ${initialData.title}`;
-    }
+    const getActiveKey = () => (document.querySelector('.vision-tab.active') || tabs[0])?.dataset.key;
+
+    // 초기 활성 탭에 맞춰 태그/제목/설명 동기화 (언어 전환 시에도 재사용)
+    const syncViewerToActiveTab = () => {
+      const key = getActiveKey();
+      const data = getVisionEntry(key);
+      if (!data) return;
+      if (viewerTag) viewerTag.textContent = `LIVE · ${data.title}`;
+      if (viewerTitle) viewerTitle.textContent = data.title;
+      // 뷰어 하단 설명(vision.viewerIntroDesc)은 static markup의 data-i18n이 처리하므로,
+      // 탭을 한 번이라도 클릭한 뒤에는 여기서 최신 언어의 설명으로 맞춰준다.
+      if (viewerDesc && viewerDesc.dataset.tabInteracted === 'true') {
+        viewerDesc.textContent = data.desc;
+      }
+    };
+    syncViewerToActiveTab();
 
     tabs.forEach(tab => {
       tab.addEventListener('click', () => {
         const key = tab.dataset.key;
-        const data = visionData[key];
+        const data = getVisionEntry(key);
         if (!data) return;
 
         tabs.forEach(t => t.classList.remove('active'));
@@ -170,6 +208,7 @@ document.addEventListener('DOMContentLoaded', () => {
           viewerImg.src = data.img;
           viewerTitle.textContent = data.title;
           viewerDesc.textContent = data.desc;
+          viewerDesc.dataset.tabInteracted = 'true';
           viewerImg.classList.remove('fade-out');
           viewerImg.classList.add('fade-in');
 
@@ -184,6 +223,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
     });
+
+    // 언어 전환 시 현재 선택된 탭 기준으로 뷰어 텍스트를 다시 그린다
+    document.addEventListener('i18n:change', syncViewerToActiveTab);
   }
 
   /* ---------- 6. Hero CTA buttons scroll to gameplay ---------- */

@@ -4,8 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blind Walker | Unity VR 어드벤처</title>
-    <meta name="description" content="5가지 시각 손상 유형으로 시각장애인의 일상을 체험하는 Unity 기반 VR 공감 프로젝트, Blind Walker.">
+    <title data-i18n="meta.title">Blind Walker | Unity VR 어드벤처</title>
+    <meta name="description" content="5가지 시각 손상 유형으로 시각장애인의 일상을 체험하는 Unity 기반 VR 공감 프로젝트, Blind Walker."
+        data-i18n-content="meta.description">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -15,56 +16,59 @@
     <link rel="stylesheet" href="style/style.css">
     <link rel="stylesheet" href="style/print-styles-improved.css" media="print">
     <link rel="preload" href="images/play_gif.webp" as="image">
+
 </head>
 
 <body>
     <nav>
         <div class="logo" onclick="window.scrollTo({ top: 0, behavior: 'smooth' });">BLIND WALKER</div>
         <ul>
-            <li><a href="#gameplay" class="nav-main">게임플레이</a></li>
-            <li><a href="#vision" class="nav-main">시각 손상</a></li>
-            <li><a href="#experience" class="nav-main">경험</a></li>
-            <li><a href="#dev" class="nav-main">시스템 설계</a></li>
-            <li><a href="#contact" class="nav-main">문의</a></li>
+            <li><a href="#gameplay" class="nav-main" data-i18n="nav.gameplay">게임플레이</a></li>
+            <li><a href="#vision" class="nav-main" data-i18n="nav.vision">시각 손상</a></li>
+            <li><a href="#experience" class="nav-main" data-i18n="nav.experience">경험</a></li>
+            <li><a href="#dev" class="nav-main" data-i18n="nav.dev">시스템 설계</a></li>
+            <li><a href="#contact" class="nav-main" data-i18n="nav.contact">문의</a></li>
         </ul>
         <div class="gtranslate_wrapper"></div>
 
-        <button class="nav-toggle" aria-label="메뉴 열기">
+        <button class="nav-toggle" aria-label="메뉴 열기" data-i18n-aria-label="nav.menuOpen">
             <span></span><span></span><span></span>
         </button>
     </nav>
 
     <section class="hero">
         <div class="title-img-wrap">
-            <img src="../images/title_re.webp" alt="타이틀 이미지">
+            <img src="../images/title_re.webp" alt="타이틀 이미지" data-i18n-alt="alt.title">
+
         </div>
         <div class="hero-grid container">
             <div class="hero-content">
                 <span class="hero-badge">VR</span>
                 <h1>BLIND WALKER</h1>
-                <p class="subtitle catchphrase">"보이지 않는 공간에서, 공감을 찾아내다"</p>
-                <p class="description">
+                <p class="subtitle catchphrase" data-i18n="hero.catchphrase">"보이지 않는 공간에서, 공감을 찾아내다"</p>
+                <p class="description" data-i18n-html="hero.description">
                     시각장애인의 일상을 <span class="highlight">직접 체험</span>하고 이해하자.
                 </p>
                 <div class="cta-row">
-                    <button class="cta-primary" data-target="#gameplay">플레이하기</button>
-                    <button class="cta-secondary" data-target="#vision">증상 알아보기</button>
+                    <button class="cta-primary" data-target="#gameplay" data-i18n="cta.play">플레이하기</button>
+                    <button class="cta-secondary" data-target="#vision" data-i18n="cta.explore">증상 알아보기</button>
                 </div>
                 <div class="hero-stats">
                     <div class="hero-stat">
                         <span class="material-icons stat-icon">visibility</span>
-                        <strong class="stat-number" data-count="5" data-suffix="종류">5종류</strong>
-                        <span>시각 손상 유형</span>
+                        <strong class="stat-number" data-count="5" data-suffix-ko="종류" data-suffix-ja="種類"
+                            data-suffix="종류">5종류</strong>
+                        <span data-i18n="stats.visionTypesLabel">시각 손상 유형</span>
                     </div>
                     <div class="hero-stat">
                         <span class="material-icons stat-icon">spatial_audio_off</span>
-                        <strong class="stat-number">3D 음향</strong>
-                        <span>입체 음향</span>
+                        <strong class="stat-number" data-i18n="stats.audio">3D 음향</strong>
+                        <span data-i18n="stats.audioLabel">입체 음향</span>
                     </div>
                     <div class="hero-stat">
                         <span class="material-icons stat-icon">vrpano</span>
-                        <strong class="stat-number">1인칭 시점</strong>
-                        <span>VR 전용 설계</span>
+                        <strong class="stat-number" data-i18n="stats.pov">1인칭 시점</strong>
+                        <span data-i18n="stats.povLabel">VR 전용 설계</span>
                     </div>
                 </div>
             </div>
@@ -73,7 +77,7 @@
                     <div class="device-frame-bar">
                         <span></span><span></span><span></span>
                     </div>
-                    <img src="images/world.webp" alt="mockup">
+                    <img src="images/world.webp" alt="mockup" data-i18n-alt="alt.mockup">
                 </div>
             </div>
         </div>
@@ -84,18 +88,18 @@
 
     <div class="ticker-strip" aria-hidden="true">
         <div class="ticker-track">
-            <span class="accent">고도근시</span><span>·</span>
-            <span class="accent">녹내장</span><span>·</span>
-            <span class="accent">백내장</span><span>·</span>
-            <span class="accent">전색맹</span><span>·</span>
-            <span class="accent">황반변성</span><span>·</span>
-            <span>3D 공간 음향</span><span>·</span>
-            <span class="accent">고도근시</span><span>·</span>
-            <span class="accent">녹내장</span><span>·</span>
-            <span class="accent">백내장</span><span>·</span>
-            <span class="accent">전색맹</span><span>·</span>
-            <span class="accent">황반변성</span><span>·</span>
-            <span>3D 공간 음향</span><span>·</span>
+            <span class="accent" data-i18n="vision.myopia.title">고도근시</span><span>·</span>
+            <span class="accent" data-i18n="vision.glaucoma.title">녹내장</span><span>·</span>
+            <span class="accent" data-i18n="vision.cataract.title">백내장</span><span>·</span>
+            <span class="accent" data-i18n="vision.achromatopsia.title">전색맹</span><span>·</span>
+            <span class="accent" data-i18n="vision.amd.title">황반변성</span><span>·</span>
+            <span data-i18n="ticker.spatialAudio">3D 공간 음향</span><span>·</span>
+            <span class="accent" data-i18n="vision.myopia.title">고도근시</span><span>·</span>
+            <span class="accent" data-i18n="vision.glaucoma.title">녹내장</span><span>·</span>
+            <span class="accent" data-i18n="vision.cataract.title">백내장</span><span>·</span>
+            <span class="accent" data-i18n="vision.achromatopsia.title">전색맹</span><span>·</span>
+            <span class="accent" data-i18n="vision.amd.title">황반변성</span><span>·</span>
+            <span data-i18n="ticker.spatialAudio">3D 공간 음향</span><span>·</span>
         </div>
     </div>
 
@@ -103,27 +107,27 @@
         <div class="gameplay-spacer">
             <div class="gameplay-sticky-container">
                 <div class="gameplay-background">
-                    <img src="images/play_gif.webp" alt="게임플레이 배경">
+                    <img src="images/play_gif.webp" alt="게임플레이 배경" data-i18n-alt="alt.gameplayBg">
                 </div>
                 <div class="gameplay-features-wrapper container">
                     <div class="section-header">
-                        <h2 class="section-title">몰입형 <span>게임플레이</span></h2>
-                        <p class="section-subtitle">VR 기기로 시각장애인의 일상을 경험</p>
+                        <h2 class="section-title" data-i18n-html="gameplay.title">몰입형 <span>게임플레이</span></h2>
+                        <p class="section-subtitle" data-i18n="gameplay.subtitle">VR 기기로 시각장애인의 일상을 경험</p>
                     </div>
                     <div class="gameplay-feature" id="feature-1">
                         <div class="feature-item-icon"><span class="material-icons">sports_esports</span></div>
-                        <div class="feature-item-title">현실적인 감각</div>
-                        <div class="feature-item-desc">VR 컨트롤러로 자연스럽게 상호작용</div>
+                        <div class="feature-item-title" data-i18n="gameplay.feature1.title">현실적인 감각</div>
+                        <div class="feature-item-desc" data-i18n="gameplay.feature1.desc">VR 컨트롤러로 자연스럽게 상호작용</div>
                     </div>
                     <div class="gameplay-feature" id="feature-2">
                         <div class="feature-item-icon"><span class="material-icons">vibration</span></div>
-                        <div class="feature-item-title">청각과 촉각</div>
-                        <div class="feature-item-desc">지팡이 접촉 시 진동과 사운드 반응</div>
+                        <div class="feature-item-title" data-i18n="gameplay.feature2.title">청각과 촉각</div>
+                        <div class="feature-item-desc" data-i18n="gameplay.feature2.desc">지팡이 접촉 시 진동과 사운드 반응</div>
                     </div>
                     <div class="gameplay-feature" id="feature-3">
                         <div class="feature-item-icon"><span class="material-icons">explore</span></div>
-                        <div class="feature-item-title">일상적인 경험</div>
-                        <div class="feature-item-desc">횡단보도, 점자 블록, 쓰레기 봉투, 킥보드</div>
+                        <div class="feature-item-title" data-i18n="gameplay.feature3.title">일상적인 경험</div>
+                        <div class="feature-item-desc" data-i18n="gameplay.feature3.desc">횡단보도, 점자 블록, 쓰레기 봉투, 킥보드</div>
                     </div>
                 </div>
             </div>
@@ -134,41 +138,48 @@
     <section id="vision" class="section section-dark">
         <div class="container">
             <div class="section-header reveal">
-                <h2 class="section-title">다양한 <span>시각 손상</span> 체험</h2>
-                <p class="section-subtitle">탭을 눌러 비교해보세요</p>
+                <h2 class="section-title" data-i18n-html="vision.sectionTitle">다양한 <span>시각 손상</span> 체험</h2>
+                <p class="section-subtitle" data-i18n="vision.sectionSubtitle">탭을 눌러 비교해보세요</p>
             </div>
 
             <div class="vision-layout reveal">
                 <div class="vision-viewer">
-                    <img src="images/고도근시.webp" alt="시야 미리보기" class="vision-viewer-image">
+                    <img src="images/고도근시.webp" alt="시야 미리보기" class="vision-viewer-image"
+                        data-i18n-alt="alt.visionPreview">
                     <span class="vision-viewer-tag">LIVE PREVIEW</span>
                 </div>
                 <div>
                     <div class="vision-tabs">
                         <button class="vision-tab active" data-key="myopia">
-                            <span class="vision-tab-thumb"><img src="images/고도근시.webp" alt="고도근시"></span>
-                            <span class="vision-tab-name">고도근시</span>
+                            <span class="vision-tab-thumb"><img src="images/고도근시.webp" alt="고도근시"
+                                    data-i18n-alt="vision.myopia.title"></span>
+                            <span class="vision-tab-name" data-i18n="vision.myopia.title">고도근시</span>
                         </button>
                         <button class="vision-tab" data-key="glaucoma">
-                            <span class="vision-tab-thumb"><img src="images/녹내장.webp" alt="녹내장"></span>
-                            <span class="vision-tab-name">녹내장</span>
+                            <span class="vision-tab-thumb"><img src="images/녹내장.webp" alt="녹내장"
+                                    data-i18n-alt="vision.glaucoma.title"></span>
+                            <span class="vision-tab-name" data-i18n="vision.glaucoma.title">녹내장</span>
                         </button>
                         <button class="vision-tab" data-key="cataract">
-                            <span class="vision-tab-thumb"><img src="images/백내장.webp" alt="백내장"></span>
-                            <span class="vision-tab-name">백내장</span>
+                            <span class="vision-tab-thumb"><img src="images/백내장.webp" alt="백내장"
+                                    data-i18n-alt="vision.cataract.title"></span>
+                            <span class="vision-tab-name" data-i18n="vision.cataract.title">백내장</span>
                         </button>
                         <button class="vision-tab" data-key="achromatopsia">
-                            <span class="vision-tab-thumb"><img src="images/전색맹.webp" alt="전색맹"></span>
-                            <span class="vision-tab-name">전색맹</span>
+                            <span class="vision-tab-thumb"><img src="images/전색맹.webp" alt="전색맹"
+                                    data-i18n-alt="vision.achromatopsia.title"></span>
+                            <span class="vision-tab-name" data-i18n="vision.achromatopsia.title">전색맹</span>
                         </button>
                         <button class="vision-tab" data-key="amd">
-                            <span class="vision-tab-thumb"><img src="images/황반변성.webp" alt="황반변성"></span>
-                            <span class="vision-tab-name">황반변성</span>
+                            <span class="vision-tab-thumb"><img src="images/황반변성.webp" alt="황반변성"
+                                    data-i18n-alt="vision.amd.title"></span>
+                            <span class="vision-tab-name" data-i18n="vision.amd.title">황반변성</span>
                         </button>
                     </div>
                     <div class="vision-viewer-caption">
-                        <div class="vision-viewer-title">고도근시</div>
-                        <p class="vision-viewer-desc">5m 앞의 표지판조차 초점 없이 뿌옇게 번져 보입니다. 형체는 짐작할 뿐, 세부는 사라집니다.</p>
+                        <div class="vision-viewer-title" data-i18n="vision.myopia.title">고도근시</div>
+                        <p class="vision-viewer-desc" data-i18n="vision.viewerIntroDesc">5m 앞의 표지판조차 초점 없이 뿌옇게 번져 보입니다.
+                            형체는 짐작할 뿐, 세부는 사라집니다.</p>
                     </div>
                 </div>
             </div>
@@ -179,16 +190,17 @@
         <div class="container">
             <div class="stats-grid reveal">
                 <div class="stat-card">
-                    <span class="stat-number" data-count="5" data-suffix="종류">5종류</span>
-                    <span class="stat-label">시각 손상 유형</span>
+                    <span class="stat-number" data-count="5" data-suffix-ko="종류" data-suffix-ja="種類"
+                        data-suffix="종류">5종류</span>
+                    <span class="stat-label" data-i18n="stats.visionTypesLabel">시각 손상 유형</span>
                 </div>
                 <div class="stat-card">
-                    <span class="stat-number">3D 음향</span>
-                    <span class="stat-label">입체적인 음향</span>
+                    <span class="stat-number" data-i18n="stats.audio">3D 음향</span>
+                    <span class="stat-label" data-i18n="stats.audioLabel2">입체적인 음향</span>
                 </div>
                 <div class="stat-card">
-                    <span class="stat-number">1인칭 시점</span>
-                    <span class="stat-label">VR 네이티브 시점</span>
+                    <span class="stat-number" data-i18n="stats.pov">1인칭 시점</span>
+                    <span class="stat-label" data-i18n="stats.povLabel2">VR 네이티브 시점</span>
                 </div>
             </div>
         </div>
@@ -197,13 +209,13 @@
     <section id="experience" class="section section-dark">
         <div class="container">
             <div class="section-header reveal">
-                <h2 class="section-title">현실적인 <span>경험</span></h2>
-                <p class="section-subtitle">음향, 촉각, 공간 감각으로 만든 몰입형 시뮬레이션</p>
+                <h2 class="section-title" data-i18n-html="experience.sectionTitle">현실적인 <span>경험</span></h2>
+                <p class="section-subtitle" data-i18n="experience.sectionSubtitle">음향, 촉각, 공간 감각으로 만든 몰입형 시뮬레이션</p>
             </div>
             <div class="experience-grid">
                 <div class="experience-content reveal">
-                    <h3>감각 기반 내비게이션</h3>
-                    <p>
+                    <h3 data-i18n="experience.heading">감각 기반 내비게이션</h3>
+                    <p data-i18n-html="experience.body">
                         제한된 시각 정보와 음향, 진동으로 길을 찾아 이동합니다.<br>
                         횡단보도의 신호음, 도시의 소음, 그리고 지팡이의 감각을 통해
                         공간을 인지하고 이동하는 경험을 해보세요.
@@ -211,28 +223,28 @@
                     <div class="feature-grid">
                         <div class="feature-item">
                             <div class="feature-item-icon"><span class="material-icons">spatial_audio</span></div>
-                            <div class="feature-item-title">3D 음향 시스템</div>
-                            <div class="feature-item-desc">공간감을 표현하는 리얼한 음향</div>
+                            <div class="feature-item-title" data-i18n="experience.feature1.title">3D 음향 시스템</div>
+                            <div class="feature-item-desc" data-i18n="experience.feature1.desc">공간감을 표현하는 리얼한 음향</div>
                         </div>
                         <div class="feature-item">
                             <div class="feature-item-icon"><span class="material-icons">location_on</span></div>
-                            <div class="feature-item-title">도시 환경</div>
-                            <div class="feature-item-desc">현실적인 시뮬레이션</div>
+                            <div class="feature-item-title" data-i18n="experience.feature2.title">도시 환경</div>
+                            <div class="feature-item-desc" data-i18n="experience.feature2.desc">현실적인 시뮬레이션</div>
                         </div>
                         <div class="feature-item">
                             <div class="feature-item-icon"><span class="material-icons">touch_app</span></div>
-                            <div class="feature-item-title">촉각 피드백</div>
-                            <div class="feature-item-desc">점자블록의 진동 감각</div>
+                            <div class="feature-item-title" data-i18n="experience.feature3.title">촉각 피드백</div>
+                            <div class="feature-item-desc" data-i18n="experience.feature3.desc">점자블록의 진동 감각</div>
                         </div>
                         <div class="feature-item">
                             <div class="feature-item-icon"><span class="material-icons">navigation</span></div>
-                            <div class="feature-item-title">방향 감각</div>
-                            <div class="feature-item-desc">청각으로 방향을 인지</div>
+                            <div class="feature-item-title" data-i18n="experience.feature4.title">방향 감각</div>
+                            <div class="feature-item-desc" data-i18n="experience.feature4.desc">청각으로 방향을 인지</div>
                         </div>
                     </div>
                 </div>
                 <div class="experience-image reveal">
-                    <img src="images/NPC_grid.webp" alt="AI 내비게이션 경로 시스템">
+                    <img src="images/NPC_grid.webp" alt="AI 내비게이션 경로 시스템" data-i18n-alt="alt.npcGrid">
                 </div>
             </div>
         </div>
@@ -241,8 +253,8 @@
     <section id="dev" class="section section-dark">
         <div class="container">
             <div class="section-header reveal">
-                <h2 class="section-title">시스템 <span>설계</span></h2>
-                <p class="section-subtitle">Unity 엔진으로 만든 툴과 시스템으로 완성한 시뮬레이션</p>
+                <h2 class="section-title" data-i18n-html="dev.sectionTitle">시스템 <span>설계</span></h2>
+                <p class="section-subtitle" data-i18n="dev.sectionSubtitle">Unity 엔진으로 만든 툴과 시스템으로 완성한 시뮬레이션</p>
             </div>
             <div class="dev-grid">
                 <div class="dev-card reveal">
@@ -251,11 +263,11 @@
                         <span class="dev-card-filename">SceneView — AI Navigation</span>
                     </div>
                     <div class="dev-card-media">
-                        <img src="images/NPC_grid.webp" alt="AI 웨이포인트 그래프">
+                        <img src="images/NPC_grid.webp" alt="AI 웨이포인트 그래프" data-i18n-alt="dev.card1.imgAlt">
                     </div>
                     <div class="dev-card-body">
-                        <h4>현실적인 AI 이동</h4>
-                        <p>도시 환경 곳곳에 배치된 NPC와 자연스럽게 돌아다닙니다.</p>
+                        <h4 data-i18n="dev.card1.title">현실적인 AI 이동</h4>
+                        <p data-i18n="dev.card1.desc">도시 환경 곳곳에 배치된 NPC와 자연스럽게 돌아다닙니다.</p>
                     </div>
                 </div>
                 <div class="dev-card reveal">
@@ -264,11 +276,13 @@
                         <span class="dev-card-filename">Inspector — BlindnessSimulator.cs</span>
                     </div>
                     <div class="dev-card-media">
-                        <img src="images/unity_editor_tool.webp" alt="시각 손상 시뮬레이션 스크립트 인스펙터">
+                        <img src="images/unity_editor_tool.webp" alt="시각 손상 시뮬레이션 스크립트 인스펙터"
+                            data-i18n-alt="dev.card2.imgAlt">
                     </div>
                     <div class="dev-card-body">
-                        <h4>커스텀 시야 시뮬레이션 셰이더</h4>
-                        <p>Fog Density, Bloom, Saturation 등 파라미터를 조절해 5가지 시각 손상의 증상을 현실적으로 재현합니다.</p>
+                        <h4 data-i18n="dev.card2.title">커스텀 시야 시뮬레이션 셰이더</h4>
+                        <p data-i18n="dev.card2.desc">Fog Density, Bloom, Saturation 등 파라미터를 조절해 5가지 시각 손상의 증상을 현실적으로
+                            재현합니다.</p>
                     </div>
                 </div>
                 <div class="dev-card reveal">
@@ -277,11 +291,11 @@
                         <span class="dev-card-filename">Tool — Tile Path Editor</span>
                     </div>
                     <div class="dev-card-media">
-                        <img src="images/tile_editor_tool_gif.webp" alt="타일 경로 에디터 툴">
+                        <img src="images/tile_editor_tool_gif.webp" alt="타일 경로 에디터 툴" data-i18n-alt="dev.card3.imgAlt">
                     </div>
                     <div class="dev-card-body">
-                        <h4>자체 제작 타일 경로 에디터</h4>
-                        <p>점자블록과 이동 경로를 손쉽게 배치할 수 있는 자체 제작 Unity 에디터 확장 툴을 개발했습니다.</p>
+                        <h4 data-i18n="dev.card3.title">자체 제작 타일 경로 에디터</h4>
+                        <p data-i18n="dev.card3.desc">점자블록과 이동 경로를 손쉽게 배치할 수 있는 자체 제작 Unity 에디터 확장 툴을 개발했습니다.</p>
                     </div>
                 </div>
                 <div class="dev-card reveal">
@@ -290,11 +304,11 @@
                         <span class="dev-card-filename">Character — White Cane Interaction</span>
                     </div>
                     <div class="dev-card-media">
-                        <img src="images/stick_interaction.webp" alt="흰 지팡이 상호작용">
+                        <img src="images/stick_interaction.webp" alt="흰 지팡이 상호작용" data-i18n-alt="dev.card4.imgAlt">
                     </div>
                     <div class="dev-card-body">
-                        <h4>흰 지팡이 촉각 인터랙션</h4>
-                        <p>지팡이 끝이 점자블록과 장애물에 닿을 때 진동과 사운드로 피드백을 주는 인터랙션 시스템을 구현했습니다.</p>
+                        <h4 data-i18n="dev.card4.title">흰 지팡이 촉각 인터랙션</h4>
+                        <p data-i18n="dev.card4.desc">지팡이 끝이 점자블록과 장애물에 닿을 때 진동과 사운드로 피드백을 주는 인터랙션 시스템을 구현했습니다.</p>
                     </div>
                 </div>
             </div>
@@ -304,13 +318,13 @@
     <section id="contact" class="cta-section">
         <div class="container" style="position: relative; z-index: 2;">
             <div class="cta-content-wrapper" style="max-width: 600px; margin: 0 auto;">
-                <h2 class="reveal">지금 경험하세요!</h2>
-                <p class="reveal">
+                <h2 class="reveal" data-i18n="contact.title">지금 경험하세요!</h2>
+                <p class="reveal" data-i18n="contact.body">
                     보이지 않는다는 것, 그 이상의 깊이를 직접 느껴보세요.
                 </p>
                 <div class="cta-buttons reveal">
-                    <button class="cta-primary" data-target="#gameplay">플레이하기</button>
-                    <button class="cta-secondary" data-target="#vision">증상 알아보기</button>
+                    <button class="cta-primary" data-target="#gameplay" data-i18n="cta.play">플레이하기</button>
+                    <button class="cta-secondary" data-target="#vision" data-i18n="cta.explore">증상 알아보기</button>
                 </div>
             </div>
         </div>
@@ -321,22 +335,22 @@
             <div class="footer-content">
                 <div class="footer-section">
                     <div class="footer-logo">BLIND WALKER</div>
-                    <p class="footer-description">
+                    <p class="footer-description" data-i18n="footer.description">
                         시각장애인의 일상을 직접 경험하고 이해하는 VR 공감 프로젝트
                     </p>
                 </div>
 
                 <div class="footer-section">
-                    <h4>빠른 링크</h4>
+                    <h4 data-i18n="footer.quickLinks">빠른 링크</h4>
                     <ul class="footer-links-list">
-                        <li><a href="#vision">시각 손상 체험</a></li>
-                        <li><a href="#gameplay">게임플레이</a></li>
-                        <li><a href="#dev">시스템 설계</a></li>
+                        <li><a href="#vision" data-i18n="footer.linkVision">시각 손상 체험</a></li>
+                        <li><a href="#gameplay" data-i18n="nav.gameplay">게임플레이</a></li>
+                        <li><a href="#dev" data-i18n="nav.dev">시스템 설계</a></li>
                     </ul>
                 </div>
 
                 <div class="footer-section">
-                    <h4>문의</h4>
+                    <h4 data-i18n="nav.contact">문의</h4>
                     <p><a href="mailto:contact@blindwalker.com">contact@blindwalker.com</a></p>
                     <div class="social-links">
                         <a href="#"><span class="material-icons">link</span></a>
@@ -345,16 +359,16 @@
                 </div>
 
                 <div class="footer-section">
-                    <h4>법적 고지</h4>
+                    <h4 data-i18n="footer.legal">법적 고지</h4>
                     <ul class="footer-links-list">
-                        <li><a href="#">이용약관</a></li>
-                        <li><a href="#">개인정보 처리방침</a></li>
+                        <li><a href="#" data-i18n="footer.terms">이용약관</a></li>
+                        <li><a href="#" data-i18n="footer.privacy">개인정보 처리방침</a></li>
                     </ul>
                 </div>
             </div>
 
             <div class="footer-bottom">
-                <p>&copy; 2024 Blind Walker. All rights reserved.</p>
+                <p data-i18n="footer.copyright">&copy; 2024 Blind Walker. All rights reserved.</p>
             </div>
         </div>
     </footer>
@@ -362,20 +376,28 @@
     <div class="sticky-cta">
         <div class="sticky-cta-text">
             <strong>Blind Walker</strong>
-            <span>시각장애의 일상을 직접 이해해 보세요</span>
+            <span data-i18n="stickyCta.text">시각장애의 일상을 직접 이해해 보세요</span>
         </div>
-        <button class="cta-primary" data-target="#gameplay">플레이하기</button>
+        <button class="cta-primary" data-target="#gameplay" data-i18n="cta.play">플레이하기</button>
     </div>
 
     <div class="lightbox">
         <div class="lightbox-content">
-            <img src="" alt="확대된 이미지">
-            <button class="lightbox-close" aria-label="닫기">&times;</button>
+            <img src="" alt="확대된 이미지" data-i18n-alt="alt.lightboxImage">
+            <button class="lightbox-close" aria-label="닫기" data-i18n-aria-label="alt.close">&times;</button>
         </div>
     </div>
 
+    <!--
+      참고: 드롭다운에는 일본어(ja)도 그대로 노출됩니다.
+      다만 script/i18n.js가 gtranslate의 doGTranslate() 함수를 감싸서,
+      사용자가 드롭다운에서 "日本語"를 선택하면 Google 자동번역 대신
+      lang/ja.json 기반 커스텀 번역을 적용합니다. 다른 언어는 기존처럼
+      gtranslate가 그대로 처리합니다.
+    -->
     <script>window.gtranslateSettings = { "default_language": "ko", "native_language_names": true, "detect_browser_language": true, "languages": ["ko", "fr", "it", "es", "en", "ja", "pt", "zh-TW"], "wrapper_selector": ".gtranslate_wrapper", "horizontal_position": "right", "vertical_position": "top", "select_language_label": "Select" }</script>
     <script src="https://cdn.gtranslate.net/widgets/latest/dropdown.js" defer></script>
+    <script type="module" src="script/i18n.js"></script>
     <script type="module" src="script/main.js"></script>
 </body>
 
