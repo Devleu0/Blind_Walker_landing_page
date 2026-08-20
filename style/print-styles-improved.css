@@ -216,15 +216,6 @@
         margin-bottom: 2rem;
     }
 
-    .vision-viewer-tag {
-        display: inline-block !important;
-        background: #f0f0f0 !important;
-        color: #333 !important;
-        padding: 0.3rem 0.6rem;
-        border-radius: 3px;
-        font-size: 9pt;
-        margin: 0.5rem 0.3rem 0.5rem 0;
-    }
 
     /* ===== 버튼 및 CTA 처리 ===== */
     button,
