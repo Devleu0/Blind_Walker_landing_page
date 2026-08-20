@@ -190,8 +190,6 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.cta-primary, .cta-secondary').forEach(btn => {
     if (!btn.dataset.target) return;
     btn.addEventListener('click', (e) => {
-      // 폼 제출 버튼인 경우 스크롤 이벤트 방지
-      if (btn.type === 'submit') return;
       if (btn.dataset.target === '#gameplay') {
         scrollToGameplayReveal();
         return;
