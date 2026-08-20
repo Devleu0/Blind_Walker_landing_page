@@ -679,7 +679,7 @@ nav a.active::after {
     justify-content: center;
     gap: 12px;
     margin-bottom: -90px;
-    z-index: 2;
+    z-index: 5;
 }
 
 .vision-tab {
