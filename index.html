@@ -148,38 +148,71 @@
             </div>
 
             <div class="vision-layout reveal">
-                <div class="vision-viewer">
-                    <img src="images/고도근시.webp" alt="시야 미리보기" class="vision-viewer-image"
-                        data-i18n-alt="alt.visionPreview">
-                    <span class="vision-viewer-tag">LIVE PREVIEW</span>
+                <div class="vision-tabs">
+                    <button class="vision-tab active" data-key="myopia">
+                        <span class="vision-tab-thumb"><img src="images/고도근시.webp" alt="고도근시"
+                                data-i18n-alt="vision.myopia.title"></span>
+                        <span class="vision-tab-name" data-i18n="vision.myopia.title">고도근시</span>
+                    </button>
+                    <button class="vision-tab" data-key="glaucoma">
+                        <span class="vision-tab-thumb"><img src="images/녹내장.webp" alt="녹내장"
+                                data-i18n-alt="vision.glaucoma.title"></span>
+                        <span class="vision-tab-name" data-i18n="vision.glaucoma.title">녹내장</span>
+                    </button>
+                    <button class="vision-tab" data-key="cataract">
+                        <span class="vision-tab-thumb"><img src="images/백내장.webp" alt="백내장"
+                                data-i18n-alt="vision.cataract.title"></span>
+                        <span class="vision-tab-name" data-i18n="vision.cataract.title">백내장</span>
+                    </button>
+                    <button class="vision-tab" data-key="achromatopsia">
+                        <span class="vision-tab-thumb"><img src="images/전색맹.webp" alt="전색맹"
+                                data-i18n-alt="vision.achromatopsia.title"></span>
+                        <span class="vision-tab-name" data-i18n="vision.achromatopsia.title">전색맹</span>
+                    </button>
+                    <button class="vision-tab" data-key="amd">
+                        <span class="vision-tab-thumb"><img src="images/황반변성.webp" alt="황반변성"
+                                data-i18n-alt="vision.amd.title"></span>
+                        <span class="vision-tab-name" data-i18n="vision.amd.title">황반변성</span>
+                    </button>
                 </div>
-                <div>
-                    <div class="vision-tabs">
-                        <button class="vision-tab active" data-key="myopia">
-                            <span class="vision-tab-thumb"><img src="images/고도근시.webp" alt="고도근시"
-                                    data-i18n-alt="vision.myopia.title"></span>
-                            <span class="vision-tab-name" data-i18n="vision.myopia.title">고도근시</span>
-                        </button>
-                        <button class="vision-tab" data-key="glaucoma">
-                            <span class="vision-tab-thumb"><img src="images/녹내장.webp" alt="녹내장"
-                                    data-i18n-alt="vision.glaucoma.title"></span>
-                            <span class="vision-tab-name" data-i18n="vision.glaucoma.title">녹내장</span>
-                        </button>
-                        <button class="vision-tab" data-key="cataract">
-                            <span class="vision-tab-thumb"><img src="images/백내장.webp" alt="백내장"
-                                    data-i18n-alt="vision.cataract.title"></span>
-                            <span class="vision-tab-name" data-i18n="vision.cataract.title">백내장</span>
-                        </button>
-                        <button class="vision-tab" data-key="achromatopsia">
-                            <span class="vision-tab-thumb"><img src="images/전색맹.webp" alt="전색맹"
-                                    data-i18n-alt="vision.achromatopsia.title"></span>
-                            <span class="vision-tab-name" data-i18n="vision.achromatopsia.title">전색맹</span>
-                        </button>
-                        <button class="vision-tab" data-key="amd">
-                            <span class="vision-tab-thumb"><img src="images/황반변성.webp" alt="황반변성"
-                                    data-i18n-alt="vision.amd.title"></span>
-                            <span class="vision-tab-name" data-i18n="vision.amd.title">황반변성</span>
-                        </button>
+
+                <div class="vision-compare" id="visionCompare" style="--split:50">
+                    <span class="vision-viewer-tag">LIVE PREVIEW</span>
+
+                    <div class="vision-compare-media">
+                        <img src="images/고도근시.webp" alt="정상 시야" class="vision-img vision-img-normal"
+                            data-i18n-alt="alt.visionPreview">
+
+                        <div class="vision-effect-layer">
+                            <img src="images/고도근시.webp" alt="이펙트 시야" class="vision-img vision-img-effect"
+                                data-i18n-alt="alt.visionPreview">
+                            <div class="vision-effect-mask"></div>
+                        </div>
+
+                        <span class="vision-side-label vision-side-label-left" data-i18n="vision.normalLabel">정상
+                            시야</span>
+                        <span class="vision-side-label vision-side-label-right" data-i18n="vision.effectLabel">질환
+                            시야</span>
+                    </div>
+
+                    <div class="vision-divider" id="visionDivider" role="slider" tabindex="0" aria-label="비교 비율 조절"
+                        aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+                        <span class="vision-divider-handle"><span class="material-icons">code</span></span>
+                    </div>
+                </div>
+
+                <div class="vision-controls">
+                    <div class="vision-controls-left">
+                        <button class="vision-peek-btn" id="visionPeekBtn" type="button"
+                            data-i18n="vision.peekButton">누르고 있으면 원본이 보여요</button>
+                        <div class="vision-intensity">
+                            <div class="vision-intensity-label">
+                                <span data-i18n="vision.intensityLabel">증상 강도</span>
+                                <span class="vision-intensity-value" id="visionIntensityValue">3</span>
+                            </div>
+                            <input type="range" id="visionIntensity" min="1" max="5" step="1" value="3"
+                                aria-label="증상 강도 조절">
+                        </div>
                     </div>
                     <div class="vision-viewer-caption">
                         <div class="vision-viewer-title" data-i18n="vision.myopia.title">고도근시</div>

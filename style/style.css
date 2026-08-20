@@ -666,43 +666,170 @@ nav a.active::after {
 
 /* ===== VISION INTERACTIVE VIEWER ===== */
 .vision-layout {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 60px;
-    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
 }
 
-.vision-viewer {
+/* --- Top: horizontal tab chips --- */
+.vision-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+}
+
+.vision-tab {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 8px 18px 8px 8px;
+    border-radius: 999px;
+    cursor: pointer;
+    text-align: left;
+
     position: relative;
-    aspect-ratio: 1/1;
+    transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transform: scale(0.96);
+    opacity: 0.65;
+}
+
+.vision-tab:hover {
+    transform: scale(1);
+    opacity: 0.85;
+    background: rgba(0, 217, 255, 0.06);
+    border-color: rgba(0, 217, 255, 0.4);
+}
+
+.vision-tab.active {
+    transform: scale(1.04);
+    opacity: 1;
+    border: 2px solid var(--primary);
+    box-shadow: 0 0 20px rgba(0, 217, 255, 0.35);
+    background: rgba(0, 217, 255, 0.1);
+}
+
+.vision-tab-thumb {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+    background: #111;
+}
+
+.vision-tab-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.vision-tab-name {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--text);
+    white-space: nowrap;
+}
+
+.vision-tab.active .vision-tab-name {
+    color: var(--primary);
+}
+
+/* --- Center: split compare viewer --- */
+.vision-compare {
+    position: relative;
+    max-width: 860px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.vision-compare-media {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16/10;
     border-radius: 12px;
     overflow: hidden;
     border: 1px solid rgba(0, 217, 255, 0.2);
     box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
     background: #000;
+    user-select: none;
 }
 
-.vision-viewer-image {
+.vision-img {
+    position: absolute;
+    inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: opacity 0.6s ease, transform 0.6s ease;
+    display: block;
+    pointer-events: none;
 }
 
-.vision-viewer-image.fade-out {
+/* effect layer is always the FULL media size — never resized by the
+   split — so any centered mask (vignette, scotoma) stays anchored to
+   the true left-right center of the whole viewer, not the shrinking
+   right-hand pane. Only visibility is clipped by --split. */
+.vision-effect-layer {
+    position: absolute;
+    inset: 0;
+    clip-path: inset(0 0 0 calc(var(--split) * 1%));
+    transition: clip-path 0.05s linear;
+}
+
+.vision-img-effect {
+    filter: var(--vision-filter, none);
+    transition: filter 0.35s ease;
+}
+
+.vision-effect-mask {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: var(--vision-mask, none);
+    mix-blend-mode: var(--vision-mask-blend, normal);
+    transition: background 0.35s ease;
+}
+
+.vision-compare.peeking .vision-effect-layer {
     opacity: 0;
-    transform: scale(0.95);
 }
 
-.vision-viewer-image.fade-in {
-    opacity: 1;
-    transform: scale(1);
+.vision-side-label {
+    position: absolute;
+    bottom: 16px;
+    z-index: 3;
+    background: rgba(8, 9, 12, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: var(--text-sub);
+    padding: 5px 12px;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    letter-spacing: 0.5px;
+    backdrop-filter: blur(6px);
+    pointer-events: none;
+}
+
+.vision-side-label-left {
+    left: 16px;
+}
+
+.vision-side-label-right {
+    right: 16px;
+    color: var(--primary);
+    border-color: rgba(0, 217, 255, 0.35);
+}
+
+.vision-compare.peeking .vision-side-label-right {
+    opacity: 0;
 }
 
 .vision-viewer-tag {
     position: absolute;
     top: 20px;
     left: 20px;
+    z-index: 3;
     background: rgba(8, 9, 12, 0.75);
     border: 1px solid rgba(0, 217, 255, 0.3);
     color: var(--primary);
@@ -736,84 +863,128 @@ nav a.active::after {
     }
 }
 
-.vision-tabs {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+/* Divider handle — positioned purely by --split, drag updates the var */
+.vision-divider {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: calc(var(--split) * 1%);
+    width: 0;
+    z-index: 4;
+    cursor: ew-resize;
+    touch-action: none;
 }
 
-.vision-tab {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-left: 3px solid transparent;
-    padding: 16px 20px;
-    border-radius: 6px;
-    cursor: pointer;
-    text-align: left;
-
-    position: relative;
-    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-    transform: scale(0.95);
-    opacity: 0.6;
-}
-
-.vision-tab:hover {
-    transform: scale(1);
-    opacity: 0.8;
-    background: rgba(0, 217, 255, 0.06);
-    border-left-color: rgba(0, 217, 255, 0.4);
-}
-
-.vision-tab.active {
-    transform: scale(1.08);
-    opacity: 1;
-    border: 2px solid var(--primary);
-    box-shadow: 0 0 20px rgba(0, 217, 255, 0.4);
-    background: rgba(0, 217, 255, 0.1);
-}
-
-.vision-tab.active::after {
+.vision-divider::before {
     content: '';
     position: absolute;
-    bottom: -8px;
+    top: 0;
+    bottom: 0;
+    left: -1px;
+    width: 2px;
+    background: rgba(255, 255, 255, 0.85);
+    box-shadow: 0 0 12px rgba(0, 217, 255, 0.7);
+}
+
+.vision-divider-handle {
+    position: absolute;
+    top: 50%;
     left: 50%;
-    transform: translateX(-50%);
-    width: 30px;
-    height: 3px;
-    background: linear-gradient(90deg, var(--primary), var(--accent));
-    border-radius: 2px;
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: var(--dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4), 0 0 0 4px rgba(0, 217, 255, 0.2);
+    transition: transform 0.2s ease;
 }
 
-.vision-tab-thumb {
-    width: 48px;
-    height: 48px;
-    border-radius: 6px;
-    overflow: hidden;
-    flex-shrink: 0;
-    background: #111;
+.vision-divider:hover .vision-divider-handle,
+.vision-divider:focus-visible .vision-divider-handle {
+    transform: translate(-50%, -50%) scale(1.1);
 }
 
-.vision-tab-thumb img {
+.vision-divider-handle .material-icons {
+    font-size: 20px;
+    transform: rotate(90deg);
+}
+
+/* --- Bottom: controls + caption card --- */
+.vision-controls {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    max-width: 860px;
+    margin: 0 auto;
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    align-items: stretch;
 }
 
-.vision-tab-name {
-    font-weight: 600;
-    font-size: 1rem;
-    color: var(--text);
+.vision-controls-left {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 20px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    justify-content: center;
 }
 
-.vision-tab.active .vision-tab-name {
+.vision-peek-btn {
+    background: rgba(0, 217, 255, 0.08);
+    border: 1px solid rgba(0, 217, 255, 0.3);
     color: var(--primary);
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.15s ease;
+    touch-action: none;
+}
+
+.vision-peek-btn:hover {
+    background: rgba(0, 217, 255, 0.16);
+}
+
+.vision-peek-btn:active {
+    transform: scale(0.97);
+}
+
+.vision-intensity {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.vision-intensity-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    color: var(--text-sub);
+}
+
+.vision-intensity-value {
+    color: var(--primary);
+    font-weight: 700;
+}
+
+.vision-intensity input[type="range"] {
+    width: 100%;
+    accent-color: var(--primary);
+    cursor: pointer;
 }
 
 .vision-viewer-caption {
-    margin-top: 20px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 20px 24px;
 }
 
 .vision-viewer-title {
@@ -1658,8 +1829,12 @@ footer {
         max-width: 360px;
     }
 
-    .vision-layout {
+    .vision-controls {
         grid-template-columns: 1fr;
+    }
+
+    .vision-compare-media {
+        aspect-ratio: 3/4;
     }
 
     .experience-grid,

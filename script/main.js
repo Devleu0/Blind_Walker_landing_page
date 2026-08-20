@@ -164,14 +164,81 @@ document.addEventListener('DOMContentLoaded', () => {
     return ko;
   };
 
-  const viewerImg = document.querySelector('.vision-viewer-image');
+  // 증상(key)별 필터/마스크 계산기. intensity는 1~5.
+  // 마스크는 .vision-effect-mask(이펙트 레이어와 동일한 '전체 뷰어 크기' 요소) 위에
+  // background로 그려지므로, 분할선이 좌우 어디로 움직이더라도 항상 뷰어의
+  // 좌우 기준 정중앙에 고정된다 (오른쪽 이펙트 영역만의 중앙이 아님).
+  const visionEffectStyle = (key, intensity) => {
+    const i = intensity; // 1~5
+    switch (key) {
+      case 'myopia':
+        return {
+          filter: `blur(${1.5 + i * 1.6}px) contrast(${100 - i * 2}%)`,
+          mask: 'none',
+          blend: 'normal'
+        };
+      case 'cataract':
+        return {
+          filter: `blur(${1 + i * 1}px) brightness(${100 + i * 6}%) contrast(${100 - i * 8}%) saturate(${100 - i * 8}%)`,
+          mask: 'radial-gradient(circle at center, rgba(255,246,220,0) 0%, rgba(255,246,220,0.55) 100%)',
+          blend: 'screen'
+        };
+      case 'achromatopsia':
+        return {
+          filter: `grayscale(100%) contrast(${100 + i * 4}%) brightness(${100 + i * 2}%)`,
+          mask: 'none',
+          blend: 'normal'
+        };
+      case 'glaucoma': {
+        // 터널 시야: 뷰어 전체 크기를 기준으로 한 정중앙에 원형 시야를 남기고
+        // 주변부를 어둡게 마스킹한다.
+        const clear = 46 - i * 6; // 강도가 높을수록 보이는 원이 좁아짐
+        return {
+          filter: `contrast(${100 + i * 3}%)`,
+          mask: `radial-gradient(circle at center, rgba(0,0,0,0) 0%, rgba(0,0,0,0) ${clear}%, rgba(0,0,0,0.97) ${clear + 18}%)`,
+          blend: 'multiply'
+        };
+      }
+      case 'amd': {
+        // 중심 암점: 뷰어 전체 크기를 기준으로 한 정중앙이 검게 가려진다.
+        const spot = 8 + i * 5;
+        return {
+          filter: `contrast(${100 + i * 3}%) blur(${i * 0.4}px)`,
+          mask: `radial-gradient(circle at center, rgba(20,20,25,0.96) 0%, rgba(20,20,25,0.96) ${spot}%, rgba(20,20,25,0) ${spot + 20}%)`,
+          blend: 'normal'
+        };
+      }
+      default:
+        return { filter: 'none', mask: 'none', blend: 'normal' };
+    }
+  };
+
+  const normalImg = document.querySelector('.vision-img-normal');
+  const effectImg = document.querySelector('.vision-img-effect');
+  const effectMask = document.querySelector('.vision-effect-mask');
   const viewerTitle = document.querySelector('.vision-viewer-title');
   const viewerDesc = document.querySelector('.vision-viewer-desc');
   const viewerTag = document.querySelector('.vision-viewer-tag');
   const tabs = document.querySelectorAll('.vision-tab');
+  const compareEl = document.getElementById('visionCompare');
+  const dividerEl = document.getElementById('visionDivider');
+  const intensityInput = document.getElementById('visionIntensity');
+  const intensityValueEl = document.getElementById('visionIntensityValue');
+  const peekBtn = document.getElementById('visionPeekBtn');
 
-  if (viewerImg && tabs.length) {
+  if (normalImg && effectImg && tabs.length && compareEl) {
     const getActiveKey = () => (document.querySelector('.vision-tab.active') || tabs[0])?.dataset.key;
+    const getIntensity = () => parseInt(intensityInput?.value || '3', 10);
+
+    const applyEffectStyle = () => {
+      const key = getActiveKey();
+      const { filter, mask, blend } = visionEffectStyle(key, getIntensity());
+      effectImg.style.setProperty('--vision-filter', filter);
+      if (effectMask) {
+        effectMask.style.setProperty('--vision-mask', mask);
+        effectMask.style.setProperty('--vision-mask-blend', blend);
+      }
+    };
 
     // 초기 활성 탭에 맞춰 태그/제목/설명 동기화 (언어 전환 시에도 재사용)
     const syncViewerToActiveTab = () => {
@@ -187,6 +254,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     };
     syncViewerToActiveTab();
+    applyEffectStyle();
 
     tabs.forEach(tab => {
       tab.addEventListener('click', () => {
@@ -197,20 +265,22 @@ document.addEventListener('DOMContentLoaded', () => {
         tabs.forEach(t => t.classList.remove('active'));
         tab.classList.add('active');
 
-        viewerImg.classList.add('fade-out');
-        viewerImg.classList.remove('fade-in');
+        normalImg.classList.add('fade-out');
+        effectImg.classList.add('fade-out');
 
         if (viewerTag) {
           viewerTag.classList.add('pulse');
         }
 
         setTimeout(() => {
-          viewerImg.src = data.img;
+          normalImg.src = data.img;
+          effectImg.src = data.img;
           viewerTitle.textContent = data.title;
           viewerDesc.textContent = data.desc;
           viewerDesc.dataset.tabInteracted = 'true';
-          viewerImg.classList.remove('fade-out');
-          viewerImg.classList.add('fade-in');
+          normalImg.classList.remove('fade-out');
+          effectImg.classList.remove('fade-out');
+          applyEffectStyle();
 
           if (viewerTag) {
             viewerTag.textContent = `LIVE · ${data.title}`;
@@ -226,6 +296,66 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 언어 전환 시 현재 선택된 탭 기준으로 뷰어 텍스트를 다시 그린다
     document.addEventListener('i18n:change', syncViewerToActiveTab);
+
+    // 증상 강도 슬라이더: 즉시 필터/마스크 파라미터 갱신
+    if (intensityInput) {
+      intensityInput.addEventListener('input', () => {
+        if (intensityValueEl) intensityValueEl.textContent = intensityInput.value;
+        applyEffectStyle();
+      });
+    }
+
+    // 분할 핸들 드래그: 좌(정상)/우(이펙트) 비율만 바꾼다.
+    // 이펙트 레이어 자체는 항상 뷰어 전체 크기이므로, 마스크의 중심은
+    // 분할 위치와 무관하게 항상 좌우 기준 정중앙에 고정된다.
+    let dragging = false;
+    const setSplit = (clientX) => {
+      const rect = compareEl.querySelector('.vision-compare-media').getBoundingClientRect();
+      let pct = ((clientX - rect.left) / rect.width) * 100;
+      pct = Math.min(96, Math.max(4, pct));
+      compareEl.style.setProperty('--split', pct.toFixed(2));
+      if (dividerEl) dividerEl.setAttribute('aria-valuenow', Math.round(pct));
+    };
+
+    if (dividerEl) {
+      const onMove = (e) => {
+        if (!dragging) return;
+        const x = e.touches ? e.touches[0].clientX : e.clientX;
+        setSplit(x);
+      };
+      const onUp = () => { dragging = false; };
+
+      dividerEl.addEventListener('mousedown', (e) => { dragging = true; e.preventDefault(); });
+      dividerEl.addEventListener('touchstart', () => { dragging = true; }, { passive: true });
+      window.addEventListener('mousemove', onMove);
+      window.addEventListener('touchmove', onMove, { passive: true });
+      window.addEventListener('mouseup', onUp);
+      window.addEventListener('touchend', onUp);
+
+      // 키보드 접근성: 좌우 화살표로 5%씩 조정
+      dividerEl.addEventListener('keydown', (e) => {
+        const current = parseFloat(getComputedStyle(compareEl).getPropertyValue('--split')) || 50;
+        if (e.key === 'ArrowLeft') {
+          compareEl.style.setProperty('--split', Math.max(4, current - 5));
+          e.preventDefault();
+        } else if (e.key === 'ArrowRight') {
+          compareEl.style.setProperty('--split', Math.min(96, current + 5));
+          e.preventDefault();
+        }
+      });
+    }
+
+    // "원본 보기" 버튼: 누르고 있는 동안 이펙트 레이어를 숨겨 원본을 보여준다.
+    if (peekBtn) {
+      const startPeek = (e) => { compareEl.classList.add('peeking'); e && e.preventDefault && e.preventDefault(); };
+      const endPeek = () => compareEl.classList.remove('peeking');
+
+      peekBtn.addEventListener('mousedown', startPeek);
+      peekBtn.addEventListener('touchstart', startPeek, { passive: false });
+      ['mouseup', 'mouseleave', 'touchend', 'touchcancel'].forEach(evt =>
+        peekBtn.addEventListener(evt, endPeek)
+      );
+    }
   }
 
   /* ---------- 6. Hero CTA buttons scroll to gameplay ---------- */
