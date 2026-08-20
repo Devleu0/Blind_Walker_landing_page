@@ -1,0 +1,28 @@
+{
+  "nav": {
+    "gameplay": "ゲームプレイ",
+    "vision": "視覚障害",
+    "experience": "経験",
+    "dev": "システム設計",
+    "contact": "お問い合わせ"
+  },
+  "hero": {
+    "badge": "VR",
+    "title": "BLIND WALKER",
+    "subtitle": "「視覚を超えた、 그 선에 있는 것」",
+    "description": "視覚障害者の日常을 직접 마주하며 깊은 공감을 경험해 보세요.",
+    "cta_play": "プレイする",
+    "cta_vision": "詳しく見る"
+  },
+  "stats": {
+    "types": "5つの視覚障害タイプ",
+    "audio": "3D立体音響",
+    "vr": "VR専用設計"
+  },
+  "dev": {
+    "ai_title": "AIによる自然な歩行シミュレーション",
+    "shader_title": "カスタム視野シミュレーションシェーダー",
+    "editor_title": "独自開発のタイルパスエディタ",
+    "interaction_title": "白い杖触覚インタラクション"
+  }
+}
