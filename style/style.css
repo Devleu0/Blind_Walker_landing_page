@@ -647,7 +647,7 @@ nav a.active::after {
     left: 50%;
     max-width: 400px;
     width: min(440px, 84%);
-    transform: translate(-50%, -50%) translateX(calc(var(--offset, 0) * 78%)) scale(var(--scale, 0.82));
+    transform: translate(-50%, -50%) translateX(calc(var(--offset, 0) * 93%)) scale(var(--scale, 0.82));
     opacity: var(--opacity, 0);
     z-index: var(--z, 1);
     display: flex;
@@ -678,7 +678,7 @@ nav a.active::after {
     filter: blur(0.5px);
     cursor: pointer;
     pointer-events: auto;
-    border-color: color-mix(in srgb, var(--primary) 25%, transparent);
+    border-color: color-mix(in srgb, var(--primary) 70%, transparent);
 }
 
 .spotlight-slide.is-hidden {
