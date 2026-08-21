@@ -1,0 +1,81 @@
+/* ===== THEME C: HIGH CONTRAST (접근성 고대비) ===== */
+body.theme-contrast {
+    --primary: #ffff00;
+    --secondary: #ffffff;
+    --accent: #ffff00;
+    --dark: #000000;
+    --dark-light: #111111;
+    --text: #ffffff;
+    --text-sub: #ffff00;
+    --shadow-glow: 0 0 30px rgba(255, 255, 0, 0.4);
+}
+
+body.theme-contrast {
+    text-shadow: none !important;
+}
+
+body.theme-contrast * {
+    outline-color: #ffff00 !important;
+}
+
+body.theme-contrast nav {
+    background: #000000 !important;
+    border-bottom: 2px solid #ffffff !important;
+}
+
+body.theme-contrast .dev-card,
+body.theme-contrast .stat-card,
+body.theme-contrast .feature-item,
+body.theme-contrast .gameplay-feature,
+body.theme-contrast .vision-tab,
+body.theme-contrast .vision-peek-btn,
+body.theme-contrast .vision-controls-left,
+body.theme-contrast .vision-viewer-caption,
+body.theme-contrast .theme-dropdown,
+body.theme-contrast .theme-btn {
+    border: 2px solid #ffffff !important;
+    background: #000000 !important;
+    box-shadow: none !important;
+}
+
+body.theme-contrast .theme-option.active {
+    background: #111111 !important;
+    border: 2px solid #ffff00 !important;
+}
+
+body.theme-contrast .cta-primary {
+    border: 2px solid #ffffff !important;
+    background: #ffff00 !important;
+    color: #000000 !important;
+    box-shadow: none !important;
+}
+
+body.theme-contrast .cta-secondary {
+    border: 2px solid #ffff00 !important;
+    background: #000000 !important;
+    color: #ffff00 !important;
+    box-shadow: none !important;
+}
+
+body.theme-contrast .cta-primary:hover,
+body.theme-contrast .cta-secondary:hover {
+    background: #ffffff !important;
+    color: #000000 !important;
+    border-color: #ffffff !important;
+}
+
+body.theme-contrast .vision-divider::before {
+    background: #ffff00 !important;
+    width: 4px;
+}
+
+body.theme-contrast .vision-divider-handle {
+    background: #ffff00 !important;
+    color: #000000 !important;
+    border: 2px solid #ffffff !important;
+}
+
+body.theme-contrast img,
+body.theme-contrast video {
+    filter: contrast(115%) brightness(90%) !important;
+}
