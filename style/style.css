@@ -5,9 +5,9 @@
 }
 
 :root {
-    --primary: #00d9ff;
-    --secondary: #0a88cc;
-    --accent: #ffb020;
+    --primary: #f59e0b;
+    --secondary: #d97706;
+    --accent: #0d9488;
     --success: #10b981;
     --warning: #f59e0b;
     --error: #ef4444;
@@ -15,6 +15,9 @@
     --dark-light: #14141f;
     --text: #ffffff;
     --text-sub: #c1c7d0;
+
+
+
 
     /* 폰트 */
     --font-display: 'Black Han Sans', -apple-system, sans-serif;
@@ -29,13 +32,6 @@
     --space-2xl: 48px;
     --space-3xl: 64px;
     --space-4xl: 96px;
-
-    /* 그림자 시스템 */
-    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
-    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.15);
-    --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.2);
-    --shadow-xl: 0 20px 60px rgba(0, 0, 0, 0.3);
-    --shadow-glow: 0 0 30px rgba(0, 217, 255, 0.3);
 }
 
 html {
@@ -71,12 +67,9 @@ h1,
 h2,
 h3,
 h4,
-.logo,
-.cta-primary,
-.cta-secondary {
+.logo {
     font-family: var(--font-display);
     letter-spacing: 0.5px;
-
 }
 
 h1 {
@@ -97,6 +90,10 @@ h3 {
 h4 {
     font-weight: 100;
     font-size: clamp(1.5rem, 4vw, 2rem);
+}
+
+strong {
+    font-weight: 300;
 }
 
 .section-title {
@@ -285,7 +282,7 @@ nav a.active::after {
     align-items: center;
     gap: 8px;
     padding: 8px 18px;
-    border: 1px solid rgba(0, 217, 255, 0.35);
+    border: 1px solid var(--primary);
     border-radius: 999px;
     background: rgba(0, 217, 255, 0.08);
     color: var(--primary);
@@ -300,8 +297,8 @@ nav a.active::after {
     width: 7px;
     height: 7px;
     border-radius: 50%;
-    background: var(--accent);
-    box-shadow: 0 0 10px var(--accent);
+    background: var(--primary);
+    box-shadow: 0 0 10px var(--primary);
 }
 
 .hero-content h1 {
@@ -338,8 +335,8 @@ nav a.active::after {
     max-width: 560px;
 }
 
-.hero-content .highlight {
-    color: var(--accent);
+.stat-number .hero-content .highlight {
+    color: var(--primary);
     font-weight: 600;
 }
 
@@ -486,69 +483,67 @@ nav a.active::after {
 }
 
 
-/* ===== BUTTONS ===== */
-.cta-primary {
+:is(.cta-primary, .cta-secondary) {
+    position: relative;
     display: inline-block;
     padding: 16px 60px;
-    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-    color: #303030;
     border: none;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    text-decoration: none;
-    letter-spacing: 1.2px;
-    transition: all 0.3s ease;
-    box-shadow: 0 10px 40px rgba(0, 217, 255, 0.3);
-    position: relative;
-    overflow: hidden;
     border-radius: 4px;
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 550;
+    letter-spacing: 0.5px;
+    text-decoration: none;
+    cursor: pointer;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(175, 165, 28, 0.3);
+    transition: all 0.3s ease;
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.2);
+        transition: left 0.3s ease;
+    }
+
+    &:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 50px rgba(175, 165, 28, 0.5);
+
+        &::before {
+            left: 100%;
+        }
+    }
+
+    &:active {
+        transform: scale(0.98);
+    }
 }
 
-.cta-primary::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.2);
-    transition: left 0.3s ease;
-}
+/* 개별 테마 색상 지정 */
+.cta-primary {
+    color: #000;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
 
-.cta-primary:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 15px 50px rgba(0, 217, 255, 0.5);
-}
-
-.cta-primary:hover::before {
-    left: 100%;
-}
-
-.cta-primary:active {
-    transform: scale(0.98);
+    &:hover {
+        background: var(--dark);
+        color: var(--primary);
+    }
 }
 
 .cta-secondary {
-    padding: 16px 50px;
-    background: transparent;
     color: var(--primary);
+    background: #000;
     border: 2px solid var(--primary);
-    font-size: 0.95rem;
-    font-weight: 600;
-    cursor: pointer;
-    border-radius: 4px;
-    transition: all 0.3s ease;
-    letter-spacing: 1.2px;
-}
 
-.cta-secondary:hover {
-    background: var(--primary);
-    color: var(--dark);
-}
-
-.cta-secondary:active {
-    transform: scale(0.98);
+    &:hover {
+        background: var(--primary);
+        color: var(--dark);
+    }
 }
 
 /* ===== SCROLL INDICATOR ===== */
@@ -710,8 +705,10 @@ nav a.active::after {
 .section-subtitle {
     font-size: 1.1rem;
     color: var(--text-sub);
+    background-color: #00000080;
+    border-radius: 5dvh;
     max-width: 600px;
-    margin: 0 auto;
+    margin: 0 2vh;
 }
 
 /* ===== VISION INTERACTIVE VIEWER ===== */
@@ -723,7 +720,8 @@ nav a.active::after {
 
 /* --- Top: horizontal tab chips --- */
 .vision-tabs {
-    background: rgba(0,0,0, 0.7);;
+    background: rgba(0, 0, 0, 0.7);
+    ;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -753,15 +751,15 @@ nav a.active::after {
     transform: scale(1);
     opacity: 0.85;
     background: rgba(0, 217, 255, 0.06);
-    border-color: rgba(0, 217, 255, 0.4);
+    border-color: color-mix(in srgb, var(--secondary) 6%, transparent);
 }
 
 .vision-tab.active {
     transform: scale(1.04);
     opacity: 1;
     border: 2px solid var(--primary);
-    box-shadow: 0 0 20px rgba(0, 217, 255, 0.35);
-    background: rgba(0, 217, 255, 0.1);
+    box-shadow: 0 0 20px color-mix(in srgb, var(--secondary) 35%, transparent);
+    background: color-mix(in srgb, var(--secondary) 10%, transparent);
 }
 
 .vision-tab-thumb {
@@ -804,7 +802,7 @@ nav a.active::after {
     aspect-ratio: 16/10;
     border-radius: 12px;
     overflow: hidden;
-    border: 1px solid rgba(0, 217, 255, 0.2);
+    border: 1px solid color-mix(in srgb, var(--secondary) 30%, transparent);
     box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
     background: #000;
     user-select: none;
@@ -917,7 +915,7 @@ nav a.active::after {
     left: -1px;
     width: 2px;
     background: rgba(255, 255, 255, 0.85);
-    box-shadow: 0 0 12px rgba(0, 217, 255, 0.7);
+    box-shadow: 0 0 12px color-mix(in srgb, var(--secondary) 70%, transparent);
 }
 
 .vision-divider-handle {
@@ -933,7 +931,7 @@ nav a.active::after {
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4), 0 0 0 4px rgba(0, 217, 255, 0.2);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4), 0 0 0 4px color-mix(in srgb, var(--secondary) 20%, transparent);
     transition: transform 0.2s ease;
 }
 
@@ -1076,11 +1074,9 @@ nav a.active::after {
     font-family: var(--font-display);
     font-size: 3rem;
     line-height: 1.2;
-    background: linear-gradient(135deg, var(--primary), var(--accent));
-    -webkit-background-clip: text;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    margin-bottom: 10px;
 }
 
 
@@ -1331,7 +1327,7 @@ nav a.active::after {
     width: 300px;
     padding: 24px;
     background: rgb(56, 56, 56);
-    border: 3px solid rgba(0, 217, 255, 0.719);
+    border: 3px solid var(--primary);
     border-radius: 12px;
     backdrop-filter: blur(10px);
     opacity: 0;
@@ -1391,7 +1387,7 @@ nav a.active::after {
 
 .dev-card:hover {
     border-color: var(--primary);
-    box-shadow: 0 20px 50px rgba(0, 217, 255, 0.25);
+    box-shadow: 0 20px 50px color-mix(in srgb, var(--primary) 15%, transparent);
     transform: translateY(-8px);
 }
 
