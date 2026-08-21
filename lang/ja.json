@@ -29,6 +29,7 @@
     "explore": "症状を見る"
   },
   "stats": {
+    "visionTypes":"視覚5種類",
     "visionTypesLabel": "視覚障害の種類",
     "audio": "3Dサウンド",
     "audioLabel": "立体音響",

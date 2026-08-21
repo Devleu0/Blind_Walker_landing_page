@@ -968,7 +968,7 @@ nav a.active::after {
 
 .vision-peek-btn {
     background: rgba(0, 217, 255, 0.08);
-    border: 1px solid rgba(0, 217, 255, 0.3);
+    border: 1px solid color-mix(in srgb, var(--primary) 30%, transparent);
     color: var(--primary);
     padding: 10px 16px;
     border-radius: 8px;
