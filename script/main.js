@@ -519,6 +519,37 @@ document.addEventListener('DOMContentLoaded', () => {
     handleGameplayScroll(); // 초기 로드 시 한 번 실행
   }
 
+
+  /* ---------- 10. Ticker Infinite Scroll ---------- */
+  const tickerTrack = document.querySelector('.ticker-track');
+  if (tickerTrack) {
+    // 원본 아이템들을 복제하여 뒤에 이어 붙여 완벽한 무한 루프 구성
+    const itemsHTML = tickerTrack.innerHTML;
+    tickerTrack.innerHTML = itemsHTML + itemsHTML;
+
+    let scrollPos = 0;
+    const speed = 0.8; // 스크롤 속도 조절
+    let isPaused = false;
+
+    tickerTrack.addEventListener('mouseenter', () => { isPaused = true; });
+    tickerTrack.addEventListener('mouseleave', () => { isPaused = false; });
+
+    const stepTicker = () => {
+      if (!isPaused) {
+        scrollPos += speed;
+        // 첫 번째 세트의 전체 너비(offsetWidth / 2)만큼 이동하면 위치를 0으로 리셋
+        const halfWidth = tickerTrack.scrollWidth / 2;
+        if (scrollPos >= halfWidth) {
+          scrollPos = 0;
+        }
+        tickerTrack.style.transform = `translateX(-${scrollPos}px)`;
+      }
+      requestAnimationFrame(stepTicker);
+    };
+
+    requestAnimationFrame(stepTicker);
+  }
+
   /* ---------- 9. Match experience-image height to feature-grid (2-card) height on desktop ---------- */
   const experienceImage = document.querySelector('.experience-image');
   const featureGrid = document.querySelector('.feature-grid');

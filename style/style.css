@@ -615,7 +615,6 @@ nav a.active::after {
     display: inline-flex;
     align-items: center;
     gap: 40px;
-    animation: tickerScroll 45s linear infinite;
 }
 
 .ticker-track:hover {
@@ -1815,15 +1814,7 @@ footer {
     }
 }
 
-@keyframes tickerScroll {
-    from {
-        transform: translateX(0);
-    }
 
-    to {
-        transform: translateX(-50%);
-    }
-}
 
 /* 줄어든 모션 설정 감지 */
 @media (prefers-reduced-motion: reduce) {
