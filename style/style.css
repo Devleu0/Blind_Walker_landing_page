@@ -5,9 +5,9 @@
 }
 
 :root {
-    --primary: #00d9ff;
-    --secondary: #0a88cc;
-    --accent: #ffb020;
+    --primary: #f59e0b;
+    --secondary: #d97706;
+    --accent: #0d9488;
     --success: #10b981;
     --warning: #f59e0b;
     --error: #ef4444;
@@ -15,6 +15,9 @@
     --dark-light: #14141f;
     --text: #ffffff;
     --text-sub: #c1c7d0;
+
+
+
 
     /* 폰트 */
     --font-display: 'Black Han Sans', -apple-system, sans-serif;
@@ -29,13 +32,6 @@
     --space-2xl: 48px;
     --space-3xl: 64px;
     --space-4xl: 96px;
-
-    /* 그림자 시스템 */
-    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
-    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.15);
-    --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.2);
-    --shadow-xl: 0 20px 60px rgba(0, 0, 0, 0.3);
-    --shadow-glow: 0 0 30px rgba(0, 217, 255, 0.3);
 }
 
 html {
@@ -71,12 +67,9 @@ h1,
 h2,
 h3,
 h4,
-.logo,
-.cta-primary,
-.cta-secondary {
+.logo {
     font-family: var(--font-display);
     letter-spacing: 0.5px;
-
 }
 
 h1 {
@@ -97,6 +90,10 @@ h3 {
 h4 {
     font-weight: 100;
     font-size: clamp(1.5rem, 4vw, 2rem);
+}
+
+strong {
+    font-weight: 300;
 }
 
 .section-title {
@@ -285,7 +282,7 @@ nav a.active::after {
     align-items: center;
     gap: 8px;
     padding: 8px 18px;
-    border: 1px solid rgba(0, 217, 255, 0.35);
+    border: 1px solid var(--primary);
     border-radius: 999px;
     background: rgba(0, 217, 255, 0.08);
     color: var(--primary);
@@ -300,8 +297,8 @@ nav a.active::after {
     width: 7px;
     height: 7px;
     border-radius: 50%;
-    background: var(--accent);
-    box-shadow: 0 0 10px var(--accent);
+    background: var(--primary);
+    box-shadow: 0 0 10px var(--primary);
 }
 
 .hero-content h1 {
@@ -338,8 +335,8 @@ nav a.active::after {
     max-width: 560px;
 }
 
-.hero-content .highlight {
-    color: var(--accent);
+.stat-number .hero-content .highlight {
+    color: var(--primary);
     font-weight: 600;
 }
 
@@ -486,69 +483,67 @@ nav a.active::after {
 }
 
 
-/* ===== BUTTONS ===== */
-.cta-primary {
+:is(.cta-primary, .cta-secondary) {
+    position: relative;
     display: inline-block;
     padding: 16px 60px;
-    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-    color: #303030;
     border: none;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    text-decoration: none;
-    letter-spacing: 1.2px;
-    transition: all 0.3s ease;
-    box-shadow: 0 10px 40px rgba(0, 217, 255, 0.3);
-    position: relative;
-    overflow: hidden;
     border-radius: 4px;
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 550;
+    letter-spacing: 0.5px;
+    text-decoration: none;
+    cursor: pointer;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(175, 165, 28, 0.3);
+    transition: all 0.3s ease;
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.2);
+        transition: left 0.3s ease;
+    }
+
+    &:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 50px rgba(175, 165, 28, 0.5);
+
+        &::before {
+            left: 100%;
+        }
+    }
+
+    &:active {
+        transform: scale(0.98);
+    }
 }
 
-.cta-primary::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.2);
-    transition: left 0.3s ease;
-}
+/* 개별 테마 색상 지정 */
+.cta-primary {
+    color: #000;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
 
-.cta-primary:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 15px 50px rgba(0, 217, 255, 0.5);
-}
-
-.cta-primary:hover::before {
-    left: 100%;
-}
-
-.cta-primary:active {
-    transform: scale(0.98);
+    &:hover {
+        background: var(--dark);
+        color: var(--primary);
+    }
 }
 
 .cta-secondary {
-    padding: 16px 50px;
-    background: transparent;
     color: var(--primary);
+    background: #000;
     border: 2px solid var(--primary);
-    font-size: 0.95rem;
-    font-weight: 600;
-    cursor: pointer;
-    border-radius: 4px;
-    transition: all 0.3s ease;
-    letter-spacing: 1.2px;
-}
 
-.cta-secondary:hover {
-    background: var(--primary);
-    color: var(--dark);
-}
-
-.cta-secondary:active {
-    transform: scale(0.98);
+    &:hover {
+        background: var(--primary);
+        color: var(--dark);
+    }
 }
 
 /* ===== SCROLL INDICATOR ===== */
@@ -583,45 +578,167 @@ nav a.active::after {
     animation: scroll 1.5s infinite;
 }
 
-/* ===== TICKER STRIP ===== */
-.ticker-strip {
+/* ===== SPOTLIGHT STORY BAND (SCROLL-TRIGGERED FADE-UP) ===== */
+.spotlight-band {
     position: relative;
-    background: var(--dark-light);
+    background: linear-gradient(180deg, #090a0e 0%, #0d0f16 50%, #090a0e 100%);
     border-top: 1px solid rgba(0, 217, 255, 0.12);
     border-bottom: 1px solid rgba(0, 217, 255, 0.12);
-    padding: 18px 0;
+}
+
+/* Spacer gives the sticky stage enough scroll distance to sequentially
+   reveal each card — same technique as #gameplay's scroll-scrub band. */
+.spotlight-spacer {
+    height: 440vh;
+    position: relative;
+}
+
+.spotlight-sticky {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    width: 100%;
     overflow: hidden;
-    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.ticker-track {
-    display: inline-flex;
-    gap: 60px;
-    animation: tickerScroll 26s linear infinite;
+.spotlight-ambient {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 560px;
+    height: 320px;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(ellipse at center, color-mix(in srgb, var(--primary) 16%, transparent) 0%, rgba(0, 217, 255, 0) 70%);
+    filter: blur(20px);
+    pointer-events: none;
 }
 
-.ticker-track:hover {
-    animation-play-state: paused;
+/* Each card fills the sticky stage. JS drives opacity for every
+   card-to-card transition (plain fade). Only the very first card's
+   ENTRANCE additionally animates clip-path (rectangular reveal), and
+   even then it starts from a partially-open state so the photo is
+   already peeking through before the user starts scrolling.
+   --spotlight-radius is read by JS so the clip-path's `round` keeps
+   the card's rounded corners consistent even mid-reveal. */
+.spotlight-slide {
+    --spotlight-radius: 22px;
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    width: min(92%, 1180px);
+    height: min(74vh, 620px);
+    border-radius: var(--spotlight-radius);
+    overflow: hidden;
+    background: #05060a;
+    box-shadow: 0 30px 70px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(0, 217, 255, 0.16);
+    opacity: 0.3;
+    clip-path: inset(26% 26% 26% 26% round var(--spotlight-radius));
+    will-change: opacity, clip-path, transform;
+    pointer-events: none;
 }
 
-.ticker-track span {
-    font-size: 0.95rem;
-    font-weight: 600;
-    letter-spacing: 1px;
-    color: var(--text-sub);
+.spotlight-slide img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
 }
 
-.ticker-track .accent {
+/* Bottom scrim so the copy stays legible over any photo */
+.spotlight-slide::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top,
+            rgba(5, 6, 10, 0.94) 0%,
+            rgba(5, 6, 10, 0.55) 38%,
+            rgba(5, 6, 10, 0.05) 72%,
+            rgba(5, 6, 10, 0) 100%);
+}
+
+.spotlight-copy {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 44px 52px;
+    max-width: 640px;
+    text-align: left;
+}
+
+.spotlight-icon {
+    font-size: 1.7rem;
     color: var(--primary);
-    font-weight: 600;
-    letter-spacing: 1px;
-    text-shadow: 0 0 15px rgba(0, 217, 255, 0.4);
+    text-shadow: 0 0 16px color-mix(in srgb, var(--primary) 60%, transparent);
 }
 
-.ticker-track span:nth-child(even):not(.accent) {
-    color: var(--accent);
-    font-weight: 600;
+.spotlight-copy .hud-tag {
+    font-size: 0.78rem;
+    font-weight: 700;
+    background: rgba(0, 217, 255, 0.1);
+    color: var(--primary);
+    padding: 4px 12px;
+    border-radius: 4px;
+    border: 1px solid color-mix(in srgb, var(--primary) 40%, transparent);
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    box-shadow: 0 0 14px color-mix(in srgb, var(--primary) 25%, transparent);
 }
+
+.spotlight-slide .spotlight-text {
+    color: var(--text);
+    font-weight: 500;
+    font-size: clamp(1.05rem, 2vw, 1.5rem);
+    letter-spacing: 0.2px;
+    line-height: 1.5;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
+    word-break: keep-all;
+}
+
+/* Vertical progress rail on the right edge of the sticky stage */
+.spotlight-dots {
+    position: absolute;
+    right: clamp(16px, 4vw, 48px);
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    z-index: 4;
+}
+
+.spotlight-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255, 255, 255, 0.18);
+    cursor: pointer;
+    padding: 0;
+    transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.spotlight-dot:hover {
+    background: color-mix(in srgb, var(--primary) 50%, transparent);
+}
+
+.spotlight-dot.is-active {
+    background: var(--primary);
+    transform: scale(1.4);
+    box-shadow: 0 0 10px color-mix(in srgb, var(--primary) 70%, transparent);
+}
+
 
 /* ===== SECTIONS ===== */
 .section {
@@ -660,8 +777,9 @@ nav a.active::after {
 .section-subtitle {
     font-size: 1.1rem;
     color: var(--text-sub);
-    max-width: 600px;
-    margin: 0 auto;
+    background-color: #00000080;
+    border-radius: 5dvh;
+    margin: 0 2vh;
 }
 
 /* ===== VISION INTERACTIVE VIEWER ===== */
@@ -673,7 +791,8 @@ nav a.active::after {
 
 /* --- Top: horizontal tab chips --- */
 .vision-tabs {
-    background: rgba(0,0,0, 0.7);;
+    background: rgba(0, 0, 0, 0.7);
+    ;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -703,15 +822,15 @@ nav a.active::after {
     transform: scale(1);
     opacity: 0.85;
     background: rgba(0, 217, 255, 0.06);
-    border-color: rgba(0, 217, 255, 0.4);
+    border-color: color-mix(in srgb, var(--secondary) 6%, transparent);
 }
 
 .vision-tab.active {
     transform: scale(1.04);
     opacity: 1;
     border: 2px solid var(--primary);
-    box-shadow: 0 0 20px rgba(0, 217, 255, 0.35);
-    background: rgba(0, 217, 255, 0.1);
+    box-shadow: 0 0 20px color-mix(in srgb, var(--secondary) 35%, transparent);
+    background: color-mix(in srgb, var(--secondary) 10%, transparent);
 }
 
 .vision-tab-thumb {
@@ -754,7 +873,7 @@ nav a.active::after {
     aspect-ratio: 16/10;
     border-radius: 12px;
     overflow: hidden;
-    border: 1px solid rgba(0, 217, 255, 0.2);
+    border: 1px solid color-mix(in srgb, var(--secondary) 30%, transparent);
     box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
     background: #000;
     user-select: none;
@@ -867,7 +986,7 @@ nav a.active::after {
     left: -1px;
     width: 2px;
     background: rgba(255, 255, 255, 0.85);
-    box-shadow: 0 0 12px rgba(0, 217, 255, 0.7);
+    box-shadow: 0 0 12px color-mix(in srgb, var(--secondary) 70%, transparent);
 }
 
 .vision-divider-handle {
@@ -883,7 +1002,7 @@ nav a.active::after {
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4), 0 0 0 4px rgba(0, 217, 255, 0.2);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4), 0 0 0 4px color-mix(in srgb, var(--secondary) 20%, transparent);
     transition: transform 0.2s ease;
 }
 
@@ -921,7 +1040,7 @@ nav a.active::after {
 
 .vision-peek-btn {
     background: rgba(0, 217, 255, 0.08);
-    border: 1px solid rgba(0, 217, 255, 0.3);
+    border: 1px solid color-mix(in srgb, var(--primary) 30%, transparent);
     color: var(--primary);
     padding: 10px 16px;
     border-radius: 8px;
@@ -1026,12 +1145,11 @@ nav a.active::after {
     font-family: var(--font-display);
     font-size: 3rem;
     line-height: 1.2;
-    background: linear-gradient(135deg, var(--primary), var(--accent));
-    -webkit-background-clip: text;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    margin-bottom: 10px;
 }
+
 
 .stat-label {
     font-size: 0.9rem;
@@ -1280,7 +1398,7 @@ nav a.active::after {
     width: 300px;
     padding: 24px;
     background: rgb(56, 56, 56);
-    border: 3px solid rgba(0, 217, 255, 0.719);
+    border: 3px solid var(--primary);
     border-radius: 12px;
     backdrop-filter: blur(10px);
     opacity: 0;
@@ -1340,7 +1458,7 @@ nav a.active::after {
 
 .dev-card:hover {
     border-color: var(--primary);
-    box-shadow: 0 20px 50px rgba(0, 217, 255, 0.25);
+    box-shadow: 0 20px 50px color-mix(in srgb, var(--primary) 15%, transparent);
     transform: translateY(-8px);
 }
 
@@ -1769,15 +1887,7 @@ footer {
     }
 }
 
-@keyframes tickerScroll {
-    from {
-        transform: translateX(0);
-    }
 
-    to {
-        transform: translateX(-50%);
-    }
-}
 
 /* 줄어든 모션 설정 감지 */
 @media (prefers-reduced-motion: reduce) {
@@ -1936,8 +2046,34 @@ footer {
         animation: none;
     }
 
-    .ticker-track {
-        animation-duration: 40s;
+    .spotlight-spacer {
+        height: 360vh;
+    }
+
+    .spotlight-slide {
+        --spotlight-radius: 16px;
+        width: 94%;
+        height: 66vh;
+        border-radius: var(--spotlight-radius);
+    }
+
+    .spotlight-copy {
+        padding: 26px 24px;
+        max-width: 100%;
+    }
+
+    .spotlight-slide .spotlight-text {
+        font-size: 1rem;
+    }
+
+    .spotlight-dots {
+        right: 10px;
+        gap: 8px;
+    }
+
+    .spotlight-ambient {
+        width: 300px;
+        height: 200px;
     }
 
     .stats-grid {
@@ -1949,7 +2085,7 @@ footer {
 }
 
 @media print {
-    .ticker-strip {
+    .spotlight-band {
         display: none;
     }
 }
