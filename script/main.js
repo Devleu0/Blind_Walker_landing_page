@@ -520,38 +520,66 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 
-  /* ---------- 10. Spotlight Rolling Banner ---------- */
+  /* ---------- 10. Spotlight Rolling Banner (Card Carousel) ---------- */
   const spotlightStage = document.querySelector('.spotlight-stage');
   if (spotlightStage) {
     const slides = Array.from(spotlightStage.querySelectorAll('.spotlight-slide'));
     const dots = Array.from(document.querySelectorAll('.spotlight-dot'));
     const banner = document.querySelector('.spotlight-banner');
-    const interval = 4000; // 슬라이드 전환 간격(ms)
-    let current = slides.findIndex((s) => s.classList.contains('is-active'));
-    if (current < 0) current = 0;
+    const prevBtn = document.querySelector('.spotlight-arrow-prev');
+    const nextBtn = document.querySelector('.spotlight-arrow-next');
+    const total = slides.length;
+    const interval = 4500; // 슬라이드 전환 간격(ms)
+    let current = 0;
     let timer = null;
     let isPaused = false;
 
-    const goTo = (index) => {
-      if (index === current) return;
-      const prevSlide = slides[current];
-      const nextSlide = slides[index];
-
-      prevSlide.classList.add('is-leaving');
-      prevSlide.classList.remove('is-active');
-      nextSlide.classList.remove('is-leaving');
-      nextSlide.classList.add('is-active');
-
-      // 전환 애니메이션이 끝난 뒤 leaving 상태 정리
-      setTimeout(() => prevSlide.classList.remove('is-leaving'), 650);
-
-      dots.forEach((dot) => dot.classList.remove('is-active'));
-      if (dots[index]) dots[index].classList.add('is-active');
-
-      current = index;
+    // 원형 배치를 위한 최단 거리 계산 (-total/2 ~ total/2 범위로 정규화)
+    const shortestDelta = (index) => {
+      let delta = index - current;
+      if (delta > total / 2) delta -= total;
+      if (delta < -total / 2) delta += total;
+      return delta;
     };
 
-    const next = () => goTo((current + 1) % slides.length);
+    const render = () => {
+      slides.forEach((slide, index) => {
+        const delta = shortestDelta(index);
+        slide.classList.remove('is-active', 'is-prev', 'is-next', 'is-hidden');
+
+        if (delta === 0) {
+          slide.style.setProperty('--offset', 0);
+          slide.style.setProperty('--scale', 1);
+          slide.style.setProperty('--opacity', 1);
+          slide.style.setProperty('--z', 3);
+          slide.classList.add('is-active');
+        } else if (delta === -1 || delta === 1) {
+          slide.style.setProperty('--offset', delta);
+          slide.style.setProperty('--scale', 0.82);
+          slide.style.setProperty('--opacity', 0.55);
+          slide.style.setProperty('--z', 2);
+          slide.classList.add(delta === -1 ? 'is-prev' : 'is-next');
+        } else {
+          slide.style.setProperty('--offset', delta > 0 ? 2 : -2);
+          slide.style.setProperty('--scale', 0.7);
+          slide.style.setProperty('--opacity', 0);
+          slide.style.setProperty('--z', 1);
+          slide.classList.add('is-hidden');
+        }
+      });
+
+      dots.forEach((dot, index) => {
+        dot.classList.toggle('is-active', index === current);
+      });
+    };
+
+    const goTo = (index) => {
+      current = ((index % total) + total) % total;
+      render();
+    };
+
+    const next = () => goTo(current + 1);
+    const prev = () => goTo(current - 1);
 
     const startAutoplay = () => {
       clearInterval(timer);
@@ -567,11 +595,36 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
 
+    // 좌/우 미리보기 카드를 클릭해도 해당 슬라이드로 이동
+    slides.forEach((slide) => {
+      slide.addEventListener('click', () => {
+        if (slide.classList.contains('is-prev') || slide.classList.contains('is-next')) {
+          goTo(Number(slide.dataset.index));
+          startAutoplay();
+        }
+      });
+    });
+
+    if (prevBtn) {
+      prevBtn.addEventListener('click', () => {
+        prev();
+        startAutoplay();
+      });
+    }
+
+    if (nextBtn) {
+      nextBtn.addEventListener('click', () => {
+        next();
+        startAutoplay();
+      });
+    }
+
     if (banner) {
       banner.addEventListener('mouseenter', () => { isPaused = true; });
       banner.addEventListener('mouseleave', () => { isPaused = false; });
     }
 
+    render();
     startAutoplay();
   }
 

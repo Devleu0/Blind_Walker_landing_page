@@ -23,8 +23,8 @@
     <nav>
         <div class="logo" onclick="window.scrollTo({ top: 0, behavior: 'smooth' });">BLIND WALKER</div>
         <ul>
-            <li><a href="#gameplay" class="nav-main" data-i18n="nav.gameplay">게임플레이</a></li>
             <li><a href="#vision" class="nav-main" data-i18n="nav.vision">시각 손상</a></li>
+            <li><a href="#gameplay" class="nav-main" data-i18n="nav.gameplay">게임플레이</a></li>
             <li><a href="#dev" class="nav-main" data-i18n="nav.dev">시스템 설계</a></li>
             <li><a href="#contact" class="nav-main" data-i18n="nav.contact">문의</a></li>
         </ul>
@@ -92,30 +92,43 @@
 
     <div class="spotlight-banner" aria-hidden="true">
         <div class="spotlight-glow"></div>
-        <div class="spotlight-stage">
-            <div class="spotlight-slide is-active" data-index="0">
-                <span class="material-icons">visibility</span>
-                <span class="hud-tag" data-i18n="ticker.tag.vision">잔존 시력</span>
-                <span class="spotlight-text" data-i18n="ticker.content.vision">90% 이상의 시각장애인은 잔존 시력을 지니고 있습니다.</span>
+        <div class="spotlight-carousel">
+            <button class="spotlight-arrow spotlight-arrow-prev" type="button" aria-label="이전">
+                <span class="material-icons">chevron_left</span>
+            </button>
+
+            <div class="spotlight-stage">
+                <div class="spotlight-slide" data-index="0">
+                    <span class="material-icons">visibility</span>
+                    <span class="hud-tag" data-i18n="ticker.tag.vision">잔존 시력</span>
+                    <span class="spotlight-text" data-i18n="ticker.content.vision">90% 이상의 시각장애인은 잔존 시력을 지니고
+                        있습니다.</span>
+                </div>
+                <div class="spotlight-slide" data-index="1">
+                    <span class="material-icons">hearing</span>
+                    <span class="hud-tag" data-i18n="ticker.tag.audio">청각</span>
+                    <span class="spotlight-text" data-i18n="ticker.content.audio">횡단보도의 음향 신호기 소리, 스쳐 지나가는 자동차 소리로 세상의
+                        거리를
+                        가늠합니다.</span>
+                </div>
+                <div class="spotlight-slide" data-index="2">
+                    <span class="material-icons">blind</span>
+                    <span class="hud-tag" data-i18n="ticker.tag.tactile">이정표</span>
+                    <span class="spotlight-text" data-i18n="ticker.content.tactile">점자 블록의 선과 점은 보이지 않는 길 위에서 안전하게 나아갈
+                        방향을
+                        알려줍니다.</span>
+                </div>
+                <div class="spotlight-slide" data-index="3">
+                    <span class="material-icons">report_problem</span>
+                    <span class="hud-tag" data-i18n="ticker.tag.obstacle">장애물</span>
+                    <span class="spotlight-text" data-i18n="ticker.content.obstacle">무심코 세워둔 킥보드와 쓰레기 봉투, 누군가에게는 거대한 벽과
+                        같습니다.</span>
+                </div>
             </div>
-            <div class="spotlight-slide" data-index="1">
-                <span class="material-icons">hearing</span>
-                <span class="hud-tag" data-i18n="ticker.tag.audio">청각</span>
-                <span class="spotlight-text" data-i18n="ticker.content.audio">횡단보도의 음향 신호기 소리, 스쳐 지나가는 자동차 소리로 세상의 거리를
-                    가늠합니다.</span>
-            </div>
-            <div class="spotlight-slide" data-index="2">
-                <span class="material-icons">blind</span>
-                <span class="hud-tag" data-i18n="ticker.tag.tactile">이정표</span>
-                <span class="spotlight-text" data-i18n="ticker.content.tactile">점자 블록의 선과 점은 보이지 않는 길 위에서 안전하게 나아갈 방향을
-                    알려줍니다.</span>
-            </div>
-            <div class="spotlight-slide" data-index="3">
-                <span class="material-icons">report_problem</span>
-                <span class="hud-tag" data-i18n="ticker.tag.obstacle">장애물</span>
-                <span class="spotlight-text" data-i18n="ticker.content.obstacle">무심코 세워둔 킥보드와 쓰레기 봉투, 누군가에게는 거대한 벽과
-                    같습니다.</span>
-            </div>
+
+            <button class="spotlight-arrow spotlight-arrow-next" type="button" aria-label="다음">
+                <span class="material-icons">chevron_right</span>
+            </button>
         </div>
         <div class="spotlight-dots">
             <button class="spotlight-dot is-active" data-index="0" aria-label="1"></button>
@@ -124,37 +137,6 @@
             <button class="spotlight-dot" data-index="3" aria-label="4"></button>
         </div>
     </div>
-
-    <section id="gameplay" class="section">
-        <div class="gameplay-spacer">
-            <div class="gameplay-sticky-container">
-                <div class="gameplay-background">
-                    <video src="images/play_video.mp4" autoplay loop muted playsinline></video>
-                </div>
-                <div class="gameplay-features-wrapper container">
-                    <div class="section-header">
-                        <h2 class="section-title" data-i18n-html="gameplay.title">몰입형 <span>게임플레이</span></h2>
-                        <p class="section-subtitle" data-i18n="gameplay.subtitle">VR 기기로 시각장애인의 일상을 경험</p>
-                    </div>
-                    <div class="gameplay-feature" id="feature-1">
-                        <div class="feature-item-icon"><span class="material-icons">sports_esports</span></div>
-                        <div class="feature-item-title" data-i18n="gameplay.feature1.title">현실적인 감각</div>
-                        <div class="feature-item-desc" data-i18n="gameplay.feature1.desc">VR 컨트롤러로 자연스럽게 상호작용</div>
-                    </div>
-                    <div class="gameplay-feature" id="feature-2">
-                        <div class="feature-item-icon"><span class="material-icons">vibration</span></div>
-                        <div class="feature-item-title" data-i18n="gameplay.feature2.title">청각과 촉각</div>
-                        <div class="feature-item-desc" data-i18n="gameplay.feature2.desc">지팡이 접촉 시 진동과 사운드 반응</div>
-                    </div>
-                    <div class="gameplay-feature" id="feature-3">
-                        <div class="feature-item-icon"><span class="material-icons">explore</span></div>
-                        <div class="feature-item-title" data-i18n="gameplay.feature3.title">일상적인 경험</div>
-                        <div class="feature-item-desc" data-i18n="gameplay.feature3.desc">횡단보도, 점자 블록, 쓰레기 봉투, 킥보드</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
 
     <section id="vision" class="section section-dark">
@@ -239,6 +221,38 @@
             </div>
         </div>
     </section>
+
+    <section id="gameplay" class="section">
+        <div class="gameplay-spacer">
+            <div class="gameplay-sticky-container">
+                <div class="gameplay-background">
+                    <video src="images/play_video.mp4" autoplay loop muted playsinline></video>
+                </div>
+                <div class="gameplay-features-wrapper container">
+                    <div class="section-header">
+                        <h2 class="section-title" data-i18n-html="gameplay.title">몰입형 <span>게임플레이</span></h2>
+                        <p class="section-subtitle" data-i18n="gameplay.subtitle">VR 기기로 시각장애인의 일상을 경험</p>
+                    </div>
+                    <div class="gameplay-feature" id="feature-1">
+                        <div class="feature-item-icon"><span class="material-icons">sports_esports</span></div>
+                        <div class="feature-item-title" data-i18n="gameplay.feature1.title">현실적인 감각</div>
+                        <div class="feature-item-desc" data-i18n="gameplay.feature1.desc">VR 컨트롤러로 자연스럽게 상호작용</div>
+                    </div>
+                    <div class="gameplay-feature" id="feature-2">
+                        <div class="feature-item-icon"><span class="material-icons">vibration</span></div>
+                        <div class="feature-item-title" data-i18n="gameplay.feature2.title">청각과 촉각</div>
+                        <div class="feature-item-desc" data-i18n="gameplay.feature2.desc">지팡이 접촉 시 진동과 사운드 반응</div>
+                    </div>
+                    <div class="gameplay-feature" id="feature-3">
+                        <div class="feature-item-icon"><span class="material-icons">explore</span></div>
+                        <div class="feature-item-title" data-i18n="gameplay.feature3.title">일상적인 경험</div>
+                        <div class="feature-item-desc" data-i18n="gameplay.feature3.desc">횡단보도, 점자 블록, 쓰레기 봉투, 킥보드</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
 
     <section id="dev" class="section section-dark">
         <div class="container">
@@ -332,8 +346,8 @@
                 <div class="footer-section">
                     <h4 data-i18n="footer.quickLinks">빠른 링크</h4>
                     <ul class="footer-links-list">
-                        <li><a href="#gameplay" data-i18n="nav.gameplay">게임플레이</a></li>
                         <li><a href="#vision" data-i18n="footer.linkVision">시각 손상</a></li>
+                        <li><a href="#gameplay" data-i18n="nav.gameplay">게임플레이</a></li>
                         <li><a href="#dev" data-i18n="nav.dev">시스템 설계</a></li>
                     </ul>
                 </div>
