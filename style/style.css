@@ -707,7 +707,6 @@ nav a.active::after {
     color: var(--text-sub);
     background-color: #00000080;
     border-radius: 5dvh;
-    max-width: 600px;
     margin: 0 2vh;
 }
 
