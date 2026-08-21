@@ -420,33 +420,36 @@ document.addEventListener('DOMContentLoaded', () => {
       // 스크롤 진행률 (0: 섹션 상단이 뷰포트 상단에 닿을 때, 1: 섹션 하단이 뷰포트 하단에 닿을 때)
       const progress = Math.max(0, Math.min(1, -top / (height - vh)));
 
-      // 1. 배경 애니메이션 (클립 & 페이드)
-      // 0% -> 35% : 중앙에서 확장하며 나타남 (더 부드럽게)
-      // 80% -> 100% : 중앙으로 축소되며 사라짐
-      const fadeInEnd = 0.35; // 애니메이션 구간 늘림
-      const fadeOutStart = 0.8;
+      // 1. 배경(영상) 애니메이션
+      // 0% -> 35% : 사각형(clip) 리빌로 등장 — "스크롤 시작 부분"이므로 rectangular fade-in 유지.
+      //             단, 스크롤이 시작되기 전(progress 0)에도 영상이 옅게 보이도록 시작값을 0이 아닌 기본값으로 둔다.
+      // 80% -> 100% : 평범한 fade-out (사각형 축소 없이 opacity만 감소)
+      const fadeInEnd = 0.5;
+      const fadeOutStart = 0.7;
+      const PRE_BG_OPACITY = 0.28; // 스크롤 시작 전 이미 보이는 기본 불투명도
+      const PRE_BG_INSET = 32;     // 스크롤 시작 전 사각형 클립 상태(%)
 
-      let currentOpacity = 0;
-      let currentInset = 50;
+      let currentOpacity = PRE_BG_OPACITY;
+      let currentInset = PRE_BG_INSET;
 
       if (progress > fadeInEnd && progress < fadeOutStart) {
         // 중간의 안정된 상태
         currentOpacity = 1;
         currentInset = 0;
       } else if (progress <= fadeInEnd) {
-        // 인트로 애니메이션 (Ease-out Cubic)
+        // 인트로 애니메이션 (Ease-out Cubic) — 사각형 리빌 유지 + 이미 옅게 보이는 상태에서 시작
         const localProgress = progress / fadeInEnd;
         const easedProgress = 1 - Math.pow(1 - localProgress, 3);
-        currentOpacity = easedProgress;
-        currentInset = 50 * (1 - easedProgress);
+        currentOpacity = PRE_BG_OPACITY + (1 - PRE_BG_OPACITY) * easedProgress;
+        currentInset = PRE_BG_INSET * (1 - easedProgress);
       } else if (progress >= fadeOutStart) {
-        // 아우트로 애니메이션 (Ease-in-out Cubic)
+        // 아우트로 애니메이션 (Ease-in-out Cubic) — 평범한 fade-out (사각형 없음)
         const localProgress = (progress - fadeOutStart) / (1 - fadeOutStart);
         const easedProgress = localProgress < 0.5
           ? 4 * localProgress * localProgress * localProgress
           : 1 - Math.pow(-2 * localProgress + 2, 3) / 2;
         currentOpacity = 1 - easedProgress;
-        currentInset = 50 * easedProgress;
+        currentInset = 0;
       }
 
       bg.style.opacity = Math.max(0, Math.min(1, currentOpacity));
@@ -465,7 +468,7 @@ document.addEventListener('DOMContentLoaded', () => {
         header.style.opacity = 0;
       }
 
-      // 3. 피처 아이템 순차적 애니메이션
+      // 3. 피처 아이템 순차적 애니메이션 — 카드 간 전환이므로 평범한 opacity fade만 사용 (사각형 클립 없음)
       const featureZoneStart = 0.25;
       const featureZoneEnd = 0.95;
       const featureCount = features.length;
@@ -476,41 +479,33 @@ document.addEventListener('DOMContentLoaded', () => {
         const zoneEnd = zoneStart + featureDuration * 0.8; // 각 아이템이 보이는 시간을 약간 줄임
         const zoneLength = zoneEnd - zoneStart;
 
-        // background와 동일한 3단계 구간 비율 (intro 35% / stable / outro 20%)
         const fadeInRatio = 0.35;
         const fadeOutRatio = 0.8;
         const localFadeInEnd = zoneStart + zoneLength * fadeInRatio;
         const localFadeOutStart = zoneStart + zoneLength * fadeOutRatio;
 
         let opacity = 0;
-        let inset = 50;
 
         if (progress < zoneStart || progress > zoneEnd) {
           opacity = 0;
-          inset = 50;
         } else if (progress <= localFadeInEnd) {
-          // 인트로 애니메이션 (Ease-out Cubic)
+          // 평범한 fade-in (Ease-out Cubic)
           const localProgress = (progress - zoneStart) / (localFadeInEnd - zoneStart);
-          const eased = 1 - Math.pow(1 - localProgress, 3);
-          opacity = eased;
-          inset = 50 * (1 - eased);
+          opacity = 1 - Math.pow(1 - localProgress, 3);
         } else if (progress < localFadeOutStart) {
           // 중간의 안정된 상태
           opacity = 1;
-          inset = 0;
         } else {
-          // 아우트로 애니메이션 (Ease-in-out Cubic)
+          // 평범한 fade-out (Ease-in-out Cubic)
           const localProgress = (progress - localFadeOutStart) / (zoneEnd - localFadeOutStart);
           const eased = localProgress < 0.5
             ? 4 * localProgress * localProgress * localProgress
             : 1 - Math.pow(-2 * localProgress + 2, 3) / 2;
           opacity = 1 - eased;
-          inset = 50 * eased;
         }
 
         opacity = Math.max(0, Math.min(1, opacity));
         feature.style.opacity = opacity;
-        feature.style.clipPath = `inset(${inset}% ${inset}% ${inset}% ${inset}%)`;
         feature.style.transform = `translateY(${20 * (1 - opacity)}px)`;
       });
     };
@@ -520,112 +515,102 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 
-  /* ---------- 10. Spotlight Rolling Banner (Card Carousel) ---------- */
-  const spotlightStage = document.querySelector('.spotlight-stage');
-  if (spotlightStage) {
-    const slides = Array.from(spotlightStage.querySelectorAll('.spotlight-slide'));
-    const dots = Array.from(document.querySelectorAll('.spotlight-dot'));
-    const banner = document.querySelector('.spotlight-banner');
-    const prevBtn = document.querySelector('.spotlight-arrow-prev');
-    const nextBtn = document.querySelector('.spotlight-arrow-next');
+  /* ---------- 10. Spotlight Story Band: scroll-triggered fade-up ---------- */
+  // 규칙:
+  //  - 카드 간 전환(2,3,4번째 카드의 등장/퇴장, 첫 카드의 퇴장)은 평범한 opacity fade.
+  //  - 오직 "스크롤 이벤트 시작 부분"(첫 카드가 처음 등장하는 구간)만 사각형(clip-path inset) 리빌을 유지.
+  //  - 스크롤이 시작되기 전(progress 0)에도 첫 카드의 사진이 이미 옅게/부분적으로 보이도록
+  //    opacity/inset의 시작값을 0이 아닌 값으로 잡는다.
+  const spotlightSpacer = document.querySelector('.spotlight-spacer');
+  if (spotlightSpacer) {
+    const slides = Array.from(spotlightSpacer.querySelectorAll('.spotlight-slide'));
+    const dots = Array.from(spotlightSpacer.querySelectorAll('.spotlight-dot'));
     const total = slides.length;
-    const interval = 4500; // 슬라이드 전환 간격(ms)
-    let current = 0;
-    let timer = null;
-    let isPaused = false;
 
-    // 원형 배치를 위한 최단 거리 계산 (-total/2 ~ total/2 범위로 정규화)
-    const shortestDelta = (index) => {
-      let delta = index - current;
-      if (delta > total / 2) delta -= total;
-      if (delta < -total / 2) delta += total;
-      return delta;
-    };
+    const PRE_OPACITY = 0.3;  // 스크롤 시작 전 이미 보이는 기본 불투명도
+    const PRE_INSET = 26;     // 스크롤 시작 전 사각형 클립 상태(%)
 
-    const render = () => {
-      slides.forEach((slide, index) => {
-        const delta = shortestDelta(index);
-        slide.classList.remove('is-active', 'is-prev', 'is-next', 'is-hidden');
+    const handleSpotlightScroll = () => {
+      const rect = spotlightSpacer.getBoundingClientRect();
+      const { top, height } = rect;
+      const vh = window.innerHeight;
 
-        if (delta === 0) {
-          slide.style.setProperty('--offset', 0);
-          slide.style.setProperty('--scale', 1);
-          slide.style.setProperty('--opacity', 1);
-          slide.style.setProperty('--z', 3);
-          slide.classList.add('is-active');
-        } else if (delta === -1 || delta === 1) {
-          slide.style.setProperty('--offset', delta);
-          slide.style.setProperty('--scale', 0.82);
-          slide.style.setProperty('--opacity', 0.55);
-          slide.style.setProperty('--z', 2);
-          slide.classList.add(delta === -1 ? 'is-prev' : 'is-next');
-        } else {
-          slide.style.setProperty('--offset', delta > 0 ? 2 : -2);
-          slide.style.setProperty('--scale', 0.7);
-          slide.style.setProperty('--opacity', 0);
-          slide.style.setProperty('--z', 1);
-          slide.classList.add('is-hidden');
+      if (top > vh || top + height < 0) return; // 화면 밖이면 계산 스킵
+
+      const progress = Math.max(0, Math.min(1, -top / (height - vh)));
+      const zoneLength = 1 / total;
+      let activeIndex = 0;
+      let activeOpacity = -1;
+
+      slides.forEach((slide, i) => {
+        const zoneStart = i * zoneLength;
+        const zoneEnd = zoneStart + zoneLength;
+        const fadeInRatio = 0.32;
+        const fadeOutRatio = 0.78;
+        const fadeInEnd = zoneStart + zoneLength * fadeInRatio;
+        const fadeOutStart = zoneStart + zoneLength * fadeOutRatio;
+
+        let opacity = 0;
+        let inset = 0; // 기본은 평범한 fade (사각형 클립 없음)
+
+        if (progress >= zoneStart && progress <= zoneEnd) {
+          if (progress <= fadeInEnd) {
+            const local = (progress - zoneStart) / (fadeInEnd - zoneStart);
+            const eased = 1 - Math.pow(1 - local, 3); // Ease-out Cubic
+
+            if (i === 0) {
+              // 최초 등장 구간: 사각형 리빌 유지 + 이미 옅게 보이는 상태에서 시작
+              opacity = PRE_OPACITY + (1 - PRE_OPACITY) * eased;
+              inset = PRE_INSET * (1 - eased);
+            } else {
+              // 카드 간 전환: 평범한 fade-in
+              opacity = eased;
+              inset = 0;
+            }
+          } else if (progress < fadeOutStart) {
+            opacity = 1;
+            inset = 0;
+          } else {
+            // 모든 카드의 퇴장은 항상 평범한 fade-out (사각형 없음)
+            const local = (progress - fadeOutStart) / (zoneEnd - fadeOutStart);
+            const eased = local < 0.5
+              ? 4 * local * local * local
+              : 1 - Math.pow(-2 * local + 2, 3) / 2;
+            opacity = 1 - eased;
+            inset = 0;
+          }
+        }
+
+        opacity = Math.max(0, Math.min(1, opacity));
+        slide.style.opacity = opacity;
+        slide.style.clipPath = `inset(${inset}% ${inset}% ${inset}% ${inset}%)`;
+        slide.style.transform = `translateY(${18 * (1 - opacity)}px)`;
+
+        if (opacity > activeOpacity) {
+          activeOpacity = opacity;
+          activeIndex = i;
         }
       });
 
-      dots.forEach((dot, index) => {
-        dot.classList.toggle('is-active', index === current);
-      });
+      dots.forEach((dot, i) => dot.classList.toggle('is-active', i === activeIndex));
     };
 
-    const goTo = (index) => {
-      current = ((index % total) + total) % total;
-      render();
-    };
-
-    const next = () => goTo(current + 1);
-    const prev = () => goTo(current - 1);
-
-    const startAutoplay = () => {
-      clearInterval(timer);
-      timer = setInterval(() => {
-        if (!isPaused) next();
-      }, interval);
-    };
-
+    // 진행 표시 점(dot)을 클릭하면 해당 카드가 안정 구간(중앙)에 오는 위치로 스크롤 이동
     dots.forEach((dot) => {
       dot.addEventListener('click', () => {
-        goTo(Number(dot.dataset.index));
-        startAutoplay(); // 클릭 시 타이머 리셋
+        const i = Number(dot.dataset.index);
+        const vh = window.innerHeight;
+        const height = spotlightSpacer.offsetHeight;
+        const spacerTop = spotlightSpacer.getBoundingClientRect().top + window.scrollY;
+        const zoneLength = 1 / total;
+        const targetProgress = i * zoneLength + zoneLength * 0.5; // 각 구간의 안정(중앙) 지점
+        const targetY = spacerTop + targetProgress * (height - vh);
+        window.scrollTo({ top: targetY, behavior: 'smooth' });
       });
     });
 
-    // 좌/우 미리보기 카드를 클릭해도 해당 슬라이드로 이동
-    slides.forEach((slide) => {
-      slide.addEventListener('click', () => {
-        if (slide.classList.contains('is-prev') || slide.classList.contains('is-next')) {
-          goTo(Number(slide.dataset.index));
-          startAutoplay();
-        }
-      });
-    });
-
-    if (prevBtn) {
-      prevBtn.addEventListener('click', () => {
-        prev();
-        startAutoplay();
-      });
-    }
-
-    if (nextBtn) {
-      nextBtn.addEventListener('click', () => {
-        next();
-        startAutoplay();
-      });
-    }
-
-    if (banner) {
-      banner.addEventListener('mouseenter', () => { isPaused = true; });
-      banner.addEventListener('mouseleave', () => { isPaused = false; });
-    }
-
-    render();
-    startAutoplay();
+    window.addEventListener('scroll', handleSpotlightScroll, { passive: true });
+    handleSpotlightScroll();
   }
 
   /* ---------- 9. Match experience-image height to feature-grid (2-card) height on desktop ---------- */
