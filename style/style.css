@@ -620,20 +620,23 @@ nav a.active::after {
    card-to-card transition (plain fade). Only the very first card's
    ENTRANCE additionally animates clip-path (rectangular reveal), and
    even then it starts from a partially-open state so the photo is
-   already peeking through before the user starts scrolling. */
+   already peeking through before the user starts scrolling.
+   --spotlight-radius is read by JS so the clip-path's `round` keeps
+   the card's rounded corners consistent even mid-reveal. */
 .spotlight-slide {
+    --spotlight-radius: 22px;
     position: absolute;
     inset: 0;
     margin: auto;
     width: min(92%, 1180px);
     height: min(74vh, 620px);
-    border-radius: 22px;
+    border-radius: var(--spotlight-radius);
     overflow: hidden;
     background: #05060a;
     box-shadow: 0 30px 70px rgba(0, 0, 0, 0.5);
     border: 1px solid rgba(0, 217, 255, 0.16);
     opacity: 0.3;
-    clip-path: inset(26% 26% 26% 26%);
+    clip-path: inset(26% 26% 26% 26% round var(--spotlight-radius));
     will-change: opacity, clip-path, transform;
     pointer-events: none;
 }
@@ -2048,9 +2051,10 @@ footer {
     }
 
     .spotlight-slide {
+        --spotlight-radius: 16px;
         width: 94%;
         height: 66vh;
-        border-radius: 16px;
+        border-radius: var(--spotlight-radius);
     }
 
     .spotlight-copy {

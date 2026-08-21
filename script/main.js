@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }, { threshold: 0.15 });
   revealEls.forEach(el => revealObserver.observe(el));
 
-  /* ---------- 4. Count-up stats (한 번만 실행되도록 개선) ---------- */
+  /* ---------- 4. Count-up stats ---------- */
   const counters = document.querySelectorAll('.stat-number[data-count]');
   const currentSuffix = (el) => {
     const lang = window.i18n?.lang || 'ko';
@@ -425,7 +425,7 @@ document.addEventListener('DOMContentLoaded', () => {
       //             단, 스크롤이 시작되기 전(progress 0)에도 영상이 옅게 보이도록 시작값을 0이 아닌 기본값으로 둔다.
       // 80% -> 100% : 평범한 fade-out (사각형 축소 없이 opacity만 감소)
       const fadeInEnd = 0.5;
-      const fadeOutStart = 0.7;
+      const fadeOutStart = 0.8;
       const PRE_BG_OPACITY = 0.28; // 스크롤 시작 전 이미 보이는 기본 불투명도
       const PRE_BG_INSET = 32;     // 스크롤 시작 전 사각형 클립 상태(%)
 
@@ -521,6 +521,8 @@ document.addEventListener('DOMContentLoaded', () => {
   //  - 오직 "스크롤 이벤트 시작 부분"(첫 카드가 처음 등장하는 구간)만 사각형(clip-path inset) 리빌을 유지.
   //  - 스크롤이 시작되기 전(progress 0)에도 첫 카드의 사진이 이미 옅게/부분적으로 보이도록
   //    opacity/inset의 시작값을 0이 아닌 값으로 잡는다.
+  //  - clip-path에 카드의 border-radius(--spotlight-radius)를 round 값으로 함께 넘겨,
+  //    사각형 리빌 도중에도 모서리가 항상 둥글게 유지되도록 한다.
   const spotlightSpacer = document.querySelector('.spotlight-spacer');
   if (spotlightSpacer) {
     const slides = Array.from(spotlightSpacer.querySelectorAll('.spotlight-slide'));
@@ -529,6 +531,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const PRE_OPACITY = 0.3;  // 스크롤 시작 전 이미 보이는 기본 불투명도
     const PRE_INSET = 26;     // 스크롤 시작 전 사각형 클립 상태(%)
+
+    // 카드별 border-radius 값을 한 번만 읽어둔다 (반응형 브레이크포인트에서 값이 바뀌므로
+    // 리사이즈 시 다시 계산)
+    let slideRadius = new Map();
+    const syncSlideRadius = () => {
+      slides.forEach((slide) => {
+        const radius = getComputedStyle(slide).getPropertyValue('--spotlight-radius').trim() || '22px';
+        slideRadius.set(slide, radius);
+      });
+    };
+    syncSlideRadius();
+    window.addEventListener('resize', syncSlideRadius);
 
     const handleSpotlightScroll = () => {
       const rect = spotlightSpacer.getBoundingClientRect();
@@ -545,8 +559,8 @@ document.addEventListener('DOMContentLoaded', () => {
       slides.forEach((slide, i) => {
         const zoneStart = i * zoneLength;
         const zoneEnd = zoneStart + zoneLength;
-        const fadeInRatio = 0.32;
-        const fadeOutRatio = 0.78;
+        const fadeInRatio = 0.5;
+        const fadeOutRatio = 0.5;
         const fadeInEnd = zoneStart + zoneLength * fadeInRatio;
         const fadeOutStart = zoneStart + zoneLength * fadeOutRatio;
 
@@ -582,8 +596,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         opacity = Math.max(0, Math.min(1, opacity));
+        const radius = slideRadius.get(slide) || '22px';
         slide.style.opacity = opacity;
-        slide.style.clipPath = `inset(${inset}% ${inset}% ${inset}% ${inset}%)`;
+        slide.style.clipPath = `inset(${inset}% ${inset}% ${inset}% ${inset}% round ${radius})`;
         slide.style.transform = `translateY(${18 * (1 - opacity)}px)`;
 
         if (opacity > activeOpacity) {
