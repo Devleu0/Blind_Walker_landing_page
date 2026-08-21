@@ -586,41 +586,91 @@ nav a.active::after {
 /* ===== TICKER STRIP ===== */
 .ticker-strip {
     position: relative;
-    background: var(--dark-light);
+    background: linear-gradient(90deg, #090a0e 0%, #10121a 50%, #090a0e 100%);
     border-top: 1px solid rgba(0, 217, 255, 0.12);
     border-bottom: 1px solid rgba(0, 217, 255, 0.12);
-    padding: 18px 0;
+    padding: 15px 0;
     overflow: hidden;
     white-space: nowrap;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+}
+
+.ticker-strip::before,
+.ticker-strip::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 150px;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.ticker-strip::before {
+    left: 0;
+    background: linear-gradient(90deg, var(--dark) 0%, rgba(8, 9, 12, 0) 100%);
+}
+
+.ticker-strip::after {
+    right: 0;
+    background: linear-gradient(-90deg, var(--dark) 0%, rgba(8, 9, 12, 0) 100%);
 }
 
 .ticker-track {
     display: inline-flex;
-    gap: 60px;
-    animation: tickerScroll 26s linear infinite;
+    align-items: center;
+    gap: 40px;
+    animation: tickerScroll 45s linear infinite;
 }
 
 .ticker-track:hover {
     animation-play-state: paused;
 }
 
-.ticker-track span {
-    font-size: 0.95rem;
-    font-weight: 600;
-    letter-spacing: 1px;
+.ticker-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.88rem;
+    font-weight: 500;
+    letter-spacing: 0.3px;
     color: var(--text-sub);
 }
 
-.ticker-track .accent {
+.ticker-item .material-icons {
+    font-size: 1.2rem;
     color: var(--primary);
-    font-weight: 600;
-    letter-spacing: 1px;
-    text-shadow: 0 0 15px rgba(0, 217, 255, 0.4);
+    vertical-align: middle;
 }
 
-.ticker-track span:nth-child(even):not(.accent) {
+.ticker-item .hud-tag {
+    font-size: 0.72rem;
+    font-weight: 700;
+    background: rgba(0, 217, 255, 0.08);
+    color: var(--primary);
+    padding: 2px 8px;
+    border-radius: 4px;
+    border: 1px solid rgba(0, 217, 255, 0.2);
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+}
+
+.ticker-item .hud-tag.highlight {
+    background: rgba(255, 176, 32, 0.08);
     color: var(--accent);
-    font-weight: 600;
+    border: 1px solid rgba(255, 176, 32, 0.25);
+}
+
+.ticker-item .ticker-text {
+    color: var(--text);
+    font-weight: 400;
+}
+
+.divider {
+    color: rgba(255, 255, 255, 0.15);
+    font-weight: 300;
+    font-size: 0.95rem;
+    margin: 0 5px;
 }
 
 /* ===== SECTIONS ===== */
