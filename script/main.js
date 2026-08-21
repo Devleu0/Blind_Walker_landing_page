@@ -520,34 +520,59 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 
-  /* ---------- 10. Ticker Infinite Scroll ---------- */
-  const tickerTrack = document.querySelector('.ticker-track');
-  if (tickerTrack) {
-    // 원본 아이템들을 복제하여 뒤에 이어 붙여 완벽한 무한 루프 구성
-    const itemsHTML = tickerTrack.innerHTML;
-    tickerTrack.innerHTML = itemsHTML + itemsHTML;
-
-    let scrollPos = 0;
-    const speed = 0.8; // 스크롤 속도 조절
+  /* ---------- 10. Spotlight Rolling Banner ---------- */
+  const spotlightStage = document.querySelector('.spotlight-stage');
+  if (spotlightStage) {
+    const slides = Array.from(spotlightStage.querySelectorAll('.spotlight-slide'));
+    const dots = Array.from(document.querySelectorAll('.spotlight-dot'));
+    const banner = document.querySelector('.spotlight-banner');
+    const interval = 4000; // 슬라이드 전환 간격(ms)
+    let current = slides.findIndex((s) => s.classList.contains('is-active'));
+    if (current < 0) current = 0;
+    let timer = null;
     let isPaused = false;
 
-    tickerTrack.addEventListener('mouseenter', () => { isPaused = true; });
-    tickerTrack.addEventListener('mouseleave', () => { isPaused = false; });
+    const goTo = (index) => {
+      if (index === current) return;
+      const prevSlide = slides[current];
+      const nextSlide = slides[index];
 
-    const stepTicker = () => {
-      if (!isPaused) {
-        scrollPos += speed;
-        // 첫 번째 세트의 전체 너비(offsetWidth / 2)만큼 이동하면 위치를 0으로 리셋
-        const halfWidth = tickerTrack.scrollWidth / 2;
-        if (scrollPos >= halfWidth) {
-          scrollPos = 0;
-        }
-        tickerTrack.style.transform = `translateX(-${scrollPos}px)`;
-      }
-      requestAnimationFrame(stepTicker);
+      prevSlide.classList.add('is-leaving');
+      prevSlide.classList.remove('is-active');
+      nextSlide.classList.remove('is-leaving');
+      nextSlide.classList.add('is-active');
+
+      // 전환 애니메이션이 끝난 뒤 leaving 상태 정리
+      setTimeout(() => prevSlide.classList.remove('is-leaving'), 650);
+
+      dots.forEach((dot) => dot.classList.remove('is-active'));
+      if (dots[index]) dots[index].classList.add('is-active');
+
+      current = index;
     };
 
-    requestAnimationFrame(stepTicker);
+    const next = () => goTo((current + 1) % slides.length);
+
+    const startAutoplay = () => {
+      clearInterval(timer);
+      timer = setInterval(() => {
+        if (!isPaused) next();
+      }, interval);
+    };
+
+    dots.forEach((dot) => {
+      dot.addEventListener('click', () => {
+        goTo(Number(dot.dataset.index));
+        startAutoplay(); // 클릭 시 타이머 리셋
+      });
+    });
+
+    if (banner) {
+      banner.addEventListener('mouseenter', () => { isPaused = true; });
+      banner.addEventListener('mouseleave', () => { isPaused = false; });
+    }
+
+    startAutoplay();
   }
 
   /* ---------- 9. Match experience-image height to feature-grid (2-card) height on desktop ---------- */
